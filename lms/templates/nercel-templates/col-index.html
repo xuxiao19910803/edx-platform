@@ -1,19 +1,19 @@
 <%!
-from django.utils.translation import ugettext as _
-from django.core.urlresolvers import reverse
-from microsite_configuration import microsite
-from courseware.courses import course_image_url, get_course_about_section
-from student.models import CourseEnrollment
+    from django.utils.translation import ugettext as _
+    from django.core.urlresolvers import reverse
+    from microsite_configuration import microsite
+    from courseware.courses import course_image_url, get_course_about_section
+    from student.models import CourseEnrollment
 %>
 
 <%
-  homepage_overlay_html = microsite.get_value('homepage_overlay_html')
+    homepage_overlay_html = microsite.get_value('homepage_overlay_html')
 
-  ## To display a welcome video, change False to True, and add a YouTube ID (11 chars, eg "123456789xX") in the following line
-  show_homepage_promo_video = microsite.get_value('show_homepage_promo_video', False)
-  homepage_promo_video_youtube_id = microsite.get_value('homepage_promo_video_youtube_id', "your-youtube-id")
+    ## To display a welcome video, change False to True, and add a YouTube ID (11 chars, eg "123456789xX") in the following line
+    show_homepage_promo_video = microsite.get_value('show_homepage_promo_video', False)
+    homepage_promo_video_youtube_id = microsite.get_value('homepage_promo_video_youtube_id', "your-youtube-id")
 
-  show_partners = microsite.get_value('show_partners', True)
+    show_partners = microsite.get_value('show_partners', True)
 
 %>
 <!DOCTYPE html>
@@ -21,7 +21,7 @@ from student.models import CourseEnrollment
 <head>
     <meta charset="utf-8"/>
     <title>首页</title>
-    <link href="/static/css/nercel-css/col_home.css" rel="stylesheet"/>
+    <link href="/static/css/nercel-css/col_index.css" rel="stylesheet"/>
     <link href="/static/css/nercel-css/col_head.css" rel="stylesheet"/>
     <link href="/static/css/nercel-css/col_bottom.css" rel="stylesheet"/>
     <link href="/static/css/nercel-css/col_copyright.css" rel="stylesheet"/>
@@ -62,21 +62,21 @@ from student.models import CourseEnrollment
     <div class="col_loginbox" id="loginbox">
         <div class="col_login_mainbody">
             <div class="col_login_head"></div>
-            <form name="login" class="login">
+            <form role="form" id="login-form" method="post" data-remote="true" action="/login_ajax" novalidate class="login">
+                <input type="hidden" name="csrfmiddlewaretoken" value="${ csrf_token }">
                 <div class="username">
-                    <input name="username" type="text" placeholder="登录邮箱">
+                    <input id="email" type="email" name="email" placeholder="登录邮箱">
                 </div>
                 <div class="password">
-                    <input name="password" type="password" placeholder="密码">
+                    <input id="password" type="password" name="password" placeholder="密码">
                 </div>
                 <div class="others">
-                    <input class="remember_btn" name="remember" type="checkbox" value="true" checked="checked">
-                    <label for="remember">记住我</label>
-                    <a class="fr" href="javascript:;" class="g_modal_regbtn" data-click="onClick">现在注册</a>
+                    <input class="remember_btn" id="remember-yes" type="checkbox" name="remember" checked="checked">
+                    <label for="remember-yes">记住我</label>
+                    <a class="fr" href="/register" class="g_modal_regbtn" data-click="onClick">现在注册</a>
                     <a class="fr" href="javascript:;" target="_blank" data-click="onClick">忘记密码？</a>
                 </div>
-                <button class="button" id="loginSubmit" onsubmit="return false" type="submit" data-click="onClick"
-                        data-description="SUBMIT"></button>
+                <button class="button" name="submit" type="submit" id="submit" onclick="submitForm(event);">登录</button>
             </form>
         </div>
         <div class="col_login_otherways">
@@ -95,42 +95,43 @@ from student.models import CourseEnrollment
     <img src="/static/images/nercel-images/mid_pic.png"/>
 </div>
 <!--课程部分布局-->
-<div class="col_container max-width">
-    <div class="col_content">
-        <!--更多课程布局-->
+<div class="col_container max-width clear">
+    <div class="col_content clear">
+        <!--小学课程布局-->
         <div class="col_content_child">
             <div class="col_content_child_head">
                 <img src="/static/images/nercel-images/morecourse.png"/>
                 <span class="col_span_text col_morecourse_text">更多课程</span>
                 <span class="col_more"><a href="#">更多>>...</a></span>
             </div>
-            <ul class="col_content_child_body">
-                %for course in courses[:settings.HOMEPAGE_COURSE_MAX]:
-                <li class="col_content_msg" id="${course.id | h}">
-                    <a href="${reverse('about_course', args=[course.id.to_deprecated_string()])}">
-                        <div class="col_content_courseinfor"><img src="${course_image_url(course)}"/>
-                        </div>
-                        <div class="col_content_teacherinfor">
-                            <div class="col_teacher_pic"><img src="/static/images/nercel-images/teacher_1.png"/></div>
-                            <!--课程编号-->
-                            <p class="col_content_teachername">${course.display_number_with_default}</p>
-                            <!--课程组织者-->
-                            <p class="col_content_zhicheng">${get_course_about_section(course, 'university')}</p>
-                        </div>
-                        <div class="col_content_msg_footer">
-                            <!--课程名称-->
-                            <h3>${get_course_about_section(course, 'title')}</h3>
-                            <img src="/static/images/nercel-images/baoming.png"/>
+            % if settings.FEATURES.get('COURSES_ARE_BROWSABLE'):
+                <ul class="col_content_child_body">
+                    %for course in courses[:settings.HOMEPAGE_COURSE_MAX]:
+                        <li class="col_content_msg" id="${course.id | h}">
+                            <a href="${reverse('about_course', args=[course.id.to_deprecated_string()])}" class="course-href">
+                                <div class="col_content_courseinfor"><img src="${course_image_url(course)}"/></div>
+                                <div class="col_content_teacherinfor">
+                                    <p class="col_content_teachername">${course.display_number_with_default}</p>
 
-                            <p><a href="javascript:">${CourseEnrollment.objects.enrollment_counts(course.id).get("total","未知")}</a>人报名</p>
-                            <img src="/static/images/nercel-images/kaikeshijian.png"/>
+                                    <p class="col_content_zhicheng">${get_course_about_section(course, 'university')}</p>
+                                </div>
+                                <div class="col_content_msg_footer">
+                                    <h5>${get_course_about_section(course, 'title')}</h5>
+                                    <img src="/static/images/nercel-images/baoming.png"/>
 
-                            <p class="clear-right">开课时间：<a href="javascript:;">${course.start_datetime_text()}</a></p>
-                        </div>
-                    </a>
-                </li>
-                %endfor
-            </ul>
+                                    <p>
+                                        <a href="javascript:;">${CourseEnrollment.objects.enrollment_counts(course.id).get("total","未知")}</a>人报名
+                                    </p>
+                                    <img src="/static/images/nercel-images/kaikeshijian.png"/>
+
+                                    <p class="clear-right">开课时间：<a
+                                            href="javascript:;">${course.start_datetime_text()}</a></p>
+                                </div>
+                            </a>
+                        </li>
+                    %endfor
+                </ul>
+            % endif
         </div>
     </div>
 </div>
@@ -219,6 +220,7 @@ from student.models import CourseEnrollment
     </div>
 </div>
 <script>
+    var nextUrl="";
     var grayEle = "";
     //	页面记载完成之后执行
     $(function () {
@@ -235,12 +237,61 @@ from student.models import CourseEnrollment
         $('.theme-popover-mask').show();
         $('.theme-popover-mask').height($(document).height());
         $(".loginbox_bg").slideDown(500);
+        $.ajax({
+            url:"/get_nexturl_ajax",
+            success:function (data){
+                nextUrl=data.login_redirect_url;
+            }
+        });
     });
     //关闭登录框
     $("#login_close").click(function () {
         $('.theme-popover-mask').hide();
         $(".loginbox_bg").slideUp(500);
     });
+    function toggleSubmitButton(enable) {
+        //获取id为submit的提交按钮
+        var $submitButton = $('form #submit');
+
+        if (enable) {
+            $submitButton.
+                    removeClass('is-disabled').
+                    attr('aria-disabled', false).
+                    removeProp('disabled').
+                    html("登录");
+        }
+        else {
+            $submitButton.
+                    addClass('is-disabled').
+                    prop('disabled', true).
+                    text("正在登录");
+        }
+    }
+    function checkLogin(){
+
+    }
+    function submitForm(event) {
+        event.preventDefault();
+        toggleSubmitButton(false);
+        $.ajax({
+            url: "/login_ajax",
+            data: $("#login-form").serialize(),
+            type: "POST",
+            error: function (data) {
+                var dateObj = $.parseJSON(data.responseText);
+                var errorValue = dateObj.value;
+                var errorField = dateObj.field;
+                alert(dateObj);
+                toggleSubmitButton(true);
+
+            },
+            success: function (data, textStatus) {
+                console.log(data);
+                location.href = "${reverse('dashboard')}";
+            }
+
+        });
+    }
 </script>
 </body>
 </html>

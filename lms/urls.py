@@ -1,3 +1,4 @@
+#encoding=utf-8
 from django.conf import settings
 from django.conf.urls import patterns, include, url
 from ratelimitbackend import admin
@@ -24,7 +25,8 @@ urlpatterns = (
     url(r'^dashboard$', 'student.views.dashboard', name="dashboard"),
     url(r'^login_ajax$', 'student.views.login_user', name="login"),
     url(r'^login_ajax/(?P<error>[^/]*)$', 'student.views.login_user'),
-
+    #ajax取得get_login_redirect_url地址。
+    url(r'^get_nexturl_ajax$','student.views.get_login_redirect_url'),
     url(r'^admin_dashboard$', 'dashboard.views.dashboard'),
 
     url(r'^email_confirm/(?P<key>[^/]*)$', 'student.views.confirm_email_change'),

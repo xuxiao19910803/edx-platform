@@ -180,6 +180,7 @@ def index(request, extra_context=None, user=AnonymousUser()):
 	
     context = {'courses': courses}
     context.update(extra_context)
+    #return render_to_response('index.html', context)
     return render_to_response('nercel-templates/col-index.html', context)
 
 
@@ -2254,3 +2255,13 @@ def change_email_settings(request):
         track.views.server_track(request, "change-email-settings", {"receive_emails": "no", "course": course_id}, page='dashboard')
 
     return JsonResponse({"success": True})
+# 取得login_redirect_url地址
+#ajax验证
+@ensure_csrf_cookie
+def get_login_redirect_url(request):
+
+    redirect_to = get_next_url_for_login_page(request)
+    response = JsonResponse({
+        "success": True,
+        "login_redirect_url": redirect_to,
+    })
