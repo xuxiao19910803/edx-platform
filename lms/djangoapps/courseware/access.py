@@ -1,3 +1,4 @@
+#encoding=utf-8
 """
 This file contains (or should), all access control logic for the courseware.
 Ideally, it will be the only place that needs to know about any special settings
@@ -59,28 +60,29 @@ def debug(*args, **kwargs):
 
 
 def has_access(user, action, obj, course_key=None):
+    #检测是user用户否有权限操作action对象obj。
     """
     Check whether a user has the access to do action on obj.  Handles any magic
     switching based on various settings.
-
+    #基于各种设置的参数来
     Things this module understands:
     - start dates for modules
     - visible_to_staff_only for modules
     - DISABLE_START_DATES
     - different access for instructor, staff, course staff, and students.
     - mobile_available flag for course modules
-
+    #没有验证，则user会是anonymous模型
     user: a Django user object. May be anonymous. If none is passed,
                     anonymous is assumed
-
+    #对象可能是模型、描述符、位置、特殊字符串。
     obj: The object to check access for.  A module, descriptor, location, or
                     certain special strings (e.g. 'global')
-
+    #包括诸如选课的操作
     action: A string specifying the action that the client is trying to perform.
 
     actions depend on the obj type, but include e.g. 'enroll' for courses.  See the
     type-specific functions below for the known actions for that type.
-
+    #登录除了，课程描述符，gloabl,国际化，课程位置以外的一些地方，需要使用到course_key。
     course_key: A course_key specifying which course run this access is for.
         Required when accessing anything other than a CourseDescriptor, 'global',
         or a location with category 'course'
@@ -91,10 +93,10 @@ def has_access(user, action, obj, course_key=None):
     # Just in case user is passed in as None, make them anonymous
     if not user:
         user = AnonymousUser()
-
+    #取得课程的位置描述符，
     if isinstance(course_key, CCXLocator):
         course_key = course_key.to_course_locator()
-
+    #
     # delegate the work to type-specific functions.
     # (start with more specific types, then get more general)
     if isinstance(obj, CourseDescriptor):

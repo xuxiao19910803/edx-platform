@@ -76,17 +76,17 @@ def index(request):
         'ENABLE_MKTG_SITE',
         settings.FEATURES.get('ENABLE_MKTG_SITE', False)
     )
-
     if enable_mktg_site:
         return redirect(settings.MKTG_URLS.get('ROOT'))
 
     domain = request.META.get('HTTP_HOST')
-
+    print ("domain:++"+domain)
     # keep specialized logic for Edge until we can migrate over Edge to fully use
     # microsite definitions
     if domain and 'edge.edx.org' in domain:
         return redirect(reverse("signin_user"))
-
+    print ("branding_user")
+    print (request.user)
     #  we do not expect this case to be reached in cases where
     #  marketing and edge are enabled
     return student.views.index(request, user=request.user)

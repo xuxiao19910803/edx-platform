@@ -1,3 +1,4 @@
+#encoding=utf-8
 """
 Student Views
 """
@@ -12,7 +13,6 @@ from collections import defaultdict
 from pytz import UTC
 from requests import HTTPError
 from ipware.ip import get_ip
-
 from django.conf import settings
 from django.contrib.auth import logout, authenticate, login
 from django.contrib.auth.models import User, AnonymousUser
@@ -124,7 +124,9 @@ from notification_prefs.views import enable_notifications
 
 # Note that this lives in openedx, so this dependency should be refactored.
 from openedx.core.djangoapps.user_api.preferences import api as preferences_api
-
+#the course api of the student_index
+from courseware.courses import course_image_url, get_course_about_section
+from student.models import CourseEnrollment
 
 log = logging.getLogger("edx.student")
 AUDIT_LOG = logging.getLogger("audit")
@@ -152,25 +154,33 @@ def index(request, extra_context=None, user=AnonymousUser()):
     extra_context is used to allow immediate display of certain modal windows, eg signup,
     as used by external_auth.
     """
+    #额外的信息
     if extra_context is None:
         extra_context = {}
     # The course selection work is done in courseware.courses.
     domain = settings.FEATURES.get('FORCE_UNIVERSITY_DOMAIN')  # normally False
     # do explicit check, because domain=None is valid
+    #取得主机地址
     if domain is False:
         domain = request.META.get('HTTP_HOST')
-
+    #获取课程信息
     courses = get_courses(user, domain=domain)
+    #取得线程参数的键值。
     if microsite.get_value("ENABLE_COURSE_SORTING_BY_START_DATE",
                            settings.FEATURES["ENABLE_COURSE_SORTING_BY_START_DATE"]):
         courses = sort_by_start_date(courses)
     else:
+        #通告的时间排序。
         courses = sort_by_announcement(courses)
-
+    for course in courses:
+	course_id=course.id
+        enroll_account=CourseEnrollment.objects.enrollment_counts(course_id)
+	print("*********************")
+	print(enroll_account["total"])
+	
     context = {'courses': courses}
-
     context.update(extra_context)
-    return render_to_response('index.html', context)
+    return render_to_response('nercel-templates/col-index.html', context)
 
 
 def process_survey_link(survey_link, user):
@@ -351,19 +361,22 @@ def _cert_info(user, course, cert_status, course_mode):
 
     return status_dict
 
-
+#login
 @ensure_csrf_cookie
 def signin_user(request):
     """Deprecated. To be replaced by :class:`student_account.views.login_and_registration_form`."""
+    #外部认证
     external_auth_response = external_auth_login(request)
     if external_auth_response is not None:
         return external_auth_response
     # Determine the URL to redirect to following login:
+    #登录以后的地址，写进requset里面去
     redirect_to = get_next_url_for_login_page(request)
     if request.user.is_authenticated():
         return redirect(redirect_to)
 
     third_party_auth_error = None
+    #一个request周期内,messages存放信息
     for msg in messages.get_messages(request):
         if msg.extra_tags.split()[0] == "social-auth":
             # msg may or may not be translated. Try translating [again] in case we are able to:
@@ -429,7 +442,7 @@ def register_user(request, extra_context=None):
         overrides['selected_provider'] = current_provider.name
         context.update(overrides)
 
-    return render_to_response('register.html', context)
+    return render_to_response('nercel-templates/col-register.html', context)
 
 
 def complete_course_mode_info(course_id, enrollment, modes=None):
@@ -484,10 +497,11 @@ def is_course_blocked(request, redeemed_registration_codes, course_key):
 @login_required
 @ensure_csrf_cookie
 def dashboard(request):
+    #取得用户信息
     user = request.user
-
+    #取得平台名称
     platform_name = microsite.get_value("platform_name", settings.PLATFORM_NAME)
-
+    #过滤掉非选修课程。
     # for microsites, we want to filter and only show enrollments for courses within
     # the microsites 'ORG'
     course_org_filter = microsite.get_value('course_org_filter')
@@ -499,15 +513,16 @@ def dashboard(request):
     # remove our current Microsite from the "filter out" list, if applicable
     if course_org_filter:
         org_filter_out_set.remove(course_org_filter)
-
+    #创建一个键值对，包含选修和课程信息
     # Build our (course, enrollment) list for the user, but ignore any courses that no
     # longer exist (because the course IDs have changed). Still, we don't delete those
     # enrollments, because it could have been a data push snafu.
     course_enrollment_pairs = list(get_course_enrollment_pairs(user, course_org_filter, org_filter_out_set))
 
     # sort the enrollment pairs by the enrollment date
+    #对课程进行排序
     course_enrollment_pairs.sort(key=lambda x: x[1].created, reverse=True)
-
+    #重新取回课程模型：包括终止和未终止的课程。
     # Retrieve the course modes for each course
     enrolled_course_ids = [course.id for course, __ in course_enrollment_pairs]
     all_course_modes, unexpired_course_modes = CourseMode.all_and_unexpired_modes_for_courses(enrolled_course_ids)
@@ -518,13 +533,13 @@ def dashboard(request):
         }
         for course_id, modes in unexpired_course_modes.iteritems()
     }
-
+    #检测学生是否选修课程的信息。
     # Check to see if the student has recently enrolled in a course.
     # If so, display a notification message confirming the enrollment.
     enrollment_message = _create_recent_enrollment_message(
         course_enrollment_pairs, course_modes_by_course
     )
-
+    #选修的课程字典
     # Retrieve the course modes for each course
     enrolled_courses_dict = {}
     for course, __ in course_enrollment_pairs:
@@ -538,7 +553,7 @@ def dashboard(request):
             'registration/activate_account_notice.html',
             {'email': user.email, 'platform_name': platform_name}
         )
-
+    #staff可以看到额外的错误信息。
     # Global staff can see what courses errored on their dashboard
     staff_access = False
     errored_courses = {}
@@ -546,13 +561,13 @@ def dashboard(request):
         # Show any courses that errored on load
         staff_access = True
         errored_courses = modulestore().get_errored_courses()
-
+    #一旦建立冻结的set
     show_courseware_links_for = frozenset(
         course.id for course, _enrollment in course_enrollment_pairs
         if has_access(request.user, 'load', course)
         and has_access(request.user, 'view_courseware_with_prerequisites', course)
     )
-
+    # 构建一个课程信息模型字典。
     # Construct a dictionary of course mode information
     # used to render the course list.  We re-use the course modes dict
     # we loaded earlier to avoid hitting the database.
@@ -563,7 +578,7 @@ def dashboard(request):
         )
         for course, enrollment in course_enrollment_pairs
     }
-
+    #判定课程认证状态
     # Determine the per-course verification status
     # This is a dictionary in which the keys are course locators
     # and the values are one of:
@@ -632,7 +647,10 @@ def dashboard(request):
         ccx_membership_triplets = get_ccx_membership_triplets(
             user, course_org_filter, org_filter_out_set
         )
-
+    #enrollment_message:None
+    #[CourseEnrollment] xuxiao: CCNU/computer/2015_T1 (2015-07-18 07:46:40+00:00); active: (True)
+    #{CourseLocator(u'CCNU', u'computer', u'2015_T1', None, None): {'show_upsell': False, 'days_for_upsell': None}}
+    #
     context = {
         'enrollment_message': enrollment_message,
         'course_enrollment_pairs': course_enrollment_pairs,
@@ -641,6 +659,7 @@ def dashboard(request):
         'staff_access': staff_access,
         'errored_courses': errored_courses,
         'show_courseware_links_for': show_courseware_links_for,
+        #{CourseLocator(u'CCNU', u'computer', u'2015_T1', None, None): {'show_upsell': False, 'days_for_upsell': None}}
         'all_course_modes': course_mode_info,
         'cert_statuses': cert_statuses,
         'credit_statuses': _credit_statuses(user, course_enrollment_pairs),
@@ -654,12 +673,17 @@ def dashboard(request):
         'denied_banner': denied_banner,
         'billing_email': settings.PAYMENT_SUPPORT_EMAIL,
         'user': user,
+        #'/logout'
         'logout_url': reverse(logout_user),
         'platform_name': platform_name,
+        #[]
         'enrolled_courses_either_paid': enrolled_courses_either_paid,
         'provider_states': [],
+        #[]
         'order_history_list': order_history_list,
+        #[]
         'courses_requirements_not_met': courses_requirements_not_met,
+        #[]组成员三个人。
         'ccx_membership_triplets': ccx_membership_triplets,
     }
 
@@ -1005,8 +1029,9 @@ def accounts_login(request):
     }
     return render_to_response('login.html', context)
 
-
+#需要不同层次的日志
 # Need different levels of logging
+#ajax验证
 @ensure_csrf_cookie
 def login_user(request, error=""):  # pylint: disable-msg=too-many-statements,unused-argument
     """AJAX request to log in the user."""
@@ -1092,6 +1117,7 @@ def login_user(request, error=""):  # pylint: disable-msg=too-many-statements,un
 
     # see if account has been locked out due to excessive login failures
     user_found_by_email_lookup = user
+    #最大登录次数限制
     if user_found_by_email_lookup and LoginFailures.is_feature_enabled():
         if LoginFailures.is_user_locked_out(user_found_by_email_lookup):
             return JsonResponse({
@@ -1100,6 +1126,7 @@ def login_user(request, error=""):  # pylint: disable-msg=too-many-statements,un
             })  # TODO: this should be status code 429  # pylint: disable=fixme
 
     # see if the user must reset his/her password due to any policy settings
+    #密码失效，重新设置密码
     if user_found_by_email_lookup and PasswordHistory.should_user_reset_password_now(user_found_by_email_lookup):
         return JsonResponse({
             "success": False,
@@ -1124,6 +1151,7 @@ def login_user(request, error=""):  # pylint: disable-msg=too-many-statements,un
             })  # TODO: this should be status code 429  # pylint: disable=fixme
 
     if user is None:
+        #增加登录失败的次数
         # tick the failed login counters if the user exists in the database
         if user_found_by_email_lookup and LoginFailures.is_feature_enabled():
             LoginFailures.increment_lockout_counter(user_found_by_email_lookup)
@@ -1140,12 +1168,14 @@ def login_user(request, error=""):  # pylint: disable-msg=too-many-statements,un
             "success": False,
             "value": _('Email or password is incorrect.'),
         })  # TODO: this should be status code 400  # pylint: disable=fixme
-
+    # 登录成功后清除掉登录失败次数计数器
     # successful login, clear failed login attempts counters, if applicable
     if LoginFailures.is_feature_enabled():
         LoginFailures.clear_lockout_counter(user)
-
+    #登录信息
     # Track the user's sign in
+    #Segment.io 为移动开发者提供便利的分析数据分发服务
+    #Segment.io允许开发者将数据一键分送给多家数据分析服务提供商
     if settings.FEATURES.get('SEGMENT_IO_LMS') and hasattr(settings, 'SEGMENT_IO_LMS_KEY'):
         tracking_context = tracker.get_tracker().resolve_context()
         analytics.identify(user.id, {
@@ -1167,23 +1197,27 @@ def login_user(request, error=""):  # pylint: disable-msg=too-many-statements,un
                 }
             }
         )
-
+    #验证成功且账户激活状态下
     if user is not None and user.is_active:
         try:
             # We do not log here, because we have a handler registered
             # to perform logging on successful logins.
             login(request, user)
             if request.POST.get('remember') == 'true':
+                #session持续一个星期有效
                 request.session.set_expiry(604800)
                 log.debug("Setting user session to never expire")
             else:
+                #用户关闭浏览器session就会失效
                 request.session.set_expiry(0)
         except Exception as exc:  # pylint: disable=broad-except
+            #审计日志信息
+            #写进日志信息
             AUDIT_LOG.critical("Login failed - Could not create session. Is memcached running?")
             log.critical("Login failed - Could not create session. Is memcached running?")
             log.exception(exc)
             raise
-
+        #第三方ajax请求，返回跳转地址
         redirect_url = None  # The AJAX method calling should know the default destination upon success
         if third_party_auth_successful:
             redirect_url = pipeline.get_complete_url(backend_name)
@@ -1195,13 +1229,14 @@ def login_user(request, error=""):  # pylint: disable-msg=too-many-statements,un
 
         # Ensure that the external marketing site can
         # detect that the user is logged in.
+        # 用户的登录信息存进
         return set_logged_in_cookies(request, response, user)
 
     if settings.FEATURES['SQUELCH_PII_IN_LOGS']:
         AUDIT_LOG.warning(u"Login failed - Account not active for user.id: {0}, resending activation".format(user.id))
     else:
         AUDIT_LOG.warning(u"Login failed - Account not active for user {0}, resending activation".format(username))
-
+    #发送激活邮件
     reactivation_email_for_user(user)
     not_activated_msg = _("This account has not been activated. We have sent another activation message. Please check your email for the activation instructions.")
     return JsonResponse({

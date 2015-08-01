@@ -48,7 +48,7 @@ from django.core.urlresolvers import reverse
     <%static:js group='dashboard_search'/>
   % endif
 </%block>
-
+<%doc>显示选课信息，默认为空</%doc>
 <div class="dashboard-notifications" tabindex="-1">
     %if message:
         <section class="dashboard-banner">
@@ -62,14 +62,14 @@ from django.core.urlresolvers import reverse
         </section>
     %endif
 </div>
-
+<%doc>主显示信息</%doc>
 <section class="container dashboard" id="dashboard-main">
   <section class="my-courses" id="my-courses" role="main" aria-label="Content">
     <header class="wrapper-header-courses">
+        <%doc>显示提示信息，当前选修的所有课程</%doc>
       <h2 class="header-courses">${_("Current Courses")}</h2>
     </header>
-
-
+    取得选修课程的情况。
     % if len(course_enrollment_pairs) > 0:
       <ul class="listing-courses">
       <% share_settings = settings.FEATURES.get('SOCIAL_SHARING_SETTINGS', {}) %>
@@ -86,7 +86,7 @@ from django.core.urlresolvers import reverse
         <% course_requirements = courses_requirements_not_met.get(course.id) %>
         <%include file='dashboard/_dashboard_course_listing.html' args="course=course, enrollment=enrollment, show_courseware_link=show_courseware_link, cert_status=cert_status, credit_status=credit_status, show_email_settings=show_email_settings, course_mode_info=course_mode_info, show_refund_option = show_refund_option, is_paid_course = is_paid_course, is_course_blocked = is_course_blocked, verification_status=course_verification_status, course_requirements=course_requirements, dashboard_index=dashboard_index, share_settings=share_settings, user=user" />
       % endfor
-
+      <%doc>默认情况为空</%doc>
       % if settings.FEATURES.get('CUSTOM_COURSES_EDX', False):
         % for ccx, membership, course in ccx_membership_triplets:
           <% show_courseware_link = ccx.has_started() %>
@@ -97,9 +97,10 @@ from django.core.urlresolvers import reverse
 
       </ul>
     % else:
+      <%doc>提示选课信息</%doc>
       <section class="empty-dashboard-message">
         <p>${_("Looks like you haven't enrolled in any courses yet.")}</p>
-
+        <%doc>选修课程</%doc>
         % if settings.FEATURES.get('COURSES_ARE_BROWSABLE'):
           <a href="${marketing_link('COURSES')}">
             ${_("Find courses now!")}
@@ -107,7 +108,7 @@ from django.core.urlresolvers import reverse
         %endif
       </section>
     % endif
-
+    <%doc>staff_access权限，查看课程日志。</%doc>
     % if staff_access and len(errored_courses) > 0:
       <div id="course-errors">
         <h2>${_("Course-loading errors")}</h2>
@@ -125,7 +126,7 @@ from django.core.urlresolvers import reverse
       </div>
     % endif
   </section>
-
+  <%doc>选修搜索功能,默认为空</%doc>
   % if settings.FEATURES.get('ENABLE_DASHBOARD_SEARCH'):
     <div id="dashboard-search-bar" class="search-bar dashboard-search-bar" role="search" aria-label="Dashboard">
       <form>
@@ -142,11 +143,11 @@ from django.core.urlresolvers import reverse
       </form>
     </div>
   % endif
-
+  <%doc>默认为空</%doc>
   % if settings.FEATURES.get('ENABLE_DASHBOARD_SEARCH'):
     <section id="dashboard-search-results" class="search-results dashboard-search-results"></section>
   % endif
-
+  <%doc>右边的标识</%doc>
   <section class="profile-sidebar" id="profile-sidebar" role="region" aria-label="User info">
     <header class="profile">
       <h2 class="username-header"><span class="sr">${_("Username")}: </span></h2>
@@ -194,7 +195,7 @@ from django.core.urlresolvers import reverse
       </h2>
       <hr/>
     </header>
-
+    <%doc>隐藏的域</%doc>
     <form id="email_settings_form" method="post">
       <input name="course_id" id="email_settings_course_id" type="hidden" />
       <label>${_("Receive course emails")} <input type="checkbox" id="receive_emails" name="receive_emails" /></label>
@@ -214,7 +215,6 @@ from django.core.urlresolvers import reverse
         ${_("Close")}
       </span>
     </button>
-
     <header>
       <h2 id="unenrollment-modal-title">
         <span id='track-info'></span>

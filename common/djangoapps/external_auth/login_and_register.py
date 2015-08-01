@@ -1,3 +1,4 @@
+#encoding=utf-8
 """Intercept login and registration requests.
 
 This module contains legacy code originally from `student.views`.
@@ -55,15 +56,18 @@ def login(request):
     # Default to a `None` response, indicating that external auth
     # is not handling the request.
     response = None
-
+    #允许外部验证
+    #取出额外的用户认证信息
     if settings.FEATURES['AUTH_USE_CERTIFICATES'] and external_auth.views.ssl_get_cert_from_request(request):
         # SSL login doesn't require a view, so redirect
         # branding and allow that to process the login if it
         # is enabled and the header is in the request.
         response = external_auth.views.redirect_with_get('root', request.GET)
     elif settings.FEATURES.get('AUTH_USE_CAS'):
+        #SSO 单点登录原理
         # If CAS is enabled, redirect auth handling to there
         response = redirect(reverse('cas-login'))
+    #************
     elif settings.FEATURES.get('AUTH_USE_SHIB'):
         redirect_to = request.GET.get('next')
         if redirect_to:

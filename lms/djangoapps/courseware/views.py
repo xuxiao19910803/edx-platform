@@ -1,3 +1,4 @@
+#encoding=utf-8
 """
 Courseware views functions
 """
@@ -678,6 +679,7 @@ def course_info(request, course_id):
 
     Assumes the course_id is in a valid format.
     """
+    #根据course_id取得courseId
     course_key = SlashSeparatedCourseKey.from_deprecated_string(course_id)
 
     with modulestore().bulk_operations(course_key):
@@ -692,13 +694,16 @@ def course_info(request, course_id):
         # the user can access the course.
         if request.user.is_authenticated() and survey.utils.must_answer_survey(course, request.user):
             return redirect(reverse('course_survey', args=[unicode(course.id)]))
-
+        #取得职员权限
         staff_access = has_access(request.user, 'staff', course)
+        #职员掩饰一些信息。
         masquerade = setup_masquerade(request, course_key, staff_access)  # allow staff to masquerade on the info page
+        #取得studio地址
         studio_url = get_studio_url(course, 'course_info')
 
         # link to where the student should go to enroll in the course:
         # about page if there is not marketing site, SITE_NAME if there is
+        #参数课程id+course_about的地址。
         url_to_enroll = reverse(course_about, args=[course_id])
         if settings.FEATURES.get('ENABLE_MKTG_SITE'):
             url_to_enroll = marketing_link('COURSES')
@@ -718,7 +723,9 @@ def course_info(request, course_id):
         }
 
         now = datetime.now(UTC())
+        #取得有效开始时间。
         effective_start = _adjust_start_date_for_beta_testers(request.user, course, course_key)
+        #判断用户是否在预览版本，且是职员权限，课程开始时间在当前的时间后面。
         if not in_preview_mode() and staff_access and now < effective_start:
             # Disable student view button if user is staff and
             # course is not yet visible to students.
@@ -778,7 +785,7 @@ def syllabus(request, course_id):
         'staff_access': staff_access,
     })
 
-
+    #检测课程是否注册。
 def registered_for_course(course, user):
     """
     Return True if user is registered for course, else False
@@ -818,29 +825,33 @@ def course_about(request, course_id):
 
     Assumes the course_id is in a valid format.
     """
-
+    #假定course_id是合法的格式
+    #显示课程界面的信息。
     course_key = SlashSeparatedCourseKey.from_deprecated_string(course_id)
 
     with modulestore().bulk_operations(course_key):
+        #可见信允许"see_exists"
         permission_name = microsite.get_value(
             'COURSE_ABOUT_VISIBILITY_PERMISSION',
             settings.COURSE_ABOUT_VISIBILITY_PERMISSION
         )
+        #验证获取课程信息,depth=0,course descriptor
         course = get_course_with_access(request.user, permission_name, course_key)
-
+        #默认为False
         if microsite.get_value('ENABLE_MKTG_SITE', settings.FEATURES.get('ENABLE_MKTG_SITE', False)):
             return redirect(reverse('info', args=[course.id.to_deprecated_string()]))
-
+        #检测课程是否注册。
         registered = registered_for_course(course, request.user)
-
+        #取得staff_access权限
         staff_access = has_access(request.user, 'staff', course)
+        #取得studio_url
         studio_url = get_studio_url(course, 'settings/details')
-
+        #拥有load权限。
         if has_access(request.user, 'load', course):
             course_target = reverse('info', args=[course.id.to_deprecated_string()])
         else:
             course_target = reverse('about_course', args=[course.id.to_deprecated_string()])
-
+        #取得显示课件连接地址。
         show_courseware_link = (
             (
                 has_access(request.user, 'load', course)
@@ -853,7 +864,7 @@ def course_about(request, course_id):
         registration_price = 0
         in_cart = False
         reg_then_add_to_cart_link = ""
-
+        #付费课程，取出课程是否付费和加入购物车。
         _is_shopping_cart_enabled = is_shopping_cart_enabled()
         if _is_shopping_cart_enabled:
             registration_price = CourseMode.min_course_price_for_currency(course_key,
@@ -865,26 +876,54 @@ def course_about(request, course_id):
 
             reg_then_add_to_cart_link = "{reg_url}?course_id={course_id}&enrollment_action=add_to_cart".format(
                 reg_url=reverse('register_user'), course_id=urllib.quote(str(course_id)))
-
+        #取出课程零售价格，默认维“Free”
         course_price = get_cosmetic_display_price(course, registration_price)
+        #False
         can_add_course_to_cart = _is_shopping_cart_enabled and registration_price
 
         # Used to provide context to message to student if enrollment not allowed
+        #如果不允许注册，用于向学生提供提示信息
+        #用户是否可以注册。
         can_enroll = has_access(request.user, 'enroll', course)
         invitation_only = course.invitation_only
+        #选课的人是否已经满
         is_course_full = CourseEnrollment.objects.is_course_full(course)
-
+        #选课总人数：
         # Register button should be disabled if one of the following is true:
         # - Student is already registered for course
         # - Course is already full
         # - Student cannot enroll in course
+	#注册按钮是否激活
         active_reg_button = not(registered or is_course_full or not can_enroll)
-
+        #是否是shib_course课程
         is_shib_course = uses_shib(course)
 
         # get prerequisite courses display names
+	#取得先决课程的名称；
         pre_requisite_courses = get_prerequisite_courses_display(course)
-
+        context={
+            'course': course,
+            'staff_access': staff_access,
+            'studio_url': studio_url,
+            'registered': registered,
+            'course_target': course_target,
+            'is_cosmetic_price_enabled': settings.FEATURES.get('ENABLE_COSMETIC_DISPLAY_PRICE'),
+            'course_price': course_price,
+            'in_cart': in_cart,
+            'reg_then_add_to_cart_link': reg_then_add_to_cart_link,
+            'show_courseware_link': show_courseware_link,
+            'is_course_full': is_course_full,
+            'can_enroll': can_enroll,
+            'invitation_only': invitation_only,
+            'active_reg_button': active_reg_button,
+            'is_shib_course': is_shib_course,
+            # We do not want to display the internal courseware header, which is used when the course is found in the
+            # context. This value is therefor explicitly set to render the appropriate header.
+            'disable_courseware_header': True,
+            'can_add_course_to_cart': can_add_course_to_cart,
+            'cart_link': reverse('shoppingcart.views.show_cart'),
+            'pre_requisite_courses': pre_requisite_courses
+        }
         return render_to_response('courseware/course_about.html', {
             'course': course,
             'staff_access': staff_access,

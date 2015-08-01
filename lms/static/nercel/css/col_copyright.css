@@ -1,0 +1,45 @@
+* {
+    margin: 0;
+    padding: 0;
+    font-family: "微软雅黑";
+}
+
+a {
+    text-decoration: none;
+}
+
+li {
+    list-style: none;
+}
+
+img {
+    border: none;
+}
+
+.clear {
+    clear: both;
+}
+
+.max-width {
+    width: 100%;
+}
+
+.col_copyright_bg {
+    height: 112px;
+    background-color: #ffffff;
+}
+
+.col_copyright {
+    width: 1335px;
+    height: 112px;
+    margin: 0 auto;
+    text-align: center;
+    line-height: 112px;
+}
+
+.col_copyright img {
+    width: 164px;
+    height: 42px;
+    float: right;
+    margin-top: 37px;
+}

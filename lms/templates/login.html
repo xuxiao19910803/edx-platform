@@ -160,7 +160,7 @@ from microsite_configuration import microsite
       <div role="alert" class="third-party-signin message" tabindex="-1">
         <p class="instructions"> </p>
       </div>
-
+      <%doc>第三方登录情况</%doc>
       % if third_party_auth_error:
         <div role="alert" class="status message third-party-auth-error is-shown" tabindex="-1">
           <h3 class="message-title">${_("An error occurred when signing you in to {platform_name}.").format(platform_name=platform_name)} </h3>

@@ -1,3 +1,4 @@
+#encoding=utf-8
 from collections import defaultdict
 from fs.errors import ResourceNotFoundError
 import logging
@@ -348,13 +349,14 @@ def get_courses(user, domain=None):
     '''
     Returns a list of courses available, sorted by course.number
     '''
+    #取得所有的可见课程。
     courses = branding.get_visible_courses()
-
+    #取得线程参数的键值
     permission_name = microsite.get_value(
         'COURSE_CATALOG_VISIBILITY_PERMISSION',
         settings.COURSE_CATALOG_VISIBILITY_PERMISSION
     )
-
+    #
     courses = [c for c in courses if has_access(user, permission_name, c)]
 
     courses = sorted(courses, key=lambda course: course.number)
@@ -411,7 +413,6 @@ def get_cms_block_link(block, page):
 def get_studio_url(course, page):
     """
     Get the Studio URL of the page that is passed in.
-
     Args:
         course (CourseDescriptor)
     """

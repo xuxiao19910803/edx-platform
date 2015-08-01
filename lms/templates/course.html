@@ -15,8 +15,11 @@ from courseware.courses import course_image_url, get_course_about_section
     </header>
     <section class="course-info" aria-hidden=true>
       <h2 class="course-name">
+          <!--课程组织者-->
         <span class="course-organization">${get_course_about_section(course, 'university')}</span>
-        <span class="course-code">${course.display_number_with_default}</span>
+        <!--课程编号-->
+          <span class="course-code">${course.display_number_with_default}</span>
+        <!--课程名称-->
         <span class="course-title">${get_course_about_section(course, 'title')}</span>
       </h2>
       <div class="course-date" aria-hidden="true">${_("Starts")}: ${course.start_datetime_text()}</div>

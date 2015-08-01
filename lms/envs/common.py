@@ -2417,6 +2417,7 @@ COUNTRIES_OVERRIDE = {
 
 # which access.py permission name to check in order to determine if a course is visible in
 # the course catalog. We default this to the legacy permission 'see_exists'.
+#许可名称，已检测课程是否在课程目录下。
 COURSE_CATALOG_VISIBILITY_PERMISSION = 'see_exists'
 
 # which access.py permission name to check in order to determine if a course about page is

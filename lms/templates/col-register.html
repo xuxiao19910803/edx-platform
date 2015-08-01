@@ -1,0 +1,138 @@
+<%!
+from django.utils.translation import ugettext as _
+from django.core.urlresolvers import reverse
+from django.utils import html
+from django_countries import countries
+from django.utils.translation import ugettext as _
+from microsite_configuration import microsite
+from student.models import UserProfile
+from datetime import date
+import third_party_auth
+from third_party_auth import pipeline, provider
+import calendar
+%>
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8"/>
+    <title>注册页面</title>
+    <link href="/static/nercel/css/col_head.css" type="text/css" rel="stylesheet"/>
+    <link href="/static/nercel/css/col_copyright.css" type="text/css" rel="stylesheet"/>
+    <link rel="stylesheet" type="text/css" href="/static/nercel/css/col-register.css"/>
+</head>
+<body>
+<!--页头布局-->
+<div class="col_head_bg max-width">
+    <div class="col_head">
+        <h1><a href=""><img src="/static/nercel/images/col_logo.png" alt="logo" title="师大学堂"/></a></h1>
+
+        <div class="col_nav" id="col_nav">
+            <ul>
+                <li><a href="javascript:void(0);" id="col_shouye">首页</a></li>
+                <li><a href="javascript:void(0);" id="col_xuexiao" style="background-color: #d6d4d4;">学校</a></li>
+                <li><a href="javascript:void(0);" id="col_weike">微课程</a></li>
+                <li><a href="javascript:void(0);" id="col_fenxi">学习分析</a></li>
+            </ul>
+        </div>
+        <div class="col_search">
+            <input type="text" id="col_search_input" placeholder="搜索你感兴趣的课程"/>
+            <a id="col_search_btn"></a>
+        </div>
+        <div class="col_login">
+            <!--登录前-->
+            <ul class="pre_login">
+                <li><a href="">登录</a></li>
+                <li><a href="col-register.html">注册</a></li>
+            </ul>
+        </div>
+    </div>
+</div>
+<div class="col_register_head_bg" id="col_head_bg">
+    <div class="col_register_head" id="col_head">
+        <img src="/static/nercel/images/col_register_bg.png"/>
+    </div>
+</div>
+<div class="col-register">
+    <div class="col_register_content clear" id="col_content">
+
+        <div class="col_register_left" id="col_left">
+            <p class="col_register_left_p1" id="col_register_left_p1">请将以下字段补充完整以完成账户注册。</p>
+
+            <p class="col_register_left_p2" id="col_register_left_p2">必须的字段已经被<b>粗体</b>和星号(*)所标记。</p>
+
+            <form class="col_left_register" id="col_left_register">
+                <label for="col_email_text" class="col_email" id="col_email">电子邮件*</label><br/>
+                <input class="col_email_text" id="col_email_text" type="text" placeholder="例：username@domain.com"/></br>
+                <label for="col_name_text" class="col_name" id="col_name">全名*</label><br/>
+                <input class="col_name_text" id="col_name_text" type="text" placeholder="例：Jane Doe"/>
+
+                <p class="col_note">用于你将来获得的各种证书</p>
+                <label for="col_publicname_text" class="col_publicname" id="col_publicname">公开用户名</label><br/>
+                <input class="col_publicname_text" id="col_publicname_text" type="text" placeholder="例：JaneDoe"/>
+
+                <p class="col_note">将会在您参加的任何讨论或论坛上显示（之后将无法更改）（以后不能更改）</p>
+                <label for="col_password_text" class="col_password" id="col_password">密码*</label><br/>
+                <input class="col_password_text" id="col_password_text" type="password"/>
+                <ul class="col_secect clear" id="col_secect">
+                    <li>
+                        <label>最高教育程度</label><br/>
+                        <select class="col_select_edu" id="col_select_edu">
+                            <option value=""></option>
+                        </select>
+                    </li>
+                    <li>
+                        <label>性别</label><br/>
+                        <select class="col_select_gender" id="col_select_gender">
+                            <option value=""></option>
+                        </select>
+                    </li>
+                    <li>
+                        <label>出生年份</label><br/>
+                        <select class="col_select_bir" id="col_select_bir">
+                            <option value=""></option>
+                        </select>
+                    </li>
+                </ul>
+                <label for="col_address_texearea" class="col_address">邮寄地址</label><br/>
+                <textarea class="col_address_texearea" id="col_address_texearea"></textarea><br/>
+                <label for="col_reason_textarea" class="col_address" id="col_address">请告诉我们您注册师大学堂的原因</label><br/>
+                <textarea class="col_reason_texearea" id="col_reason_textarea"></textarea>
+                <input type="checkbox" class="col_checkbox" name="rule1" value="rule1"/> 我同意<a href="#">服务条款</a>*
+                <input type="checkbox" class="col_checkbox" name="rule2" value="rule2"/> 我同意<a href="#">诚信准则</a>*<br/>
+                <input type="submit" class="col_submit" id="col_submit" value="创建我的师大学堂账户"/>
+            </form>
+        </div>
+
+        <div class="col_register_right" id="col_right">
+            <form action="">
+                <label class="col_register_right_register" id="col_register_right_register">已经注册过了？</label>
+                <input type="button" class="col_button_register" id="col_button_register" value="登录"/>
+            </form>
+            <p class="col_welcome" id="col_welcome">
+
+            <h3 class="col_register_right_title">欢迎来到师大学堂</h3>
+            在师大学堂注册之后，您可以访问我们现有和将来所有的免费课程，现在还不想加入课程？注册后您将加入我们的邮件列表，您将通过邮件收到新课程的通知。
+            </p>
+            <p class="col_step">
+
+            <h3 class="col_register_right_title">下面的步骤</h3>
+            注册师大学堂的过程中，您将会收到一封激活邮件。您必须点击激活链接才能完成注册过程。如果没有看见邮件，请检查垃圾邮件夹并把来自师大学堂的邮件标记为“非垃圾邮件”，在师大学堂，我们主要通过电子邮件联系。
+            </p>
+            <p class="col_help">
+
+            <h3 class="col_register_right_title">需要帮助</h3>
+            在注册师大学堂时需要帮助？<a href="#">查看我们的F&Q来获得常见的问题解答。</a>注册成功后，大部分问题均可在具体课程讨论论坛或F&Q中得到解决。
+            </p>
+        </div>
+
+    </div>
+</div>
+<!--版权信息-->
+<div class="col_copyright_bg max-width">
+    <div class="col_copyright">
+        <span> 版权所有 © 国家数字化学习工程技术研究中心、华中师大一附中</span>
+        <img src="/static/nercel/images/col_openeDX_logo.png"/>
+    </div>
+</div>
+</body>
+</html>
