@@ -1,0 +1,210 @@
+* {
+	margin: 0;
+	padding: 0;
+	font-family: "微软雅黑";
+}
+a {
+	text-decoration: none;
+}
+li {
+	list-style: none;
+}
+img {
+	border: none;
+}
+.clear {
+	clear: both;
+}
+.max-width {
+	width: 100%;
+	}
+.fl{
+	float: left;
+}
+.fr{
+	float: right;
+}
+
+.col_weike_banner{
+	height: 258px;
+	background-color: #4ac7c1;
+}
+.col_weike_img{
+	width: 1222px;
+	height: 257px;
+	margin: 0 auto;
+	background: url("../images/course_details.png") no-repeat center;
+}
+.col_course_bg{
+	height: 1060px;
+	padding-top: 41px;
+	background-color: #F4F4F4;
+}
+/*页面布局开始*/
+.col_course_details{
+	width: 1222px;
+	height: 882px;
+	margin: 0 auto;
+}
+/*顶部的课程信息*/
+.col_course_information{
+	width: 1220px;
+	height: 344px;
+	border: 1px solid #cecece;
+	background-color: #FFFFFF;
+}
+.col_left{
+	width: 598px;
+	height: 344px;
+	background: url("../images/course_fengmian.png") no-repeat center;
+}
+.col_middle{
+	width: 382px;
+	height: 258px;
+	margin-top: 40px;
+	margin-left:37px;
+}
+.col_middle>span{
+	font-size: 30px;
+	font-weight: 500;
+	display: block;
+	margin-bottom: 50px;
+}
+
+
+.middle_details_title{
+	width: 104px;
+	margin-left: 12px;
+}
+
+.col_middle_list>li{
+	clear: both;
+	height: 17px;
+	line-height: 17px;
+	margin-top: 21px;
+}
+.col_middle_list>li:nth-child(1){
+	margin-top: 0;
+}
+.col_middle_list p{
+	float: left;
+	font-size: 16px;
+	color: #6d7675;
+}
+
+.col_right{
+	width: 168px;
+	height: 258px;
+	margin-top: 40px;
+	margin-right: 35px;
+	text-align: center;
+}
+#teacher_img{
+	width: 100px;
+	height: 100px;
+	border-radius: 50%;
+	background: url("../images/teacher_picture.png") no-repeat center;
+	margin:0 auto;
+}
+.teacher_information>li{
+	font-size: 15px;
+	color: #6D7675;
+	margin-top: 5px;
+}
+#teacher_name{
+	font-size: 16px;
+	color: #0d0708;
+	font-weight: bold;
+}
+#join_course{
+	display: inline-block;
+	width: 170px;
+	height: 50px;
+	margin-top:32px ;
+	background-color: #398b7f;
+	color: #FFFFFF;
+	font-size: 25px;
+	line-height: 50px;
+	text-align: center;
+}
+/*右下侧课程信息*/
+.col_course_QA{
+	width: 890px;
+	height: 516px;
+	float: left;
+	margin-top:16px;
+}
+.col_course_QA ul li{
+	border: 1px solid #CECECE;
+	margin-top: 26px;
+	background-color: #FFFFFF;
+}
+.col_course_title{
+	height: 52px;
+	border-bottom: 1px dashed #CECECE;
+	line-height: 52px;
+	font-size: 18px;
+	color: #398B7F;
+}
+.col_course_title img{
+	width:23px;
+    height: 23px;
+    float: left;
+    margin-left: 9px;
+  	margin-top: 15px;
+}
+.col_course_title h2{
+	float: left;
+	margin-left: 7px;
+}
+.col_course_answer{
+	width: 808px;
+	padding:20px 40px;
+	font-size: 15px;
+	color: #6D7675;
+}
+.col_course_answer h3{
+	font-size: 15px;
+	font-weight: bold;
+	margin-top:43px;
+}
+.col_course_answer h3:nth-child(1){
+	margin-top:0;
+}
+/*相关课程*/
+.col_course_relativities{
+	width: 310px;
+	height: 516px;
+	float: right;
+	margin-top: 16px;
+	border: 1px solid #cecece;
+	background-color: #FFFFFF;
+}
+.col_course_relativeslist{
+	width: 232px;
+	margin:38px auto 0;
+}
+.col_course_relativeslist ul li{
+	height: 64px;
+	margin-top:15px;
+}
+.col_course_relativeslist ul li:nth-child(1){
+	margin-top: 0;
+}
+.col_course_img{
+	width: 111px;
+	height: 64px;
+	background: url("../images/col_youlishu.jpg") no-repeat center;
+	background-size: contain;
+	margin-right: 13px;
+}
+.col_course_text{
+	width: 108px;
+	height: 44px;
+	font-size: 15px;
+	color: #6d7675;
+}
+.col_course_relativeslist ul li span:nth-child(2){
+	display: block;
+	margin-top: 11px;
+}

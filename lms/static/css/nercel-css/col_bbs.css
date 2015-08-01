@@ -1,0 +1,263 @@
+#col_courseinfor{
+	background:url("../images/course_infor.png") no-repeat center;
+}
+#col_coursecontent{
+	background:url("../images/course_content1.png") no-repeat center;
+}
+#col_luntan{
+	background: url("../images/bbs_now.png") no-repeat center;
+}
+#col_wiki{
+	background:url("../images/wiki.png") no-repeat center;
+}
+#col_question{
+	background: url("../images/question.png") no-repeat center;
+}
+img{
+	float: left;
+}
+a{
+	cursor: pointer;
+}
+.col_bbs_container{
+	height: 676px;
+	padding-top:26px;
+	background-color:#f4f4f4;
+}
+#bbs_create{
+	width:178px;
+	height: 24px;
+	float: right;
+	padding-top:16px;
+}
+#bbs_create a p{
+	float: left;
+	font-size:20px;
+	color: #FFFFFF;
+	margin-left: 10px;
+}
+
+.col_bbs_mid{
+	width:1242px;
+	height:526px;
+	padding-top:18px;
+	margin:0 auto;
+}
+.col_bbs_left{
+	width: 380px;
+	height: 526px;
+	background-color: #54606e;
+	float: left;
+	margin-right: 26px;
+}
+/*内容左侧部分的第一行*/
+.col_bbs_left_head{
+	width:380px;
+	height: 58px;
+}
+.col_bbs_head_left{
+	float: left;
+	width:140px;
+	height: 42px;
+	padding: 16px 0 0 12px;
+}
+.col_bbs_left_head p{
+ 	color: #4fa89e;
+ 	font-size: 20px;
+ 	float:left;
+ }
+#col_bbs_allcourse_icon{
+ 	display: block;
+ 	width:14px;
+ 	height: 10px;
+ 	background:url("../images/mycourse_sanjiao.png") no-repeat center;
+ 	background-size: cover;
+ 	margin-top:10px;
+ 	margin-left: 12px;
+ 	float: left;
+ }
+.col_bbs_head_right{
+	float: right;
+	width:194px;
+	height: 42px;
+	padding-top: 16px; 	
+}
+.col_bbs_head_right p{
+	font-size: 16px;
+	float: left;
+	margin-left: 16px;
+}
+
+#col_bbs_xianshi{
+	display: block;
+	width:10px;
+	height: 10px;
+	float: left;
+	margin-left: 5px;
+	padding-top:5px;
+}
+#col_bbs_recent{
+	display: block;
+	width:10px;
+	height: 8px;
+	float: left;
+	margin-left: 5px;
+	padding-top:7px;
+}
+/*左侧栏中的搜索框*/
+.col_bbs_left_search{
+	width: 380px;
+	height: 28px;
+}
+#col_bbs_search{
+	width:352px;
+	height: 28px;
+	border:none;
+	background-color: #4e5864;
+	float: left;
+	outline: none;
+	color: #ffffff;
+}
+/*左侧栏中的列表*/
+.col_bbs_left ul{
+	width: 380px;
+	height: 414px;
+	padding-top: 26px;
+}
+.col_bbs_left ul li{
+	width:364px;
+	height: 32px;
+	font-size: 16px;
+	padding:10px 0 1px 16px;
+	position: relative;
+}
+.col_bbs_left ul li a{
+	color:#8994a0;
+}
+.col_bbs_icon{
+	width:30px;
+	height:24px;
+}
+.col_bbs_tiezi_title{
+	display: block;
+	font-size:16px;
+	left:58px;
+	top:12px;
+	position: absolute;
+}
+.col_bbs_wujiaoxing{
+	left:288px;
+	top:10px;
+	position: absolute;
+}
+.col_bbs_chat{
+	position: absolute;
+	width:30px;
+	height: 26px;
+	background:url("../images/bbs_numgrey.png") no-repeat center;
+	float: left;
+	left:330px;
+	top:12px;
+	text-align: center;
+	color: #FFFFFF;
+}
+/*当前状态和选中状态*/
+.col_bbs_now{
+	color:#50a79d;
+}
+.col_bbs_left_shadow{
+	border-top:1px solid #444d59;
+	border-bottom:1px solid #444d59;
+	background-color: #4e5864;
+	color:#50a79d;
+}
+/*内容右侧框内的布局*/
+.col_bbs_right{
+	width:790px;
+	height: 490px;
+	background-color:#ffffff;
+	border:1px solid #e2e2e2;
+	float: left;
+	padding:36px 0 0 44px;
+}
+.col_bbs_right li{
+	width:750px;
+	height: 34px;
+	margin-bottom: 24px;
+	font-size: 18px;
+	color: #000000;
+	line-height: 34px;
+	text-align: center;
+}
+.col_bbs_right li p{
+	float: left;
+}
+.col_bbs_right_btn{
+	width:96px;
+	height: 32px;
+	border:1px solid #cccccc;
+	float: left;
+	padding-left: 12px;
+	margin-left: 35px;
+}
+.col_bbs_right_btn img{
+	margin-top: 5px;
+}
+.col_bbs_right_search{
+	width:256px;
+	height:32px;
+	margin-left: 35px;
+	border:1px solid #cccccc;
+	float: left;
+	outline: none;
+}
+textarea{
+	width:750px;
+	height: 160px;
+	outline: none;
+}
+.col_bbs_right_bottom{
+	width:750px;
+	height: 36px;
+	margin-top:26px;
+}
+.col_bbs_bottom_border{
+	width:114px;
+	height: 26px;
+	padding:8px 0 0 14px;
+	margin-right: 10px;
+	float: left;
+}
+.col_bbs_fuxuankuang{
+	width:18px;
+	height: 18px;
+	float: left;
+}
+.col_bbs_bottom_border p{
+	float: left;
+	font-size: 14px;
+	margin-left: 7px;
+	margin-right: 3px;
+}
+.col_bbs_jianju{
+	margin-right: 280px;
+}
+#col_bbt_queren{
+	width:96px;
+	height: 36px;
+	margin-right: 10px;
+	background-color: #df8d34;
+	text-align: center;
+	line-height: 36px;
+	float: left;
+	color: #FFFFFF;
+}
+#col_bbt_quxiao{
+	width:96px;
+	height: 34px;
+	border:1px solid #cccccc;
+	text-align: center;
+	line-height: 34px;
+	float: left;
+	color: #000000;
+}

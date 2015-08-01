@@ -1,0 +1,100 @@
+* {
+	margin: 0;
+	padding: 0;
+	font-family: "微软雅黑";
+}
+a {
+	text-decoration: none;
+}
+li {
+	list-style: none;
+}
+img {
+	border: none;
+}
+.clear {
+	clear: both;
+}
+.max-width {
+	width: 100%;
+	}
+/*页头样式*/
+.col_head_bg{
+	height: 78px;
+	border-top:6px solid #43b3ad;
+	background-color: #f4f4f4;
+}
+.col_head{
+	width: 1310px;
+	height: 78px;
+	margin: 0 auto;
+}
+.col_head h1{
+	display: inline-block;
+	width: 165px;
+	height: 61px;
+	float: left;
+	margin-top:9px;
+}
+.col_nav {
+	width: 528px;
+	height: 78px;
+	float: left;
+	margin-left: 69px;
+}
+.col_nav ul li a{
+	width: 118px;
+	height: 78px;
+	float: left;
+	margin-left: 6px;	
+	line-height: 78px;
+	text-align: center;
+	color: #248a85;
+	font-family: "微软雅黑";
+	font-size: 15px;
+	font-weight: bold;	
+}
+.selfColor{
+	background-color: #e5e3e3;
+}
+.col_search{
+	width: 275px;
+	height: 26px;
+	border: 1px solid #cccccc;
+	float:left;
+	margin:25px 0 25px 70px;
+	position: relative;
+	}
+#col_search_input{
+	border:none;
+	width: 248px;
+	height: 26px;
+	border-right:1px solid #CCCCCC;
+	position: absolute;
+	outline: none;
+}
+#col_search_btn{
+	width: 26px;
+	height: 26px;
+	float: right;
+	background:url("../../images/col_search_icon.png") no-repeat center;
+}
+
+/*登录注册按钮*/
+.col_login{
+	width: 148px;
+	height: 78px;
+	float:right;
+	margin-left:40px;
+}
+.pre_login li a{
+	width:74px;
+	height: 78px;
+	float: left;	
+	line-height: 78px;
+	text-align: center;
+	color: #248a85;
+	font-family: "微软雅黑";
+	font-size: 15px;
+	font-weight: bold;	
+}

@@ -1,0 +1,188 @@
+p, input, ul, li, h3, textarea, select {
+    margin: 0;
+    padding: 0;
+    outline: none;
+}
+
+a {
+    text-decoration: none;
+    color: #126f9a;
+}
+
+.clear {
+    zoom: 1;
+}
+
+.clear:after {
+    content: "";
+    display: block;
+    clear: both;
+}
+
+.col-register {
+    padding-bottom: 232px;
+    background-color: #f4f4f4;
+    font-family: "微软雅黑";
+    font-size: 20px;
+}
+
+.col_register_head_bg {
+    width: 100%;
+    height: 258px;
+    background-color: #4ac7c1;
+}
+
+.col_register_head {
+    width: 1440px;
+    height: 258px;
+    margin: 0 auto 39px;
+}
+
+.col_register_content {
+    width: 1230px;
+    background-color: white;
+    margin: 0 auto 0;
+}
+
+.col_register_left {
+    width: 770px;
+    float: left;
+    padding: 19px 0px 0 50px;
+}
+
+.col_register_left_p1, .col_register_left_p2 {
+    line-height: 29px;
+    font-size: 22px;
+}
+
+.col_register_left_p2 {
+    margin-bottom: 26px;
+}
+
+.col_left_register {
+    margin-top: 17px;
+}
+
+.col_email_text, .col_name_text, .col_publicname_text, .col_password_text {
+    width: 759px;
+    height: 54px;
+    border: 2px solid #cecece;
+    margin-bottom: 28px;
+    font-size: 20px;
+}
+
+.col_name_text, .col_publicname_text {
+    margin-bottom: 0;
+}
+
+.col_note {
+    font-size: 16px;
+    color: #919195;
+    margin-bottom: 28px;
+}
+
+.col_secect {
+    margin-bottom: 28px;
+}
+
+.col_secect li {
+    list-style-type: none;
+    float: left;
+    margin-right: 43px;
+}
+
+.col_select_edu, .col_select_gender, .col_select_bir {
+    width: 130px;
+    height: 31px;
+    border: 2px solid #cecece;
+}
+
+.col_reason_texearea, .col_address_texearea {
+    width: 757px;
+    height: 121px;
+    border: 2px solid #cecece;
+    margin-top: 13px;
+    resize: none;
+}
+
+.col_address_texearea {
+    margin-bottom: 28px;
+}
+
+.col_reason_texearea {
+    margin-bottom: 25px;
+}
+
+.col_submit {
+    margin-top: 37px;
+    margin-bottom: 40px;
+    background-color: #126f9a;
+    color: white;
+    font-size: 21px;
+    font-weight: bold;
+    width: 757px;
+    height: 51px;
+    border: 2px solid #005f8f;
+}
+
+.col_register_right {
+    padding-top: 19px;
+    width: 358px;
+    float: right;
+    margin-right: 20px;
+    text-align: justify;
+    font-size: 18px;
+    line-height: 23px;
+}
+
+.col_button_register {
+    width: 80px;
+    margin-bottom: 54px;
+    height: 36px;
+    border: 2px solid #CECECE;
+    background-color: white;
+    color: #126f9a;
+    font-size: 20px;
+}
+
+.col_register_right_title {
+    margin-bottom: 14px;
+    font-size: 18px;
+    font-weight: normal;
+}
+
+.col_step, .col_help {
+    margin-bottom: 58px;
+}
+
+/*注册失败提示信息*/
+.status {
+    box-sizing: border-box;
+    margin: 0px 0px 20px;
+    border-bottom: 3px solid #E5E2C6;
+    padding: 20px;
+    background: #FFFCE3 none repeat scroll 0% 0%;
+    display:none;
+}
+
+.message-title {
+    font-size: 14px;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0px !important;
+    color: #707276;
+}
+
+.submission-error {
+    box-shadow: 0px -1px 2px 0px #F3D9DB inset;
+    border-bottom: 3px solid #A0050E;
+    background: #FBF2F3 none repeat scroll 0% 0%;
+}
+.is-shown{
+    display:block;
+}
+.is-focused{
+    color: #0078B0;
+}
+
+

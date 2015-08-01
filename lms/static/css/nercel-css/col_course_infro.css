@@ -1,0 +1,204 @@
+/*导航部分的样式*/
+img{
+	float: left;
+}
+.col_container{
+	height: 1360px;
+	background-color:#f4f4f4;
+}
+.col_content{
+	width:1242px;
+	height: 1330px;
+	padding-top: 26px;
+	margin:0 auto;
+}
+.col_content_top{
+	width:1242px;
+	height: 58px;
+	background-color: #626f7f;
+	color:#ffffff;
+	font-size: 20px;
+}
+.col_content_top ul li{
+	float: left;
+	height: 43px;
+	padding:15px 24px 0 26px;
+}
+.col_content_top ul li a{
+	color: #FFFFFF;
+}
+.col_content_xuanzhong{
+	background-color: #54606e;
+}
+.col_content_now{
+	color:#50a79d;
+}
+.col_content_top ul li span{
+	display: block;
+	line-height: 28px;
+	text-align: center;
+	float: left;
+	margin-left:12px;
+}
+.col_content_icon{
+	width:28px;
+	height: 28px;
+	float:left;
+}
+#col_courseinfor{
+	background:url("../images/course_infor2.png") no-repeat center;
+}
+#col_coursecontent{
+	background:url("../images/course_content1.png") no-repeat center;
+}
+#col_luntan{
+	background: url("../images/luntang.png") no-repeat center;
+}
+#col_wiki{
+	background:url("../images/wiki.png") no-repeat center;
+}
+#col_question{
+	background: url("../images/question.png") no-repeat center;
+}
+/*中间部分的样式*/
+.col_infro_mid{
+	margin-top:26px;
+	width:1242px;
+	height: 810px;
+}
+.col_infro_left{
+	width:914px;
+	height: 810px;
+	float: left;
+}
+.col_left_child1{
+	width:912px;
+	height:254px;
+	border:1px solid #dbdbdb;
+	background-color:#FFFFFF;
+}
+.col_infro_fengmian{
+	width:446px;
+	height: 254px;
+	float: left;
+}
+.col_infro_course{
+	width: 310px;
+	height: 220px;
+	padding:30px 0 0 26px;
+	float: left;
+}
+.col_infro_course>span{
+	font-size: 24px;
+	font-weight: 500;
+	display: block;
+	margin-bottom: 40px;
+}
+.col_infro_list li{
+	clear: both;
+	height: 12px;
+	line-height: 12px;
+	margin-top: 16px;
+}
+.col_details_title{
+	width:76px;
+	margin-left: 10px;
+}
+.col_infro_list p{
+	float: left;
+	font-size: 12px;
+	color: #848484;
+}
+.col_infro_teacher{
+	width: 80px;
+	height: 180px;
+	margin-top: 40px;
+	margin-right: 35px;
+	text-align: center;
+	float: left;
+}
+#teacher_img{
+	width: 74px;
+	height: 70px;
+	margin:0 auto;
+}
+.teacher_information>li{
+	font-size: 12px;
+	color: #2f2f2f;
+	margin-top: 5px;
+}
+h5{
+	margin:28px auto 22px;
+}
+
+.col_left_child2{
+	margin-top:24px;
+	width:912px;
+	height:528px;
+	border:1px solid #dbdbdb;
+	background-color:#FFFFFF;
+}
+.col_left_child2 ul li{
+	border-bottom: 1px dashed #d6d6d6;
+}
+.col_infor_li_first{
+	font-size:24px;
+	width:896px;
+	height: 54px;
+	color:#000000;
+	padding:30px 0 0 16px;
+	
+}
+.col_infor_li_mid{
+	height: 96px;
+	width: 892px;
+	padding:20px 0 0 20px;
+	font-size: 16px;
+	color:#5b5b5b;
+}
+.col_infor_li_mid span{
+	float: left;
+	display: block;
+	margin-left: 10px;
+	margin-top:-3px;
+}
+.col_infor_li_mid p{
+	margin-left: 20px;
+	line-height: 30px;
+}
+.col_infor_li_last{
+	height: 58px;
+	width: 888px;
+	padding:32px 0 0 24px;
+	font-size: 24px;
+	color: #7abdb6;
+	border:none;
+}
+/*右侧部分布局*/
+.col_infro_right{
+	height: 808px;
+	width:300px;
+	border:1px solid #dbdbdb;
+	margin-left: 24px;
+	float: left;
+	background-color: #FFFFFF;
+}
+.col_infro_right_head{
+	height: 42px;
+	width: 274px;
+	font-size: 20px;
+	color:#000000;
+	padding:26px 0 0 26px;
+	border:1px dashed #d6d6d6;
+}
+#col_infor_jiangyi{
+	width:276px;
+	height: 200px;
+	padding:14px 0 0 24px;
+	
+}
+#col_infor_jiangyi li{
+	margin-top:10px;
+	font-size: 16px;
+	color:#5b5b5b;
+}

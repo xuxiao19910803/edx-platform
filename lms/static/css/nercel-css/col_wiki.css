@@ -1,0 +1,141 @@
+/*维基页面中间内容部分*/
+#col_courseinfor{
+	background:url("../images/course_infor.png") no-repeat center;
+}
+#col_coursecontent{
+	background:url("../images/course_content1.png") no-repeat center;
+}
+#col_luntan{
+	background: url("../images/luntang.png") no-repeat center;
+}
+#col_wiki{
+	background:url("../images/wiki_now.png") no-repeat center;
+}
+#col_question{
+	background: url("../images/question.png") no-repeat center;
+}
+img{
+	float: left;
+}
+.col_wiki_container{
+	height: 778px;
+	padding-top:26px;
+	background-color:#f4f4f4;
+}
+
+.col_wiki_mid{
+	width:1242px;
+	height:526px;
+	padding-top:18px;
+	margin:0 auto;	
+}
+#col_weiji_left{
+	background-color:#FFFFFF;
+	width:918px;
+	height:504px;
+	border: 1px solid #e6e6e6;
+	padding:20px 0 0 42px;
+	margin-right: 20px;
+	float:left ;
+}
+.col_weiji_left_location{
+	margin-bottom: 40px;
+	color: #464646;
+	font-size: 20px;
+}
+.col_weiji_left_title{
+	margin-bottom: 54px;
+	font-size: 26px;
+	color:#000000;
+	margin-left: 12px;
+}
+.col_weiji_left_pos{
+	font-size: 16px;
+	margin-bottom: 20px;
+	color:#5b5b5b;
+	margin-left: 12px;
+}
+.col_weiji_left_nag{
+	font-size: 16px;
+	color:#5b5b5b;
+	margin-left: 12px;
+}
+.col_wiki_right{
+	width:260px;
+	height:524px;
+	float: right;
+	background-color:#FFFFFF;
+	border-top: 1px solid #e6e6e6;
+	border-bottom: 1px solid #e6e6e6;
+}
+.col_wiki_right_head{
+	width:196px;
+	height:59px;
+	padding:18px 0 0 64px;
+	border-bottom:1px dashed #626f7f;
+	
+}
+
+.col_wiki_right_head p{
+	font-size: 20px;
+	color: #626f7f;
+	float: left;
+	margin-left: 14px;
+}
+
+.col_wiki_right_mid{
+	width:260px;
+	height:204px;
+	border-bottom:1px dashed #626f7f;
+	padding-top:20px;
+}
+
+.col_wiki_right_li{
+	width:260px;
+	height:36px;
+	margin-top:10px;
+}
+.col_wiki_right_li img{
+	margin-left: 66px;
+}
+.col_wiki_right_li span{
+	display: block;
+	margin-left:32px;
+	font-size: 16px;
+	color: #89939f;
+	float: left;
+}
+
+.col_wiki_right_time{
+	width:234px;
+	height:92px;
+	padding:22px 0 0 26px;
+	border-bottom:1px dashed #626f7f;
+}
+
+.col_wiki_right_time span{
+	display:block;
+	font-size: 16px;
+	color: #cccccc;
+
+}
+.col_wiki_right_time p{
+	margin-left: 22px;
+	margin-top:12px;
+}
+
+.col_wiki_chakankaung{
+	width:204px;
+	height:94px;
+	padding:40px 0 0 56px;
+}
+.col_wiki_chakan{
+	width:174px;
+	height:36px;
+	background: #df8d34;
+	color: #FFFFFF;
+	font-size: 15px;
+	line-height:36px;
+	text-align: center;
+	
+}

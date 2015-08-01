@@ -1,0 +1,251 @@
+.fr{
+	float: right;
+}
+.fl{
+	float: left;
+}
+.clear{
+	clear: both;
+}
+
+/*中间图片布局*/
+.col_mid{
+	width: 100%;
+	background-color:#89b6b3;
+}
+.col_mid img{
+	width:100%;
+    display: block;
+	margin:0 auto;
+}
+/*登录框*/
+.theme-popover-mask{
+	z-index:5;
+	position:absolute;
+	left:0;
+	top:0;
+	width:100%;
+	height:100%;
+	background:#000;
+	opacity: 0.5;
+	filter:alpha(opacity=50);
+	display:none;}
+.loginbox_bg{
+	z-index:5;
+	position:absolute;
+	left:0;
+	top:0;
+	width:100%;
+	height:100%;
+	display:none;
+}
+.col_loginbox{
+	z-index: 9;	
+	width: 732px;
+	height: 404px;
+	background-color: #FFFFFF;
+    margin: 208px auto 0;
+
+}
+.col_login_mainbody{
+	width: 503px;
+	height: 404px;
+	border-right:1px solid #a0a0a0 ;
+	float: left;
+}
+.col_login_head{
+	width: 503px;
+	height: 102px;
+	border-bottom: 1px solid #a0a0a0 ;
+	background: url("../../images/nercel-images/login_background.png") no-repeat center;
+}
+.col_login_mainbody input[type="email"],
+.col_login_mainbody input[type="password"]{
+	width: 302px;
+	height: 28px;
+	border: 1px solid #aacac8;
+    outline: none;
+	text-align: center;
+	line-height: 28px;
+	color: #707276;
+	font-size: 14px;
+	margin-top: 42px;
+	margin-left: 95px;
+}
+.others{
+	width: 302px;
+	height: 22px;
+	line-height: 22px;
+	font-size: 14px;
+	margin:40px auto 0;
+}
+.others a{
+	margin-left: 23px;
+	color: #398b7f;
+}
+.button{
+	outline: none;
+	border: none;
+	width: 305px;
+	height: 46px;
+	font-size: 20px;
+	font-weight: bold;
+	color: #ffffff;
+	background: url("../../images/nercel-images/login_btn.png") no-repeat center;
+	margin-top: 38px;
+	margin-left: 95px;
+}
+.col_login_otherways{
+	width: 226px;
+	height: 404px;
+	float: right;
+	text-align: center;
+}
+.close_btn{
+	width: 16px;
+	height: 16px;
+	background: url("../../images/nercel-images/login_close.png") no-repeat center;
+	position: relative;
+	top: 7px;
+    left: 200px;
+    cursor: pointer;
+}
+.col_login_otherways span{
+	color:#707276 ;
+	font-size: 16px;
+	display: block;
+	margin-top: 46px;
+	margin-bottom: 7px;
+}
+.col_login_otherways li{
+	width: 59px;
+	height: 59px;
+	margin: 26px auto 0;
+}
+/*中间课程部分样式*/
+.col_container{
+	background-color: #f4f4f4;
+}
+.col_content{
+	width:1342px;
+	margin:0 auto;
+	padding-bottom: 154px;
+}
+.col_content_child{
+	width:1342px;
+	margin:0 auto;
+	padding-top: 24px;
+	padding-bottom: 40px;
+}
+/*对中间课程部分的表头部分的样式*/
+.col_content_child_head{
+	height:62px;
+}
+
+.col_content_child_head img{
+	float:left;
+	padding-left: 4px;
+}
+.col_span_text{
+	margin-left:18px;
+	font-size:30px;
+	line-height: 62px;
+	text-align: center;
+	letter-spacing: 6px;
+}
+.col_more a{
+	display:block;
+	margin-top: 40px;
+	float: right;
+	font-size:14px;
+	color:#7f8082;
+	
+}
+.col_primary_text{
+	color:#12912b;
+}
+.col_junior_text{
+	color: #0e95e2;
+}
+.col_senior_text{
+	color:#f28215;
+}
+.col_morecourse_text{
+	color:#7f0508;
+}
+/*对中间课程部分的课程信息的样式*/
+.col_content_child_body{
+	width:1342px;
+	overflow: hidden;	
+}
+.col_content_msg{
+	width:308px;
+	height: 350px;
+	margin-right:25px;
+	margin-top: 24px;
+	float: left;
+	background-color:#ffffff;
+	border:1px solid #d5d5d7;
+	position: relative;
+}
+.clear_right{
+	margin-right:0;
+}
+/*课程图片的样式*/
+.col_content_courseinfor{
+	width:308px;
+	height:196px;
+	overflow: hidden;
+}
+.course-href{}
+.course-href:hover{
+	color: #000000;
+}
+.course-href:active{
+	outline: none;
+}
+/*代课教师的样式*/
+.col_content_teacherinfor{
+	width:302px;
+	height:78px;
+	padding-top:18px ;
+	color:#535252;
+}
+.col_content_teachername{
+	margin-left:10px;
+}
+.col_content_zhicheng{
+	margin-left: 10px;
+	margin-top: 2px;
+    letter-spacing: 1px;
+}
+
+.col_content_msg_footer{
+	width:300px;
+	height:74px;
+	position: absolute;
+	left:10px;
+	top:280px;
+	z-index: 3;
+}
+.col_content_msg_footer img{
+	float:left;
+	margin-top:14px;
+}
+.col_content_msg_footer h3{
+	color:#353535 ;
+}
+.col_content_msg_footer p{
+	float: left;
+	color:#535252;
+	font-size: 12px;
+	text-align:center;
+	line-height: 18px;
+	margin-top: 14px;
+	margin-right:20px;
+}
+.col_content_msg_footer p a{
+	
+	color:#535252;
+	
+}

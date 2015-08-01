@@ -1,0 +1,88 @@
+* {
+	margin: 0;
+	padding: 0;
+	font-family: "微软雅黑";
+}
+a {
+	text-decoration: none;
+}
+li {
+	list-style: none;
+}
+img {
+	border: none;
+}
+.clear {
+	clear: both;
+}
+.max-width {
+	width: 100%;
+	}
+.col_bottom_bg{
+	height: 654px;
+	background-color: #89b6b3;
+}
+.col_bottom{
+	width: 1335px;
+	height: 616px;
+	margin: 0 auto;
+}
+.col_slogan{
+	width: 596px;
+	height:50px;
+	display: block;
+    position: relative;
+    top: 26px;
+    left:361px;
+}
+.col_information{
+	width: 1335px;
+	height: 341px;
+	margin:195px auto 0;
+}
+.big_li{
+	width: 200px;
+	height: 341px;
+	float: left;
+	margin-left:174px;
+}
+.clean_left{
+	margin-left: 0;
+}
+.col_yuan{
+	width: 200px;
+	height: 200px;
+	border-radius:100px ;
+	background-color: #ffffff;
+	margin-bottom: 26px;
+}
+.col_span_1{
+	display: block;
+	color: #89b6b3;
+	font-size: 26px;
+	font-weight: bold;
+	text-align: center;
+	position: relative;
+	top:70px;
+}
+.col_span_2{
+	display: block;
+	color: #89b6b3;
+	font-size: 15px;
+	font-weight: bold;
+	text-align: center;
+	margin-top:75px;
+}
+.small_ul li{
+	    text-align: center;
+}
+.small_ul li a{
+	font-size: 16px;
+	color:#ffffff;
+}
+.guanzhu{
+	margin-top: 41px;
+}
+.guanzhu a{
+	margin-left:10px ;
+}
