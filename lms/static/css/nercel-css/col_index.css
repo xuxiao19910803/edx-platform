@@ -249,3 +249,65 @@
 	color:#535252;
 	
 }
+/**/
+.col_mycourse_user {
+    position: relative;
+    float: left;
+    margin-left: 34px;
+}
+
+.col_mycourse_user img {
+    float: left;
+}
+
+.col_mycourse_user .showName {
+    display: block;
+    float: left;
+    margin-left: 10px;
+    color: #398b7f;
+    font-size: 16px;
+    line-height: 64px;
+    text-align: center;
+}
+
+#col_mycourse_sanjiao {
+    width: 12px;
+    height: 8px;
+    float: left;
+    margin-top: 28px;
+    margin-left: 8px;
+    background: url("../../images/nercel-images/mycourse_sanjiao.png") no-repeat center;
+    cursor: pointer;
+}
+
+#col_drop_down {
+    width: 150px;
+    height: 128px;
+    background: url("../../images/nercel-images/mycourse_dropdown.png") no-repeat center;
+    position: absolute;
+    top: 58px;
+    left: 2px;
+    display: none;
+}
+
+#col_drop_down ul {
+    width: 150px;
+    height: 120px;
+    padding: 8px 0 0 0;
+}
+
+#col_drop_down li {
+    width: 150px;
+    height: 40px;
+    line-height: 40px;
+    text-align: center;
+}
+
+#col_drop_down li a {
+    font-size: 18px;
+    color: #FFFFFF;
+}
+
+.col_top_shadow {
+    background-color: #4faba0;
+}

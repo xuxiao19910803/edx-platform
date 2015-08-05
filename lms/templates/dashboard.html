@@ -69,7 +69,7 @@ from django.core.urlresolvers import reverse
         <%doc>显示提示信息，当前选修的所有课程</%doc>
       <h2 class="header-courses">${_("Current Courses")}</h2>
     </header>
-    取得选修课程的情况。
+    <%doc>取得选修课程的情况。</%doc>
     % if len(course_enrollment_pairs) > 0:
       <ul class="listing-courses">
       <% share_settings = settings.FEATURES.get('SOCIAL_SHARING_SETTINGS', {}) %>

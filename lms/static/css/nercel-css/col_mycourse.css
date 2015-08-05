@@ -1,430 +1,494 @@
-a{
-	cursor: pointer;
+a {
+    cursor: pointer;
 }
+
 /*我的课程页面的最上面部分*/
-.col_search_course{
-	width: 197px;
-	height: 26px;
-	border: 1px solid #cccccc;
-	float:left;
-	margin:25px 0 25px 20px;
-	position: relative;
+.col_search_course {
+    width: 197px;
+    height: 26px;
+    border: 1px solid #cccccc;
+    float: left;
+    margin: 25px 0 25px 20px;
+    position: relative;
 }
-#col_mycourse_search{
-	border:none;
-	width: 170px;
-	height: 26px;
-	border-right:1px solid #CCCCCC;
-	position: absolute;
-	outline: none;
+
+#col_mycourse_search {
+    border: none;
+    width: 170px;
+    height: 26px;
+    border-right: 1px solid #CCCCCC;
+    position: absolute;
+    outline: none;
 }
-.col_search_course img{
-	float:right;
+
+.col_search_course img {
+    float: right;
 }
-.col_mycourse_login{
-	width:216px;
-	height: 64px;
-	padding: 14px 0 0 64px;
-	float: left;
+
+.col_mycourse_login {
+    width: 216px;
+    height: 64px;
+    padding: 14px 0 0 64px;
+    float: left;
 }
-.col_mycourse_msg{
-	position: relative;
-	float: left;
+
+.col_mycourse_msg {
+    position: relative;
+    float: left;
 }
-.col_mycourse_msg img{
-	 width:26px;
-	 height: 22px;
-	 margin-top:18px;
+
+.col_mycourse_msg img {
+    width: 26px;
+    height: 22px;
+    margin-top: 18px;
 }
-#col_mycourse_msg_num{
-	width:22px;
-	height: 22px;
-	background-color: #c9394a;
-	color: #FFFFFF;
-	font-size:14px;
-	line-height: 22px;
-	text-align: center;
-	position: absolute;
-	top:0px;
-	left: 14px;
+
+#col_mycourse_msg_num {
+    width: 22px;
+    height: 22px;
+    background-color: #c9394a;
+    color: #FFFFFF;
+    font-size: 14px;
+    line-height: 22px;
+    text-align: center;
+    position: absolute;
+    top: 0px;
+    left: 14px;
 }
-.col_mycourse_user{
-	position: relative;
-	float: left;
-	margin-left: 34px;
+
+.col_mycourse_user {
+    position: relative;
+    float: left;
+    margin-left: 34px;
 }
-.col_mycourse_user img{
-	float: left;
+
+.col_mycourse_user img {
+    float: left;
 }
-.col_mycourse_user span{
-	display: block;
-	float: left;
-	margin-left: 10px;
-	color: #398b7f;
-	font-size: 16px;
-	line-height: 64px;
-	text-align: center;
+
+.col_mycourse_user .showName {
+    display: block;
+    float: left;
+    margin-left: 10px;
+    color: #398b7f;
+    font-size: 16px;
+    line-height: 64px;
+    text-align: center;
 }
-#col_mycourse_sanjiao{
-	width:12px;
-	height: 8px;
-	float: left;
-	margin-top:28px;
-	margin-left: 8px;
-	background:url("../images/mycourse_sanjiao.png") no-repeat center;
-	cursor: pointer;
+
+#col_mycourse_sanjiao {
+    width: 12px;
+    height: 8px;
+    float: left;
+    margin-top: 28px;
+    margin-left: 8px;
+    background: url("../../images/nercel-images/mycourse_sanjiao.png") no-repeat center;
+    cursor: pointer;
 }
-#col_drop_down{
-	width:150px;
-	height: 128px;
-	background: url("../images/mycourse_dropdown.png") no-repeat center;
-	position: absolute;
-	top:58px;
-	left: 2px;
-	display:none;
+
+#col_drop_down {
+    width: 150px;
+    height: 128px;
+    background: url("../../images/nercel-images/mycourse_dropdown.png") no-repeat center;
+    position: absolute;
+    top: 58px;
+    left: 2px;
+    display: none;
 }
-#col_drop_down ul{
-	width:150px;
-	height: 120px;
-	padding:8px 0 0 0;
+
+#col_drop_down ul {
+    width: 150px;
+    height: 120px;
+    padding: 8px 0 0 0;
 }
-#col_drop_down li{
-	width:150px;
-	height: 40px;
-	line-height: 40px;
-	text-align: center;
+
+#col_drop_down li {
+    width: 150px;
+    height: 40px;
+    line-height: 40px;
+    text-align: center;
 }
-#col_drop_down li a{
-	font-size: 18px;
-	color: #FFFFFF;
+
+#col_drop_down li a {
+    font-size: 18px;
+    color: #FFFFFF;
 }
-.col_top_shadow{
-	background-color: #4faba0;
+
+.col_top_shadow {
+    background-color: #4faba0;
 }
+
 /*我的课程页面的中间图片部分*/
-.col_mycourse_mid{
-	height:258px;
-	background-color: #4ac7c1;
+.col_mycourse_mid {
+    height: 258px;
+    background-color: #4ac7c1;
 }
-.col_mycourse_midpic{
-	height:258px;
-	width:1170px;
-	background: url("../images/mycourse_midpic.png") no-repeat center;
-	margin:0 auto;	
+
+.col_mycourse_midpic {
+    height: 258px;
+    width: 1170px;
+    background: url("../../images/nercel-images/mycourse_midpic.png") no-repeat center;
+    margin: 0 auto;
 }
 
 /*中间内容部分的样式*/
-.col_mycourse_container{
-	height: 1106px;
-	background-color:#f4f4f4;
+.col_mycourse_container {
+    height: 1106px;
+    background-color: #f4f4f4;
 }
-.col_mycourse_container img{
-	float: left;
+
+.col_mycourse_container img {
+    float: left;
 }
-.col_mycourse_content{
-	width:1242px;
-	height:1064px;
-	padding-top: 40px;
-	margin:0 auto;
-	
+
+.col_mycourse_content {
+    width: 1242px;
+    height: 1064px;
+    padding-top: 40px;
+    margin: 0 auto;
+
 }
+
 /*左侧个人导航部分的样式*/
-#col_mycourse_content_left{
-	width:174px;
-	height: 370px;
-	padding-top:34px;
-	margin-right:60px;
-	background-color: #626f7f;
-	float:left;
-	color: #FFFFFF;
-	text-align: center;
-	font-size: 16px;
+#col_mycourse_content_left {
+    width: 174px;
+    height: 370px;
+    padding-top: 34px;
+    margin-right: 60px;
+    background-color: #626f7f;
+    float: left;
+    color: #FFFFFF;
+    text-align: center;
+    font-size: 16px;
 }
-#col_studenticon{
-	width:131px;
-	height:88px;
-	padding-left:43px;
+
+#col_studenticon {
+    width: 131px;
+    height: 88px;
+    padding-left: 43px;
 }
-#col_studentname{
-	font-size: 18px;
-	font-weight: bold;
-	margin-bottom: 5px;
-	margin-top:10px;
-	
+
+#col_studentname {
+    font-size: 18px;
+    font-weight: bold;
+    margin-bottom: 5px;
+    margin-top: 10px;
+
 }
-#col_mycourse_content_left ul{
-	width:174px;
-	height: 208px;
-	margin-top: 14px;
+
+#col_mycourse_content_left ul {
+    width: 174px;
+    height: 208px;
+    margin-top: 14px;
 }
-#col_mycourse_content_left ul li{
-	width:162px;
-	height: 52px;
-	text-align: center;
-	cursor: pointer;
-	float:right;
+
+#col_mycourse_content_left ul li {
+    width: 162px;
+    height: 52px;
+    text-align: center;
+    cursor: pointer;
+    float: right;
 }
-.col_mycourse_shadow{
-	border-left: 12px solid #4faba0;
-	background-color: #54606e;
-	color:#4faba0;
+
+.col_mycourse_shadow {
+    border-left: 12px solid #4faba0;
+    background-color: #54606e;
+    color: #4faba0;
 }
+
 /*左侧导航的当前页面的选中状态*/
-.col_student_text_now{
-	color: #4faba0;
-	font-size:14px;
-	text-align: center;
-	line-height: 52px;
-	float: left;
+.col_student_text_now {
+    color: #4faba0;
+    font-size: 14px;
+    text-align: center;
+    line-height: 52px;
+    float: left;
 }
-.col_student_num_now{
-	color: #4faba0;
-	width: 18px;
-  	height: 18px;
-  	font-size: 13px;
-  	float: left;
-  	margin-top: 17px;
-  	margin-left: 10px;
+
+.col_student_num_now {
+    color: #4faba0;
+    width: 18px;
+    height: 18px;
+    font-size: 13px;
+    float: left;
+    margin-top: 17px;
+    margin-left: 10px;
 }
+
 /*左侧导航的链接到其他页面的标签样式*/
-.col_student_text{
-	font-size:14px;
-	color:#ffffff;
-	text-align: center;
-	line-height: 52px;
-	float: left;
+.col_student_text {
+    font-size: 14px;
+    color: #ffffff;
+    text-align: center;
+    line-height: 52px;
+    float: left;
 }
-.col_student_num{
-	  width: 18px;
-  	height: 18px;
-  	font-size: 13px;
-  	float: left;
-  	margin-top: 17px;
-  	margin-left: 10px;
-  	color: #FFFFFF;
+
+.col_student_num {
+    width: 18px;
+    height: 18px;
+    font-size: 13px;
+    float: left;
+    margin-top: 17px;
+    margin-left: 10px;
+    color: #FFFFFF;
 }
-.col_student_icon{
-	width:20px;
-	height: 20px;
-	float:left;
-	margin:16px 12px 0 22px;
-	
+
+.col_student_icon {
+    width: 20px;
+    height: 20px;
+    float: left;
+    margin: 16px 12px 0 22px;
+
 }
+
 /*右侧课程部分的样式*/
-.col_right_shadow{
-	background-color: #54606e;
-	color:#4faba0;
+.col_right_shadow {
+    background-color: #54606e;
+    color: #4faba0;
 }
-#col_mycourse_content_right{
-	width: 1008px;
-	height:934px;
-	float:left;	
+
+#col_mycourse_content_right {
+    width: 1008px;
+    height: 934px;
+    float: left;
 }
-#col_mycourse_right_top{
-	width: 1008px;
-	height: 57px;
-	background-color:#626f7f;
-	color:#ffffff;
-	font-size: 15px;
+
+#col_mycourse_right_top {
+    width: 1008px;
+    height: 57px;
+    background-color: #626f7f;
+    color: #ffffff;
+    font-size: 15px;
 }
-.col_mycourse_right_ul li{
-	width:140px;
-	float: left;
-	height: 43px;
-	padding:14px 0 0 24px;
+
+.col_mycourse_right_ul li {
+    width: 140px;
+    float: left;
+    height: 43px;
+    padding: 14px 0 0 24px;
 }
-.col_mycourse_right_ul li span{
-	display: block;
-	line-height: 28px;
-	text-align: center;
-	float: left;
-	margin-left:12px;
+
+.col_mycourse_right_ul li span {
+    display: block;
+    line-height: 28px;
+    text-align: center;
+    float: left;
+    margin-left: 12px;
 }
-.col_mycourse_select{
-	width:194px;
-	height: 33px;
-	padding-top:22px;
-	float: right;
+
+.col_mycourse_select {
+    width: 194px;
+    height: 33px;
+    padding-top: 22px;
+    float: right;
 }
-.col_checkbox{
-	width:16px;
-	height: 16px;
-	float: left;
-	margin-left: 28px;
+
+.col_checkbox {
+    width: 16px;
+    height: 16px;
+    float: left;
+    margin-left: 28px;
 }
-.col_mycourse_select span{
-	  margin-top: -3px;
-  	  display: block;
-  	  float: left;
- 	  margin-left: 6px;
+
+.col_mycourse_select span {
+    margin-top: -3px;
+    display: block;
+    float: left;
+    margin-left: 6px;
 }
+
 /*课程详细信息的样式*/
-.col_mycourse_right_child{
-	position: relative;
-	width:1006px;
-	height: 170px;
-	margin-top:24px;
-	background-color: #FFFFFF;
-	border:1px solid #d7d7d7;
-}
-.col_mycourse_courseinfro{
-	height: 154px;
-	width: 200px;
-	padding: 16px 300px 0 40px;
-	float: left;
-}
-.col_mycourse_courseicon{
-	width:270px;
-	height:170px;
-	float: left;
+.col_mycourse_right_child {
+    position: relative;
+    width: 1006px;
+    height: 170px;
+    margin-top: 24px;
+    background-color: #FFFFFF;
+    border: 1px solid #d7d7d7;
 }
 
-.col_mycourse_courseinfro p,.col_mycourse_courseinfro span{
-	font-size: 10px;
-	color: #80807d;
-}
-.col_mycourse_courseinfro h3{
-	padding:25px 0 28px;
-	font-weight: bold;
-	color: #333333;
-}
-.col_mycourse_right_close{
-	width:20px;
-	height:20px;
-	position: absolute;
-	left:978px;
-	top:6px;
-	background:url("../images/mycourse_close.png") no-repeat center;
-	display:none;
-}
-.col_mycourse_courseprocess{
-	width:150px;
-	height: 150px;
-	float:right;
-	padding-top:20px;
-	position:relative;
-	padding-left:40px;
+.col_mycourse_courseinfro {
+    height: 154px;
+    width: 500px;
+    padding: 10px 20px;
+    float: left;
 }
 
-.col_mycourse_right_btn{
-	width:110px;
-	height: 28px;
-	margin-top:24px;
-	line-height: 28px;
-	text-align: center;
-	font-size: 15px;
-	background-color: #4faba0;
+.col_mycourse_courseicon {
+    width: 270px;
+    height: 170px;
+    float: left;
+    overflow: hidden;
+}
+
+.col_mycourse_courseinfro p, .col_mycourse_courseinfro span {
+    font-size: 10px;
+    color: #80807d;
+}
+
+.col_mycourse_courseinfro h3 {
+    padding: 25px 0 28px;
+    font-weight: bold;
+    color: #333333;
+}
+
+.col_mycourse_right_close {
+    width: 20px;
+    height: 20px;
+    position: absolute;
+    left: 978px;
+    top: 6px;
+    background: url("../../images/nercel-images/mycourse_close.png") no-repeat center;
+    display: none;
+}
+
+.col_mycourse_courseprocess {
+    width: 150px;
+    height: 150px;
+    float: right;
+    padding-top: 20px;
+    position: relative;
+    padding-left: 40px;
+}
+
+.col_mycourse_right_btn {
+    width: 110px;
+    height: 28px;
+    margin-top: 24px;
+    line-height: 28px;
+    text-align: center;
+    font-size: 15px;
+    background-color: #4faba0;
 
 }
-.col_mycourse_right_btn a{
-	color:#ffffff;
+
+.col_mycourse_right_btn a {
+    color: #ffffff;
 }
+
 /*进度条*/
 .col_mycourse_circle {
     width: 19px;
-    height: 76px;  
+    height: 76px;
     position: relative;
     border-radius: 50%;
     background: #4faba0;
     color: #ffffff;
-    padding-left:57px;
-    margin-left:10px;
+    padding-left: 57px;
+    margin-left: 10px;
 }
+
 .col_mycourse_pie_left, .col_mycourse_pie_right {
-    width: 76px; 
+    width: 76px;
     height: 76px;
     position: absolute;
-    top: 0;left: 0;
+    top: 0;
+    left: 0;
 }
+
 .col_mycourse_left, .col_mycourse_right {
     display: block;
-    width:76px; 
-    height:76px;
-    background:#ffffff;
+    width: 76px;
+    height: 76px;
+    background: #ffffff;
     border-radius: 50%;
     position: absolute;
     top: 0px;
-    left:0px;
+    left: 0px;
     transform: rotate(0deg);
 }
+
 .col_mycourse_pie_right, .col_mycourse_right {
-    clip:rect(0,auto,auto,38px);
+    clip: rect(0, auto, auto, 38px);
 }
+
 .col_mycourse_pie_left, .col_mycourse_left {
-    clip:rect(0,38px,auto,0);
+    clip: rect(0, 38px, auto, 0);
 }
+
 .col_mycourse_mask {
     width: 60px;
     height: 60px;
     border-radius: 50%;
     left: 8px;
     top: 8px;
-    background:#54606e;
+    background: #54606e;
     position: absolute;
     text-align: center;
     line-height: 60px;
     font-size: 18px;
 }
-#col_addcourse{
-	background-color: #d6d6d6;
-}
-.col_addcourse_child{
-	height: 34px;
-	width:190px;
-	margin:68px auto 0;
-}
-.col_addcourse_child_1{
-	width:34px;
-	height: 34px;
-	float: left;
-	margin-right: 20px;
-	background:url("../images/mycourse_add.png") no-repeat center;
-}
-.col_addcourse_txt{
-	font-size: 32px;
-	color: #4faba0;
-	line-height: 34px;
-	text-align: center;
-}
-#col_page{
-	width:656px;
-	height: 36px;
-	margin:62px auto 0;
-}
-.col_page_btn{
-	font-size:16px;
-	color:#ffffff;
-	line-height: 36px;
-	text-align: center;
-	background-color: #89b6b3;
-	padding-left:14px;
-	padding-right: 14px;
-	margin-left:34px;
-	float: left;
-}
-.col_page_btn a{
-	color: #FFFFFF;
-}
-#col_page ul{
-	width:288px;
-	height: 36px;
-	margin-left: 32px;
-	float: left;
+
+#col_addcourse {
+    background-color: #d6d6d6;
 }
 
-.col_page_li{
-	width:34px;
-	height:36px;
-	line-height: 36px;
-	text-align: center;
-	margin-left: 2px;
-	float: left;
-	background-color: #e6e6e6;
+.col_addcourse_child {
+    height: 34px;
+    width: 190px;
+    margin: 68px auto 0;
 }
-.col_page_li a{
-	color: #3a3a3a;
+
+.col_addcourse_child_1 {
+    width: 34px;
+    height: 34px;
+    float: left;
+    margin-right: 20px;
+    background: url("../../images/nercel-images/mycourse_add.png") no-repeat center;
 }
-.col_page_shadow{
-	background-color: #626f7f;
-	color:#ffffff;
+
+.col_addcourse_txt {
+    font-size: 32px;
+    color: #4faba0;
+    line-height: 34px;
+    text-align: center;
+}
+
+#col_page {
+    width: 756px;
+    height: 36px;
+    margin: 62px auto 0;
+}
+
+.col_page_btn {
+    font-size: 16px;
+    color: #ffffff;
+    line-height: 36px;
+    text-align: center;
+    background-color: #89b6b3;
+    padding-left: 14px;
+    padding-right: 14px;
+    margin-left: 34px;
+    float: left;
+}
+
+.col_page_btn a {
+    color: #FFFFFF;
+}
+
+#col_page ul {
+    width: 288px;
+    height: 36px;
+    margin-left: 32px;
+    float: left;
+}
+
+.col_page_li {
+    width: 34px;
+    height: 36px;
+    line-height: 36px;
+    text-align: center;
+    margin-left: 2px;
+    float: left;
+    background-color: #e6e6e6;
+}
+
+.col_page_li a {
+    color: #3a3a3a;
+}
+
+.col_page_shadow {
+    background-color: #626f7f;
+    color: #ffffff;
 }

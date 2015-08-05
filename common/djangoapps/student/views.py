@@ -494,7 +494,7 @@ def is_course_blocked(request, redeemed_registration_codes, course_key):
 
     return blocked
 
-
+#my course界面信息
 @login_required
 @ensure_csrf_cookie
 def dashboard(request):
@@ -545,7 +545,7 @@ def dashboard(request):
     enrolled_courses_dict = {}
     for course, __ in course_enrollment_pairs:
         enrolled_courses_dict[unicode(course.id)] = course
-
+    #该生
     course_optouts = Optout.objects.filter(user=user).values_list('course_id', flat=True)
 
     message = ""
@@ -585,10 +585,13 @@ def dashboard(request):
     # and the values are one of:
     #
     # VERIFY_STATUS_NEED_TO_VERIFY
+    # 需要再次认证
     # VERIFY_STATUS_SUBMITTED
+    # 提交
     # VERIFY_STATUS_APPROVED
+    # 批准
     # VERIFY_STATUS_MISSED_DEADLINE
-    #
+    # 错过最后时间
     # Each of which correspond to a particular message to display
     # next to the course on the dashboard.
     #
@@ -605,6 +608,7 @@ def dashboard(request):
     }
 
     # only show email settings for Mongo course and when bulk email is turned on
+    #bulk email邮箱功能打开时候展示一些邮箱的设置。
     show_email_settings_for = frozenset(
         course.id for course, _enrollment in course_enrollment_pairs if (
             settings.FEATURES['ENABLE_INSTRUCTOR_EMAIL'] and
@@ -612,12 +616,13 @@ def dashboard(request):
             CourseAuthorization.instructor_email_enabled(course.id)
         )
     )
-
+    #再验证产生一些验证信息。
     # Verification Attempts
     # Used to generate the "you must reverify for course x" banner
     verification_status, verification_msg = SoftwareSecurePhotoVerification.user_status(user)
-
+    #中中程再次核实
     # Gets data for midcourse reverifications, if any are necessary or have failed
+
     statuses = ["approved", "denied", "pending", "must_reverify"]
     reverifications = reverification_info(course_enrollment_pairs, user, statuses)
 
@@ -654,29 +659,48 @@ def dashboard(request):
     #
     context = {
         'enrollment_message': enrollment_message,
+        #None
         'course_enrollment_pairs': course_enrollment_pairs,
         'course_optouts': course_optouts,
+        #[]
         'message': message,
+        #""
         'staff_access': staff_access,
+        #False
         'errored_courses': errored_courses,
+        #{}
+        #frozenset([CourseLocator(u'edX', u'DemoX', u'Demo_Course', None, None)])
         'show_courseware_links_for': show_courseware_links_for,
         #{CourseLocator(u'CCNU', u'computer', u'2015_T1', None, None): {'show_upsell': False, 'days_for_upsell': None}}
         'all_course_modes': course_mode_info,
+        #defaultdict(<type 'list'>, {CourseLocator(u'edX', u'DemoX', u'Demo_Course', None, None): [Mode(slug='honor', name=<django.utils.functional.__proxy__ object at 0x666bed0>, min_price=0, suggested_prices='', currency='usd', expiration_datetime=None, description=None, sku=None)]})
         'cert_statuses': cert_statuses,
+        #{}
         'credit_statuses': _credit_statuses(user, course_enrollment_pairs),
+        #
         'show_email_settings_for': show_email_settings_for,
+        #frozenset([CourseLocator(u'edX', u'DemoX', u'Demo_Course', None, None)])
         'reverifications': reverifications,
+        #[]
         'verification_status': verification_status,
+        #{}
         'verification_status_by_course': verify_status_by_course,
+        #{}
         'verification_msg': verification_msg,
+        #{}
         'show_refund_option_for': show_refund_option_for,
+        #{}
         'block_courses': block_courses,
+        #[]
         'denied_banner': denied_banner,
+        #False
         'billing_email': settings.PAYMENT_SUPPORT_EMAIL,
         'user': user,
         #'/logout'
         'logout_url': reverse(logout_user),
+        #"/logout"
         'platform_name': platform_name,
+        #u'Your Platform Name Here'
         #[]
         'enrolled_courses_either_paid': enrolled_courses_either_paid,
         'provider_states': [],
@@ -688,7 +712,7 @@ def dashboard(request):
         'ccx_membership_triplets': ccx_membership_triplets,
     }
 
-    return render_to_response('dashboard.html', context)
+    return render_to_response('nercel-templates/col-mycourse.html', context)
 
 
 def _create_recent_enrollment_message(course_enrollment_pairs, course_modes):
@@ -898,6 +922,7 @@ def _credit_statuses(user, course_enrollment_pairs):
 
 @require_POST
 @commit_on_success_with_read_committed
+    #放弃选修,或者选修
 def change_enrollment(request, check_access=True):
     """
     Modify the enrollment status for the logged-in user.
@@ -1003,7 +1028,7 @@ def change_enrollment(request, check_access=True):
             )
 
         # Otherwise, there is only one mode available (the default)
-        return HttpResponse()
+        return HttpResponse(status=200)
     elif action == "unenroll":
         if not CourseEnrollment.is_enrolled(user, course_id):
             return HttpResponseBadRequest(_("You are not enrolled in this course"))
@@ -2265,3 +2290,11 @@ def get_login_redirect_url(request):
         "success": True,
         "login_redirect_url": redirect_to,
     })
+#跳转到学校静态页面。
+@ensure_csrf_cookie
+def go_to_school(request):
+    user = request.user
+    context={
+        'user': user,
+    }
+    return render_to_response('nercel-templates/col-school.html',context)

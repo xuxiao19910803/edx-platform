@@ -120,13 +120,17 @@ def user_groups(user):
 
 @ensure_csrf_cookie
 @cache_if_anonymous()
+#呈现所需要添加课程
 def courses(request):
     """
     Render "find courses" page.  The course selection work is done in courseware.courses.
     """
     courses_list = []
     course_discovery_meanings = getattr(settings, 'COURSE_DISCOVERY_MEANINGS', {})
-    if not settings.FEATURES.get('ENABLE_COURSE_DISCOVERY'):
+    Ething=settings.FEATURES.get('ENABLE_COURSE_DISCOVERY')
+    #if not settings.FEATURES.get('ENABLE_COURSE_DISCOVERY'):
+    if True:
+        http_host=request.META.get('HTTP_HOST')
         courses_list = get_courses(request.user, request.META.get('HTTP_HOST'))
 
         if microsite.get_value("ENABLE_COURSE_SORTING_BY_START_DATE",
@@ -136,7 +140,7 @@ def courses(request):
             courses_list = sort_by_announcement(courses_list)
 
     return render_to_response(
-        "courseware/courses.html",
+        "nercel-templates/col-course-list.html",
         {'courses': courses_list, 'course_discovery_meanings': course_discovery_meanings}
     )
 
@@ -670,7 +674,7 @@ def jump_to(_request, course_id, location):
 
     return redirect(redirect_url)
 
-
+#处理课程信息界面的请求
 @ensure_csrf_cookie
 @ensure_valid_course_key
 def course_info(request, course_id):
@@ -816,7 +820,7 @@ def get_cosmetic_display_price(course, registration_price):
         # Translators: This refers to the cost of the course. In this case, the course costs nothing so it is free.
         return _('Free')
 
-
+#课程大纲的信息。
 @ensure_csrf_cookie
 @cache_if_anonymous()
 def course_about(request, course_id):
@@ -893,38 +897,15 @@ def course_about(request, course_id):
         # - Student is already registered for course
         # - Course is already full
         # - Student cannot enroll in course
-	#注册按钮是否激活
+	    #注册按钮是否激活
         active_reg_button = not(registered or is_course_full or not can_enroll)
         #是否是shib_course课程
         is_shib_course = uses_shib(course)
 
         # get prerequisite courses display names
-	#取得先决课程的名称；
+	    #取得先决课程的名称；
         pre_requisite_courses = get_prerequisite_courses_display(course)
-        context={
-            'course': course,
-            'staff_access': staff_access,
-            'studio_url': studio_url,
-            'registered': registered,
-            'course_target': course_target,
-            'is_cosmetic_price_enabled': settings.FEATURES.get('ENABLE_COSMETIC_DISPLAY_PRICE'),
-            'course_price': course_price,
-            'in_cart': in_cart,
-            'reg_then_add_to_cart_link': reg_then_add_to_cart_link,
-            'show_courseware_link': show_courseware_link,
-            'is_course_full': is_course_full,
-            'can_enroll': can_enroll,
-            'invitation_only': invitation_only,
-            'active_reg_button': active_reg_button,
-            'is_shib_course': is_shib_course,
-            # We do not want to display the internal courseware header, which is used when the course is found in the
-            # context. This value is therefor explicitly set to render the appropriate header.
-            'disable_courseware_header': True,
-            'can_add_course_to_cart': can_add_course_to_cart,
-            'cart_link': reverse('shoppingcart.views.show_cart'),
-            'pre_requisite_courses': pre_requisite_courses
-        }
-        return render_to_response('courseware/course_about.html', {
+        return render_to_response('nercel-templates/col-registerCourse.html', {
             'course': course,
             'staff_access': staff_access,
             'studio_url': studio_url,

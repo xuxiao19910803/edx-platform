@@ -300,7 +300,7 @@ if settings.COURSEWARE_ENABLED:
         url(r'^change_enrollment$',
             'student.views.change_enrollment', name="change_enrollment"),
         url(r'^change_email_settings$', 'student.views.change_email_settings', name="change_email_settings"),
-
+        #关于课程大纲介绍的部分。
         #About the course
         url(r'^courses/{}/about$'.format(settings.COURSE_ID_PATTERN),
             'courseware.views.course_about', name="about_course"),
@@ -718,4 +718,8 @@ handler500 = 'static_template_view.views.render_500'
 urlpatterns += (
     url(r'^404$', handler404),
     url(r'^500$', handler500),
+)
+#lms前端
+urlpatterns += (
+    url(r'^go_to_school$', 'student.views.go_to_school'),
 )

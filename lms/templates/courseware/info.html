@@ -46,21 +46,24 @@ $(document).ready(function(){
 <section class="container">
   <div class="info-wrapper">
     % if user.is_authenticated():
+      <%doc>课程更新</%doc>
     <section class="updates">
+        <%doc>staff用户提供一个查看Studio更新的url</%doc>
       % if studio_url is not None and masquerade and masquerade.role == 'staff':
         <div class="wrap-instructor-info studio-view">
           <a class="instructor-info-action" href="${studio_url}">${_("View Updates in Studio")}</a>
         </div>
       % endif
-
       <h1>${_("Course Updates &amp; News")}</h1>
       ${get_course_info_section(request, course, 'updates')}
     </section>
+    <%doc>课程讲义</%doc>
     <section aria-label="${_('Handout Navigation')}" class="handouts">
       <h1>${_(course.info_sidebar_name)}</h1>
       ${get_course_info_section(request, course, 'handouts')}
     </section>
     % else:
+      <%doc>游客登录的界面</%doc>
     <section class="updates">
       <h1>${_("Course Updates &amp; News")}</h1>
       ${get_course_info_section(request, course, 'guest_updates')}

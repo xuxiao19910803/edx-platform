@@ -1,21 +1,12 @@
 <%!
-    from django.utils.translation import ugettext as _
-    from django.core.urlresolvers import reverse
-    from microsite_configuration import microsite
-    from courseware.courses import course_image_url, get_course_about_section
-    from student.models import CourseEnrollment
+  import json
+  from django.utils.translation import ugettext as _
+  from microsite_configuration import microsite
+  from django.core.urlresolvers import reverse
+  from courseware.courses import course_image_url, get_course_about_section
+  from student.models import CourseEnrollment
 %>
 
-<%
-    homepage_overlay_html = microsite.get_value('homepage_overlay_html')
-
-    ## To display a welcome video, change False to True, and add a YouTube ID (11 chars, eg "123456789xX") in the following line
-    show_homepage_promo_video = microsite.get_value('show_homepage_promo_video', False)
-    homepage_promo_video_youtube_id = microsite.get_value('homepage_promo_video_youtube_id', "your-youtube-id")
-
-    show_partners = microsite.get_value('show_partners', True)
-
-%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -36,7 +27,7 @@
 
         <div class="col_nav" id="col_nav">
             <ul>
-                <li><a href="javascript:;" id="col_shouye" style="background-color: #d6d4d4;">首页</a></li>
+                <li><a href="/" id="col_shouye">首页</a></li>
                 <li><a href="/go_to_school" id="col_xuexiao">学校</a></li>
                 <li><a href="javascript:;" id="col_weike">微课程</a></li>
                 <li><a href="javascript:;" id="col_fenxi">学习分析</a></li>
@@ -46,13 +37,28 @@
             <input type="text" id="col_search_input" placeholder="搜索你感兴趣的课程"/>
             <a id="col_search_btn"></a>
         </div>
+        % if user.is_authenticated():
+        <div class="col_mycourse_user">
+                <img src="/static/images/nercel-images/mycourse_smalltouxiang.png"/>
+                <a href="${reverse('dashboard')}" class="showName" >${user.username}</a>
+                <div id="col_mycourse_sanjiao"></div>
+                <div id="col_drop_down">
+                    <ul>
+                        <li><a href="${reverse('learner_profile', kwargs={'username': user.username})}">我的课程</a></li>
+                        <li><a href="${reverse('account_settings')}">账户设置</a></li>
+                        <li><a href="${reverse('logout')}">退出</a></li>
+                    </ul>
+                </div>
+        </div>
+        % else:
         <div class="col_login">
             <!--登录前-->
             <ul class="pre_login">
-                <li><a href="javascript:;" id="login">登录</a></li>
+                <li><a href="">登录</a></li>
                 <li><a href="/register">注册</a></li>
             </ul>
         </div>
+        % endif
     </div>
 </div>
 <!--页面头部结束-->
@@ -97,16 +103,15 @@
 <!--课程部分布局-->
 <div class="col_container max-width clear">
     <div class="col_content clear">
-        <!--小学课程布局-->
+        <!--课程布局-->
         <div class="col_content_child">
             <div class="col_content_child_head">
                 <img src="/static/images/nercel-images/morecourse.png"/>
                 <span class="col_span_text col_morecourse_text">更多课程</span>
                 <span class="col_more"><a href="#">更多>>...</a></span>
             </div>
-            % if settings.FEATURES.get('COURSES_ARE_BROWSABLE'):
                 <ul class="col_content_child_body">
-                    %for course in courses[:settings.HOMEPAGE_COURSE_MAX]:
+                     %for course in courses:
                         <li class="col_content_msg" id="${course.id | h}">
                             <a href="${reverse('about_course', args=[course.id.to_deprecated_string()])}" class="course-href">
                                 <div class="col_content_courseinfor"><img src="${course_image_url(course)}"/></div>
@@ -131,86 +136,8 @@
                         </li>
                     %endfor
                 </ul>
-            % endif
         </div>
     </div>
-</div>
-<!--底部布局-->
-<div class="col_bottom_bg max-width">
-    <div class="col_bottom">
-        <span class="col_slogan"><img src="/static/images/nercel-images/slogan.png"/></span>
-
-        <div class="col_information">
-            <ul class="big_ul">
-                <li class="big_li clean_left">
-                    <ul class="small_ul">
-                        <li>
-                            <div class="col_yuan">
-                                <a href="javascript:;">
-                                    <span class="col_span_1">关于我们</span>
-                                    <span class="col_span_2">ABOUT US</span>
-                                </a>
-                            </div>
-                        </li>
-                        <li><a href="javascript:;">关于我们</a></li>
-                        <li><a href="javascript:;">联系我们</a></li>
-                        <li><a href="javascript:;">招聘信息</a></li>
-                        <li><a href="javascript:;">常见问题</a></li>
-                    </ul>
-                </li>
-                <li class="big_li">
-                    <ul class="small_ul">
-                        <li>
-                            <div class="col_yuan">
-                                <a href="javascript:;">
-                                    <span class="col_span_1">发现课程</span>
-                                    <span class="col_span_2">DISCOVER</span>
-                                </a>
-                            </div>
-                        </li>
-                        <li><a href="javascript:;">高中课程</a></li>
-                        <li><a href="javascript:;">初中课程</a></li>
-                        <li><a href="javascript:;">小学课程</a></li>
-                        <li><a href="javascript:;">更多</a></li>
-                    </ul>
-                </li>
-                <li class="big_li">
-                    <ul class="small_ul">
-                        <li>
-                            <div class="col_yuan">
-                                <a href="javascript:;">
-                                    <span class="col_span_1">关注我们</span>
-                                    <span class="col_span_2">FOLLOW US</span>
-                                </a>
-                            </div>
-                        </li>
-                        <li class="guanzhu">
-                            <a href="javascript:;"><img src="/static/images/nercel-images/weibo_logo.png"/></a>
-                            <a href="javascript:;"><img src="/static/images/nercel-images/weixin_logo.png"/></a>
-                            <a href="javascript:;"><img src="/static/images/nercel-images/message_logo.png"/></a>
-                        </li>
-                    </ul>
-                </li>
-                <li class="big_li">
-                    <ul class="small_ul">
-                        <li>
-                            <div class="col_yuan">
-                                <a href="javascript:;">
-                                    <span class="col_span_1">加入我们</span>
-                                    <span class="col_span_2">JOIN US</span>
-                                </a>
-                            </div>
-                        </li>
-                        <li><a href="javascript:;">产品开发</a></li>
-                        <li><a href="javascript:;">产品运营</a></li>
-                        <li><a href="javascript:;">资源制作</a></li>
-                        <li><a href="javascript:;">更多</a></li>
-                    </ul>
-                </li>
-            </ul>
-        </div>
-    </div>
-
 </div>
 <!--版权信息-->
 <div class="col_copyright_bg max-width">
@@ -220,7 +147,8 @@
     </div>
 </div>
 <script>
-    var grayEle = "";
+
+var grayEle = "";
     //	页面记载完成之后执行
     $(function () {
         $("#col_nav a").hover(
@@ -230,7 +158,42 @@
                 function () {
                     $(this).removeClass("selfColor");
                 });
-    })
+         //下拉菜单的显示
+         $("#col_mycourse_sanjiao").click(
+                function (event) {
+                    stopEvent(event);
+                    $("#col_drop_down").show();
+                });
+        $("#col_nav a").hover(
+                function () {
+                    $(this).addClass("selfColor");
+                },
+                function () {
+                    $(this).removeClass("selfColor");
+                });
+        $(document).click(function(event){
+            stopEvent(event);
+            $("#col_drop_down").hide();
+        });
+        $("#col_drop_down li").hover(
+                function () {
+                    $(this).addClass("col_top_shadow");
+                },
+                function () {
+                    $(this).removeClass("col_top_shadow");
+                });
+    });
+    function stopEvent(ev) { //阻止冒泡事件
+		//取消事件冒泡
+		var e = arguments.callee.caller.arguments[0] || event; //若省略此句，下面的e改为event，IE运行可以，但是其他浏览器就不兼容
+		if (e && e.stopPropagation) {
+			// this code is for Mozilla and Opera
+			e.stopPropagation();
+		} else if (window.event) {
+			// this code is for IE
+			window.event.cancelBubble = true;
+		}
+	}
     // 弹出登录框，使整个页面灰掉
     $("#login").click(function () {
         $('.theme-popover-mask').show();

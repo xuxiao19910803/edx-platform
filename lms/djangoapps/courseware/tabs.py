@@ -1,3 +1,4 @@
+#encoding=utf-8
 """
 This module is essentially a broker to xmodule/tabs.py -- it was originally introduced to
 perform some LMS-specific tab display gymnastics for the Entrance Exams feature
@@ -282,7 +283,7 @@ class SingleTextbookTab(CourseTab):
     def to_json(self):
         raise NotImplementedError('SingleTextbookTab should not be serialized.')
 
-
+#取得课程的标签列表,课程页面、课程信息、论坛、维基、进度
 def get_course_tab_list(request, course):
     """
     Retrieves the course tab list from xmodule.tabs and manipulates the set as necessary

@@ -1,3 +1,4 @@
+#encoding=utf-8
 '''
 ---------------------------------------- Masquerade ----------------------------------------
 Allow course staff to see a student or staff view of courseware.
@@ -34,6 +35,7 @@ class CourseMasquerade(object):
 @require_POST
 @login_required
 @expect_json
+#处理教师改变用户权限的请求
 def handle_ajax(request, course_key_string):
     """
     Handle AJAX posts to update the current user's masquerade for the specified course.

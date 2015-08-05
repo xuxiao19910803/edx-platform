@@ -25,7 +25,7 @@ def url_class(is_active):
   is_student_masquerade = masquerade and masquerade.role == 'student'
   masquerade_group_id = masquerade.group_id if masquerade else None
 %>
-
+<%doc>查看课程的身份</%doc>
 % if show_preview_menu:
     <nav class="wrapper-preview-menu" aria-label="${_('Course View')}">
         <div class="preview-menu">
@@ -51,7 +51,7 @@ def url_class(is_active):
         </div>
     </nav>
 % endif
-
+<%doc>导航项目</%doc>
 % if disable_tabs is UNDEFINED or not disable_tabs:
 <nav class="${active_page} wrapper-course-material" aria-label="${_('Course Material')}">
   <div class="course-material">
