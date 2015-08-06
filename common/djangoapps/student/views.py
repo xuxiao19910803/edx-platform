@@ -958,7 +958,7 @@ def change_enrollment(request, check_access=True):
 
     # Ensure the user is authenticated
     if not user.is_authenticated():
-        return HttpResponseForbidden()
+        return HttpResponseForbidden(status=403)
 
     # Ensure we received a course_id
     action = request.POST.get("enrollment_action")

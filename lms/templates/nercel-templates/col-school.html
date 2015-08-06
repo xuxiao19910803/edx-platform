@@ -7,6 +7,7 @@
     <meta charset="utf-8"/>
     <title></title>
     <link href="/static/css/nercel-css/col_head.css" rel="stylesheet"/>
+    <link href="/static/css/nercel-css/col_index.css" rel="stylesheet"/>
     <link href="/static/css/nercel-css/col_bottom.css" rel="stylesheet"/>
     <link href="/static/css/nercel-css/col_copyright.css" rel="stylesheet"/>
     <link href="/static/css/nercel-css/col_school.css" rel="stylesheet"/>
@@ -16,14 +17,14 @@
 <!--页头布局-->
 <div class="col_head_bg max-width">
     <div class="col_head">
-        <h1><a href=""><img src="/static/images/nercel-images/col_logo.png" alt="logo" title="师大学堂"/></a></h1>
+        <h1><a href="/"><img src="/static/images/nercel-images/col_logo.png" alt="logo" title="师大学堂"/></a></h1>
 
         <div class="col_nav" id="col_nav">
             <ul>
                 <li><a href="/" id="col_shouye">首页</a></li>
                 <li><a href="javascript:;" id="col_xuexiao" style="background-color: #d6d4d4;">学校</a></li>
                 <li><a href="javascript:void(0);" id="col_weike">微课程</a></li>
-                <li><a href="javascript:void(0);" id="col_fenxi">学习分析</a></li>
+                <li><a href="http://122.204.161.231/mainView/navigate/newLogin.jsp" id="col_fenxi">学习分析</a></li>
             </ul>
         </div>
         <div class="col_search">
@@ -37,9 +38,9 @@
                 <div id="col_mycourse_sanjiao"></div>
                 <div id="col_drop_down">
                     <ul>
-                        <li><a href="${reverse('learner_profile', kwargs={'username': user.username})}">我的课程</a></li>
-                        <li><a href="${reverse('account_settings')}">账户设置</a></li>
-                        <li><a href="${reverse('logout')}">退出</a></li>
+                        <a href="${reverse('learner_profile', kwargs={'username': user.username})}"><li>我的课程</li></a>
+                        <a href="${reverse('account_settings')}"><li>账户设置</li></a>
+                        <a href="${reverse('logout')}"><li>退出</li></a>
                     </ul>
                 </div>
         </div>
@@ -47,11 +48,37 @@
         <div class="col_login">
             <!--登录前-->
             <ul class="pre_login">
-                <li><a href="">登录</a></li>
+                <li><a href="javascript:;" onclick="showLoginBox();">登录</a></li>
                 <li><a href="/register">注册</a></li>
             </ul>
         </div>
         % endif
+    </div>
+</div>
+<!--loginbox-->
+<div class="theme-popover-mask"></div>
+<div class="loginbox_bg">
+    <div class="col_loginbox" id="loginbox">
+        <div class="col_login_mainbody">
+            <div class="col_login_head"></div>
+            <form role="form" id="login-form" method="post" data-remote="true" novalidate class="login">
+                <input type="hidden" name="csrfmiddlewaretoken" value="${ csrf_token }">
+                <div class="username">
+                    <input id="email" type="email" name="email" placeholder="登录邮箱">
+                </div>
+                <div class="password">
+                    <input id="password" type="password" name="password" placeholder="密码">
+                </div>
+                <div class="others">
+                    <input class="remember_btn" id="remember-yes" type="checkbox" name="remember" checked="checked">
+                    <label for="remember-yes">记住我</label>
+                    <a class="fr" href="/register" class="g_modal_regbtn" data-click="onClick">现在注册</a>
+                    <a class="fr" href="javascript:;" target="_blank" data-click="onClick">忘记密码？</a>
+                </div>
+                <button class="button" id="loginBtn" onclick="loginForm(event);">登录</button>
+            </form>
+            <div class="close_btn" id="login_close"></div>
+        </div>
     </div>
 </div>
 <!--页中布局-->
@@ -61,8 +88,8 @@
         <li>
             <div class="col_school" id="CCNU">
                 <div class="col_school_text">
-                    <span id="shool_title">华中师范大学</span>
-                    <span id="shool_slogan">“求实 创新 立德 树人”</span>
+                    <span id="shool_title">国家数字化学习工程技术研究中心</span>
+                    <span id="shool_slogan">“教育 科技 创新 未来”</span>
                     <a id="view_course" href="/"></a>
                 </div>
             </div>
@@ -150,7 +177,6 @@
 <div class="col_copyright_bg max-width">
     <div class="col_copyright">
         <span> 版权所有 © 国家数字化学习工程技术研究中心</span>
-        <img src="/static/images/nercel-images/openeDX_logo.png"/>
     </div>
 </div>
 <script>
@@ -166,11 +192,11 @@
                 });
         //下拉菜单的显示
          $("#col_mycourse_sanjiao").click(
-                function () {
+                function (event) {
                     stopEvent(event);
                     $("#col_drop_down").show();
                 });
-        $(document).click(function(){
+        $(document).click(function(event){
             stopEvent(event);
             $("#col_drop_down").hide();
         });
@@ -194,6 +220,12 @@
                 function () {
                     $(this).removeClass("selfColor");
                 });
+        // 弹出登录框，使整个页面灰掉
+        //关闭登录框
+        $("#login_close").click(function () {
+            $('.theme-popover-mask').hide();
+            $(".loginbox_bg").slideUp(500);
+        });
     })
     function stopEvent(ev) { //阻止冒泡事件
 		//取消事件冒泡
@@ -206,7 +238,54 @@
 			window.event.cancelBubble = true;
 		}
 	}
+//下面维登录的操作
+    //呈現登錄狂
+    function showLoginBox(){
+            $('.theme-popover-mask').show();
+            $('.theme-popover-mask').height($(document).height());
+            $(".loginbox_bg").slideDown(500);
+    }
+    function toggleLoginButton(enable) {
+        //获取id为submit的提交按钮
+        var $loginButton = $('form #loginBtn');
 
+        if (enable) {
+            $loginButton.
+                    removeClass('is-disabled').
+                    attr('aria-disabled', false).
+                    removeProp('disabled').
+                    html("登录");
+        }
+        else {
+            $loginButton.
+                    addClass('is-disabled').
+                    prop('disabled', true).
+                    text("正在登录");
+        }
+    }
+    function loginForm(event) {
+        event.preventDefault();
+        toggleLoginButton(false);
+        $.ajax({
+            url: "/login_ajax",
+            data: $("#login-form").serialize(),
+            type: "POST",
+            error: function (data) {
+                alert(data.value);
+                alert(data);
+            },
+            success: function (data, textStatus) {
+                var tf=data.success;
+                var msg=data.value;
+                if(tf){
+                    location.href = "${reverse('dashboard')}";
+                }else{
+                    toggleLoginButton(true);
+                    alert(msg);
+                }
+            }
+        });
+    }
 </script>
 </body>
 </html>

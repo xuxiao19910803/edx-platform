@@ -33,7 +33,7 @@ img {
 }
 
 .col_school_text {
-    width: 288px;
+    width: 888px;
     height: 256px;
     margin: 256px auto 0;
     text-align: center;
@@ -115,6 +115,7 @@ img {
     height: 40px;
     line-height: 40px;
     text-align: center;
+    color: #ffffff;
 }
 
 #col_drop_down li a {

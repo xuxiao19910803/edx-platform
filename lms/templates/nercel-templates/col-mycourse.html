@@ -41,15 +41,15 @@
 <!--页头布局-->
 <div class="col_head_bg max-width">
     <div class="col_head">
-        <h1><a href="javascript:void(0);"><img src="/static/images/nercel-images/col_logo.png" alt="logo" title="师大学堂"/></a>
+        <h1><a href="/"><img src="/static/images/nercel-images/col_logo.png" alt="logo" title="师大学堂"/></a>
         </h1>
 
         <div class="col_nav" id="col_nav">
             <ul>
                 <li><a href="/" id="col_shouye">首页</a></li>
                 <li><a href="/go_to_school" id="col_xuexiao">学校</a></li>
-                <li><a href="javascript:;" id="col_weike" style="background-color: #d6d4d4;">微课程</a></li>
-                <li><a href="javascript:;" id="col_fenxi">学习分析</a></li>
+                <li><a href="javascript:;" id="col_weike">微课程</a></li>
+                <li><a href="http://122.204.161.231/mainView/navigate/newLogin.jsp" id="col_fenxi">学习分析</a></li>
             </ul>
         </div>
         <div class="col_search_course">
@@ -58,11 +58,11 @@
         </div>
         <div class="col_mycourse_login">
             <!--登陆之后-->
-            <div class="col_mycourse_msg">
+            <%doc><div class="col_mycourse_msg">
                 <img src="/static/images/nercel-images/mycourse_msg.png"/>
 
                 <div id="col_mycourse_msg_num">1</div>
-            </div>
+            </div></%doc>
             <div class="col_mycourse_user">
                 <img src="/static/images/nercel-images/mycourse_smalltouxiang.png"/>
                 <a href="${reverse('dashboard')}" class="showName">${user.username}</a>
@@ -88,7 +88,7 @@
 <div class="col_mycourse_container max-width">
     <div class="col_mycourse_content">
         <!--内容左侧——学生端布局-->
-        <div id="col_mycourse_content_left">
+       <%doc><div id="col_mycourse_content_left">
             <div id="col_studenticon"><img src="/static/images/nercel-images/mycourse_bigtouxiang.png"/></div>
             <p id="col_studentname">${user.username}</p>
             学生端
@@ -129,7 +129,7 @@
                     </a>
                 </li>
             </ul>
-        </div>
+        </div></%doc>
         <!--内容右侧全部课程-->
         <div id="col_mycourse_content_right">
             <!--最上面一行的内容布局-->
@@ -138,9 +138,9 @@
                     <li>
                         <img src="/static/images/nercel-images/mycourse_allcourse.png"/>
                         <span>全部课程</span>
-                        <span>${courseCount}</span>
+                        <%doc><span>${courseCount}</span></%doc>
                     </li>
-                    <li>
+                    <%doc><li>
                         <img src="/static/images/nercel-images/mycourse_studying.png"/>
                         <span>学习中</span>
                         <span>2</span>
@@ -149,12 +149,11 @@
                         <img src="/static/images/nercel-images/mycourse_finished.png"/>
                         <span>已完成</span>
                         <span>1</span>
-                    </li>
+                    </li></%doc>
 
                 </ul>
             </div>
             <!--第一门课程的内容布局-->
-            <div class="col_mycourse_right_child">
                 % if len(course_enrollment_pairs) > 0:
                     <% share_settings = settings.FEATURES.get('SOCIAL_SHARING_SETTINGS', {}) %>
                     % for dashboard_index, (course, enrollment) in enumerate(course_enrollment_pairs):
@@ -188,6 +187,7 @@
                     % else:
                         <% mode_class = '' %>
                     % endif
+                        <div class="col_mycourse_right_child">
                     <% course_target = reverse('info', args=[unicode(course.id)]) %>
                         <!--课程图片-->
                     % if show_courseware_link:
@@ -253,23 +253,34 @@
                                 </div>
                                 <div class="col_mycourse_mask"><span>30</span>%</div>
                             </div>
-                            <div class="col_mycourse_right_btn">
+
                                 % if show_courseware_link:
                                     % if course.has_ended():
                                         % if not is_course_blocked:
-                                            <a href="${course_target}">${_('View Archived Course')}${course.display_name_with_default}</a>
+                                            <div class="col_mycourse_right_btn">
+                                            <a href="${course_target}">查看存档课程</a>
+                                            </div>
                                         % else:
-                                            <a>${_('View Archived Course')}${course.display_name_with_default}</a>
+                                            <div class="col_mycourse_right_btn">
+                                            <a>查看存档课程</a>
+                                            </div>
                                         % endif
                                     % else:
                                         % if not is_course_blocked:
-                                            <a href="${course_target}">${_('View Course')}${course.display_name_with_default}</a>
+                                            <div class="col_mycourse_right_btn">
+                                            <a href="${course_target}">查看课程</a>
+                                            </div>
                                         % else:
-                                            <a>${_('View Course')}${course.display_name_with_default}</a>
+                                            <div class="col_mycourse_right_btn">
+                                            <a href="javascript:;">查看课程</a>
+                                            </div>
                                         % endif
                                     % endif
+                                %else:
+                                    <div class="col_mycourse_right_btn" style="background: #cccccc">
+                                    <a href="javascript:;">课程暂未开放</a>
+                                    </div>
                                 % endif
-                            </div>
                         </div>
                         <div class="col_mycourse_right_close" id="col_mycourse_right_close1"
                              onclick="set_unenroll_message('${_("Are you sure you want to unenroll from the verified {cert_name_long} track of %(course_number)s?").format(cert_name_long=cert_name_long)}','${course.id | h}');">
@@ -280,12 +291,11 @@
                                 <input name="enrollment_action" type="hidden" value="unenroll"/>
                             </form>
                         </div>
-
+                    </div>
                     % endfor
                 % else:
                     <h3 style="text-align: center;height: 170px;line-height: 170px;">还没有课程，请点击下面添加课程按钮添加课程！</h3>
                 % endif
-            </div>
             <a href="/courses">
                 <div class="col_mycourse_right_child" id="col_addcourse">
                     <div class="col_addcourse_child">
@@ -295,7 +305,7 @@
                 </div>
             </a>
 
-            <div id="col_page">
+            <%doc><div id="col_page">
                 <div class="col_page_btn"><a href="javascript:void(0);">首页</a></div>
                 <div class="col_page_btn">
                     <a href="javascript:void(0);">
@@ -314,7 +324,7 @@
                 </ul>
                 <div class="col_page_btn"><a href="javascript:void(0);">></a></div>
                 <div class="col_page_btn"><a href="javascript:void(0);">尾页</a></div>
-            </div>
+            </div></%doc>
         </div>
     </div>
 </div>
@@ -322,7 +332,6 @@
 <div class="col_copyright_bg max-width">
     <div class="col_copyright">
         <span> 版权所有 © 国家数字化学习工程技术研究中心</span>
-        <img src="/static/images/nercel-images/openeDX_logo.png"/>
     </div>
 </div>
 <script type="text/javascript">

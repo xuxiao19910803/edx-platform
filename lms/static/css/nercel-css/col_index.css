@@ -41,20 +41,20 @@
 }
 .col_loginbox{
 	z-index: 9;	
-	width: 732px;
+	width: 502px;
 	height: 404px;
 	background-color: #FFFFFF;
     margin: 208px auto 0;
 
 }
 .col_login_mainbody{
-	width: 503px;
+	width: 502px;
 	height: 404px;
 	border-right:1px solid #a0a0a0 ;
 	float: left;
 }
 .col_login_head{
-	width: 503px;
+	width: 502px;
 	height: 102px;
 	border-bottom: 1px solid #a0a0a0 ;
 	background: url("../../images/nercel-images/login_background.png") no-repeat center;
@@ -106,8 +106,8 @@
 	height: 16px;
 	background: url("../../images/nercel-images/login_close.png") no-repeat center;
 	position: relative;
-	top: 7px;
-    left: 200px;
+	top: -8px;
+	left: 486px;
     cursor: pointer;
 }
 .col_login_otherways span{

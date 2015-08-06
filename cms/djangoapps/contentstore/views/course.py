@@ -1,3 +1,4 @@
+#encoding=utf-8
 """
 Views related to operations on course objects
 """
@@ -409,7 +410,7 @@ def _accessible_libraries_list(user):
     # No need to worry about ErrorDescriptors - split's get_libraries() never returns them.
     return [lib for lib in modulestore().get_libraries() if has_studio_read_access(user, lib.location.library_key)]
 
-
+#取得课程列表
 @login_required
 @ensure_csrf_cookie
 def course_listing(request):
@@ -516,6 +517,7 @@ def _deprecated_blocks_info(course_module, deprecated_block_types):
 
 @login_required
 @ensure_csrf_cookie
+#显示课程信息。
 def course_index(request, course_key):
     """
     Display an editable course overview.

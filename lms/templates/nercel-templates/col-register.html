@@ -16,6 +16,7 @@
 <head>
     <meta charset="utf-8"/>
     <title>注册页面</title>
+     <link href="/static/css/nercel-css/col_index.css" rel="stylesheet"/>
     <link href="/static/css/nercel-css/col_head.css" type="text/css" rel="stylesheet"/>
     <link href="/static/css/nercel-css/col_copyright.css" type="text/css" rel="stylesheet"/>
     <link rel="stylesheet" type="text/css" href="/static/css/nercel-css/col_register.css"/>
@@ -25,14 +26,14 @@
 <!--页头布局-->
 <div class="col_head_bg max-width">
     <div class="col_head">
-        <h1><a href=""><img src="/static/images/nercel-images/col_logo.png" alt="logo" title="师大学堂"/></a></h1>
+        <h1><a href="/"><img src="/static/images/nercel-images/col_logo.png" alt="logo" title="师大学堂"/></a></h1>
 
         <div class="col_nav" id="col_nav">
             <ul>
                 <li><a href="javascript:void(0);" id="col_shouye">首页</a></li>
                 <li><a href="javascript:void(0);" id="col_xuexiao">学校</a></li>
                 <li><a href="javascript:void(0);" id="col_weike">微课程</a></li>
-                <li><a href="javascript:void(0);" id="col_fenxi">学习分析</a></li>
+                <li><a href="http://122.204.161.231/mainView/navigate/newLogin.jsp" id="col_fenxi">学习分析</a></li>
             </ul>
         </div>
         <div class="col_search">
@@ -41,10 +42,36 @@
         </div>
         <div class="col_login">
             <!--登录前-->
-            <%doc><ul class="pre_login">
-                <li><a href="">登录</a></li>
+            <ul class="pre_login">
+                <li><a href="javascript:;" id="login" onclick="showLoginBox();">登录</a></li>
                 <li><a href="col-register.html">注册</a></li>
-            </ul></%doc>
+            </ul>
+        </div>
+    </div>
+</div>
+<!--loginbox-->
+<div class="theme-popover-mask"></div>
+<div class="loginbox_bg">
+    <div class="col_loginbox" id="loginbox">
+        <div class="col_login_mainbody">
+            <div class="col_login_head"></div>
+            <form role="form" id="login-form" method="post" data-remote="true" novalidate class="login">
+                <input type="hidden" name="csrfmiddlewaretoken" value="${ csrf_token }">
+                <div class="username">
+                    <input id="email" type="email" name="email" placeholder="登录邮箱">
+                </div>
+                <div class="password">
+                    <input id="password" type="password" name="password" placeholder="密码">
+                </div>
+                <div class="others">
+                    <input class="remember_btn" id="remember-yes" type="checkbox" name="remember" checked="checked">
+                    <label for="remember-yes">记住我</label>
+                    <a class="fr" href="/register" class="g_modal_regbtn" data-click="onClick">现在注册</a>
+                    <a class="fr" href="javascript:;" target="_blank" data-click="onClick">忘记密码？</a>
+                </div>
+                <button class="button" id="loginBtn" onclick="loginForm(event);">登录</button>
+            </form>
+            <div class="close_btn" id="login_close"></div>
         </div>
     </div>
 </div>
@@ -127,7 +154,7 @@
                        aria-required="true"/> <label for="tos-yes">我同意</label><a href="javascript:;">服务条款</a>*
                 <input class="col_checkbox" id="honorcode-yes" type="checkbox" name="honor_code" value="true"/> <label
                     for="honorcode-yes">我同意</label><a href="javascript:;">诚信准则</a>*<br/>
-                <button class="col_submit" name="submit" type="submit" id="submit" onclick="submitForm(event);">
+                <button class="col_submit" name="submit" type="submit" id="submitBtn" onclick="submitForm(event);">
                     创建我的师大学堂账户
                 </button>
             </form>
@@ -136,7 +163,7 @@
         <div class="col_register_right" id="col_right">
             <form action="javascript:;">
                 <label class="col_register_right_register" id="col_register_right_register">已经注册过了？</label>
-                <input type="button" class="col_button_register" id="col_button_register" value="登录"/>
+                <input type="button" class="col_button_register" id="col_button_register" value="登录" onclick="showLoginBox();"/>
             </form>
             <p class="col_welcome" id="col_welcome">
 
@@ -161,7 +188,6 @@
 <div class="col_copyright_bg max-width">
     <div class="col_copyright">
         <span> 版权所有 © 国家数字化学习工程技术研究中心、华中师大一附中</span>
-        <img src="/static/images/nercel-images/col_openeDX_logo.png"/>
     </div>
 </div>
 <script type="text/javascript">
@@ -179,18 +205,69 @@
         }).blur(function () {
             $("label").parent().removeClass("is-focused");
         });
+        // 弹出登录框，使整个页面灰掉
+        //关闭登录框
+        $("#login_close").click(function () {
+            $('.theme-popover-mask').hide();
+            $(".loginbox_bg").slideUp(500);
+        });
     });
+    //呈現登錄狂
+    function showLoginBox(){
+            $('.theme-popover-mask').show();
+            $('.theme-popover-mask').height($(document).height());
+            $(".loginbox_bg").slideDown(500);
+    }
+    //下面维登录的操作
+    function toggleLoginButton(enable) {
+        //获取id为submit的提交按钮
+        var $loginButton = $('form #loginBtn');
 
+        if (enable) {
+            $loginButton.
+                    removeClass('is-disabled').
+                    attr('aria-disabled', false).
+                    removeProp('disabled').
+                    html("登录");
+        }
+        else {
+            $loginButton.
+                    addClass('is-disabled').
+                    prop('disabled', true).
+                    text("正在登录");
+        }
+    }
+    function loginForm(event) {
+        event.preventDefault();
+        toggleLoginButton(false);
+        $.ajax({
+            url: "/login_ajax",
+            data: $("#login-form").serialize(),
+            type: "POST",
+            error: function (data) {
+                alert(data.value);
+                alert(data);
+            },
+            success: function (data, textStatus) {
+                var tf=data.success;
+                var msg=data.value;
+                if(tf){
+                    location.href = "${reverse('dashboard')}";
+                }else{
+                    toggleLoginButton(true);
+                    alert(msg);
+                }
+            }
+        });
+    }
+//下面是注册的相关操作
     (function () {
         toggleSubmitButton(true);
+        toggleLoginButton(true);
     })(this);
-    function thirdPartySignin(event, url) {
-        event.preventDefault();
-        window.location.href = url;
-    }
     function toggleSubmitButton(enable) {
         //获取id为submit的提交按钮
-        var $submitButton = $('form #submit');
+        var $submitButton = $('form #submitBtn');
 
         if (enable) {
             $submitButton.

@@ -13,81 +13,38 @@
     <meta charset="utf-8"/>
     <title>${get_course_about_section(course, "title")}</title>
     <link href="/static/css/nercel-css/col_head.css" rel="stylesheet"/>
+    <link href="/static/css/nercel-css/col_index.css" rel="stylesheet"/>
     <link href="/static/css/nercel-css/col_copyright.css" rel="stylesheet"/>
     <link href="/static/css/nercel-css/col_register_course.css" rel="stylesheet"/>
     <script src="/static/js/nercel-js/jquery-1.8.3.min.js" type="text/javascript"></script>
     <script>
-        $(function(){
-            $("#join_course").click(function(event) {
+        $(function() {
+            $("#join_course").click(function (event) {
                 $.ajax({
-                    type:"POST",
-                    url:"${reverse('change_enrollment')}",
-                    data:$("#class_enroll_form").serialize(),
-                    complete:function(event, xhr){
-                        alert("处理完成");
-                        alert(xhr.status);
-                        if(xhr.status == 200) {
-                            if (xhr.responseText == "") {
-                              location.href = "${reverse('dashboard')}";
+                    type: "POST",
+                    url: "${reverse('change_enrollment')}",
+                    data: $("#class_enroll_form").serialize(),
+                    complete: function (XMLHttpRequest, textStatus) {
+                        console.log(XMLHttpRequest.status);
+                        console.log(textStatus);
+                        if (XMLHttpRequest.status == 200) {
+                            if (XMLHttpRequest.responseText == "") {
+                                location.href = "${reverse('dashboard')}";
                             }
                             else {
-                              location.href = xhr.responseText;
+                                location.href = xhr.responseText;
                             }
-                        } else if (xhr.status == 403) {
-                          location.href = "${reverse('register_user')}?course_id=${course.id | u}&enrollment_action=enroll";
+                        } else if (XMLHttpRequest.status == 403) {
+                            location.href = "${reverse('register_user')}?course_id=${course.id | u}&enrollment_action=enroll";
                         } else {
                             alert("${_("An error occurred. Please try again later.")}");
                         }
                     }
                 });
 
-        });
-    %if settings.FEATURES.get('RESTRICT_ENROLL_BY_REG_METHOD') and course.enrollment_domain:
-      <%
-        perms_error = _('The currently logged-in user account does not have permission to enroll in this course. '
-                        'You may need to {start_logout_tag}log out{end_tag} then try the register button again. '
-                        'Please visit the {start_help_tag}help page{end_tag} for a possible solution.').format(
-                          start_help_tag="<a href='{url}'>".format(url=marketing_link('FAQ')), end_tag='</a>',
-                          start_logout_tag="<a href='{url}'>".format(url=reverse('logout'))
-                          )
-      %>
-    $('#class_enroll_form').on('ajax:complete', function(event, xhr) {
-       alert(1);
-      if(xhr.status == 200) {
-        location.href = "${reverse('dashboard')}";
-      } else if (xhr.status == 403) {
-        location.href = "${reverse('course-specific-register', args=[course.id.to_deprecated_string()])}?course_id=${course.id | u}&enrollment_action=enroll";
-      } else if (xhr.status == 400) { //This means the user did not have permission
-        $('#register_error').html("${perms_error}").css("display", "block");
-      } else {
-        $('#register_error').html(
-            (xhr.responseText ? xhr.responseText : "${_("An error occurred. Please try again later.")}")
-        ).css("display", "block");
-      }
-    });
-
-    %else:
-    <%doc>课程注册</%doc>
-    $('#class_enroll_form').on('ajax:complete', function(event, xhr) {
-        alert(2);
-      if(xhr.status == 200) {
-        if (xhr.responseText == "") {
-          location.href = "${reverse('dashboard')}";
-        }
-        else {
-          location.href = xhr.responseText;
-        }
-      } else if (xhr.status == 403) {
-          location.href = "${reverse('register_user')}?course_id=${course.id | u}&enrollment_action=enroll";
-      } else {
-        $('#register_error').html(
-            (xhr.responseText ? xhr.responseText : "${_("An error occurred. Please try again later.")}")
-        ).css("display", "block");
-      }
-    });
-
-    %endif
+            });
         })
+
             <%doc>function registerCourse() {
                 </%doc><%doc>event.preventDefault();</%doc><%doc>
                 alert("************");
@@ -121,14 +78,14 @@
 <!--页头布局-->
 <div class="col_head_bg max-width">
     <div class="col_head">
-        <h1><a href=""><img src="/static/images/nercel-images/col_logo.png" alt="logo" title="师大学堂"/></a></h1>
+        <h1><a href="/"><img src="/static/images/nercel-images/col_logo.png" alt="logo" title="师大学堂"/></a></h1>
 
         <div class="col_nav" id="col_nav">
             <ul>
                 <li><a href="/" id="col_shouye">首页</a></li>
                 <li><a href="/go_to_school" id="col_xuexiao">学校</a></li>
                 <li><a href="javascript:void(0);" id="col_weike" style="background-color: #d6d4d4" ;>微课程</a></li>
-                <li><a href="javascript:void(0);" id="col_fenxi">学习分析</a></li>
+                <li><a href="http://122.204.161.231/mainView/navigate/newLogin.jsp" id="col_fenxi">学习分析</a></li>
             </ul>
         </div>
         <div class="col_search">
@@ -153,11 +110,37 @@
             <div class="col_login">
                 <!--登录前-->
                 <ul class="pre_login">
-                    <li><a href="">登录</a></li>
+                    <li><a href="javascript:;" id="login">登录</a></li>
                     <li><a href="/register">注册</a></li>
                 </ul>
             </div>
         % endif
+    </div>
+</div>
+<!--loginbox-->
+<div class="theme-popover-mask"></div>
+<div class="loginbox_bg">
+    <div class="col_loginbox" id="loginbox">
+        <div class="col_login_mainbody">
+            <div class="col_login_head"></div>
+            <form role="form" id="login-form" method="post" data-remote="true" novalidate class="login">
+                <input type="hidden" name="csrfmiddlewaretoken" value="${ csrf_token }">
+                <div class="username">
+                    <input id="email" type="email" name="email" placeholder="登录邮箱">
+                </div>
+                <div class="password">
+                    <input id="password" type="password" name="password" placeholder="密码">
+                </div>
+                <div class="others">
+                    <input class="remember_btn" id="remember-yes" type="checkbox" name="remember" checked="checked">
+                    <label for="remember-yes">记住我</label>
+                    <a class="fr" href="/register" class="g_modal_regbtn" data-click="onClick">现在注册</a>
+                    <a class="fr" href="javascript:;" target="_blank" data-click="onClick">忘记密码？</a>
+                </div>
+                <button class="button" name="submit" type="button" id="submit" onclick="submitForm(event);">登录</button>
+            </form>
+            <div class="close_btn" id="login_close"></div>
+        </div>
     </div>
 </div>
 <!--课程简介-->
@@ -224,7 +207,7 @@
                 </ul>
                 %if user.is_authenticated() and registered:
                     %if show_courseware_link:
-                        <a href="${course_target}" id="join_course">
+                        <a href="${course_target}">
                             查看课程
                         </a>
                     %endif
@@ -255,9 +238,6 @@
                         <input name="course_id" type="hidden" value="${course.id | h}">
                         <input name="enrollment_action" type="hidden" value="enroll">
                     </fieldset>
-                    <%doc><div class="submit">
-                        <input  type="submit" value="${_('enroll')}">
-                    </div></%doc>
                 </form>
             </div>
         %endif
@@ -266,69 +246,12 @@
             ${get_course_about_section(course, "overview")}
         </div>
         <!--相关课程-->
-        <div class="col_course_relativities">
-            <div class="col_course_title">
-                <img src="/static/images/nercel-images/course_xiangguankecgeng.png"/>
-
-                <h2>相关课程</h2>
-            </div>
-            <div class="col_course_relativeslist">
-                <ul>
-                    <li>
-                        <a href="javascript:void(0);" id="xiangguan_1">
-                            <div class="col_course_img fl"></div>
-                            <div class="col_course_text fr">
-                                <span>有理数与无理数</span>
-                                <span>郑莉老师</span>
-                            </div>
-                        </a>
-                    </li>
-                    <li>
-                        <a href="javascript:void(0);" id="xiangguan_2">
-                            <div class="col_course_img fl"></div>
-                            <div class="col_course_text fr">
-                                <span>有理数与无理数</span>
-                                <span>郑莉老师</span>
-                            </div>
-                        </a>
-                    </li>
-                    <li>
-                        <a href="javascript:void(0);" id="xiangguan_3">
-                            <div class="col_course_img fl"></div>
-                            <div class="col_course_text fr">
-                                <span>有理数与无理数</span>
-                                <span>郑莉老师</span>
-                            </div>
-                        </a>
-                    </li>
-                    <li>
-                        <a href="javascript:void(0);" id="xiangguan_4">
-                            <div class="col_course_img fl"></div>
-                            <div class="col_course_text fr">
-                                <span>有理数与无理数</span>
-                                <span>郑莉老师</span>
-                            </div>
-                        </a>
-                    </li>
-                    <li>
-                        <a href="javascript:void(0);" id="xiangguan_5">
-                            <div class="col_course_img fl"></div>
-                            <div class="col_course_text fr">
-                                <span>有理数与无理数</span>
-                                <span>郑莉老师</span>
-                            </div>
-                        </a>
-                    </li>
-                </ul>
-            </div>
-        </div>
     </div>
 </div>
 <!--版权信息-->
 <div class="col_copyright_bg max-width">
     <div class="col_copyright">
         <span> 版权所有 © 国家数字化学习工程技术研究中心</span>
-        <img src="/static/images/nercel-images/openeDX_logo.png"/>
     </div>
 </div>
 <script>
@@ -343,7 +266,17 @@
                     $(this).removeClass("selfColor");
                 });
     })
-
+// 弹出登录框，使整个页面灰掉
+    $("#login").click(function () {
+        $('.theme-popover-mask').show();
+        $('.theme-popover-mask').height($(document).height());
+        $(".loginbox_bg").slideDown(500);
+    });
+    //关闭登录框
+    $("#login_close").click(function () {
+        $('.theme-popover-mask').hide();
+        $(".loginbox_bg").slideUp(500);
+    });
 </script>
 </body>
 </html>
