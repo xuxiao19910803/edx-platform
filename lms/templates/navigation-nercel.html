@@ -1,0 +1,94 @@
+## mako
+<%namespace name='static' file='static_content.html'/>
+<%namespace file='main.html' import="login_query, stanford_theme_enabled"/>
+<%!
+    from django.core.urlresolvers import reverse
+    from django.utils.translation import ugettext as _
+
+    from microsite_configuration import microsite
+    from microsite_configuration.templatetags.microsite import platform_name
+    from ccx.overrides import get_current_ccx
+
+    # App that handles subdomain specific branding
+    import branding
+    # app that handles site status messages
+    from status.status import get_site_status_msg
+%>
+<!--页头布局-->
+<div class="col_head_bg max-width">
+    <div class="col_head">
+        <h1><a href="/"><img src="/static/images/nercel-images/col_logo.png" alt="logo" title="师大学堂"/></a></h1>
+
+        <div class="col_nav" id="col_nav" style="position: relative;top: -15px;width: 628px;margin-left: 0;">
+            <ul>
+                <li><a href="/" id="col_shouye">首页</a></li>
+                <li><a href="/go_to_school" id="col_xuexiao">学校</a></li>
+                <li><a href="javascript:void(0);" id="col_weike">微课程</a></li>
+                <li><a href="http://122.204.161.231/mainView/navigate/newLogin.jsp" id="col_fenxi">学习分析</a></li>
+            </ul>
+        </div>
+        <div class="col_mycourse_login">
+            % if user.is_authenticated():
+                <div class="col_mycourse_user">
+                    <a href="${reverse('dashboard')}" class="showName">${user.username}</a>
+
+                    <div id="col_mycourse_sanjiao"></div>
+                    <div id="col_drop_down" style="height: 148px;top: 48px;">
+                        <ul>
+                            <li><a href="${reverse('learner_profile', kwargs={'username': user.username})}">我的课程</a>
+                            </li>
+                            <li><a href="${reverse('account_settings')}">账户设置</a></li>
+                            <li><a href="${reverse('logout')}">退出</a></li>
+                        </ul>
+                    </div>
+                </div>
+            % else:
+                <div class="col_login">
+                    <!--登录前-->
+                    <ul class="pre_login">
+                        <li><a href="/register" id="login">登录</a></li>
+                        <li><a href="/register">注册</a></li>
+                    </ul>
+                </div>
+            % endif
+        </div>
+    </div>
+</div>
+<!--loginbox-->
+<div class="theme-popover-mask"></div>
+<script>
+    //下拉菜单的显示
+    $(function () {
+        $("#col_mycourse_sanjiao").click(
+                function (event) {
+                    stopEvent(event);
+                    $("#col_drop_down").show();
+                });
+        $(document).click(function (event) {
+            stopEvent(event);
+            $("#col_drop_down").hide();
+        });
+    })
+
+    //下拉菜单的阴影
+    $(function () {
+        $("#col_drop_down li").hover(
+                function () {
+                    $(this).addClass("col_top_shadow");
+                },
+                function () {
+                    $(this).removeClass("col_top_shadow");
+                });
+    })
+    function stopEvent(ev) { //阻止冒泡事件
+        //取消事件冒泡
+        var e = arguments.callee.caller.arguments[0] || event; //若省略此句，下面的e改为event，IE运行可以，但是其他浏览器就不兼容
+        if (e && e.stopPropagation) {
+            // this code is for Mozilla and Opera
+            e.stopPropagation();
+        } else if (window.event) {
+            // this code is for IE
+            window.event.cancelBubble = true;
+        }
+    }
+</script>

@@ -252,8 +252,7 @@
 /**/
 .col_mycourse_user {
     position: relative;
-    float: left;
-    margin-left: 34px;
+    float: right;
 }
 
 .col_mycourse_user img {

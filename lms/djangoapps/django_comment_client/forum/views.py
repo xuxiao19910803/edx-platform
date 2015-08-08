@@ -1,3 +1,4 @@
+#encoding=utf-8
 """
 Views handling read (GET) requests for the Discussion tab and inline discussions.
 """

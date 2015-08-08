@@ -13,6 +13,8 @@ from branding import api as branding_api
 <!--[if !IE]><!--><html lang="${LANGUAGE_CODE}"><!--<![endif]-->
 <head dir="${static.dir_rtl()}">
     <meta charset="UTF-8">
+    <link href="/static/css/nercel-css/col_head.css" rel="stylesheet"/>
+    <link href="/static/css/nercel-css/col_copyright.css" rel="stylesheet"/>
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     % if responsive:
     <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -103,7 +105,7 @@ from branding import api as branding_api
     if settings.FEATURES['IS_EDX_DOMAIN'] and not is_microsite():
         header_file = microsite.get_template_path('navigation-edx.html')
     else:
-        header_file = microsite.get_template_path('navigation.html')
+        header_file = microsite.get_template_path('navigation-nercel.html')
 
     google_analytics_file = microsite.get_template_path('google_analytics.html')
 
@@ -151,7 +153,7 @@ from branding import api as branding_api
           % elif settings.FEATURES.get('IS_EDX_DOMAIN', False) and not is_microsite():
               <%include file="footer-edx-v3.html" />
           % else:
-            <%include file="${microsite.get_template_path('footer.html')}" />
+            <%include file="${microsite.get_template_path('footer-nercel.html')}" />
           % endif
         </%block>
     % endif

@@ -10,6 +10,7 @@
     <link href="/static/css/nercel-css/col_index.css" rel="stylesheet"/>
     <link href="/static/css/nercel-css/col_bottom.css" rel="stylesheet"/>
     <link href="/static/css/nercel-css/col_copyright.css" rel="stylesheet"/>
+    <link href="/static/css/nercel-css/col_mycourse.css" rel="stylesheet"/>
     <link href="/static/css/nercel-css/col_school.css" rel="stylesheet"/>
     <script src="/static/js/nercel-js/jquery-1.8.3.min.js" type="text/javascript"></script>
 </head>
@@ -27,32 +28,41 @@
                 <li><a href="http://122.204.161.231/mainView/navigate/newLogin.jsp" id="col_fenxi">学习分析</a></li>
             </ul>
         </div>
-        <div class="col_search">
+        <%doc><div class="col_search">
             <input type="text" id="col_search_input" placeholder="搜索你感兴趣的课程"/>
             <a id="col_search_btn"></a>
-        </div>
-        % if user.is_authenticated():
-        <div class="col_mycourse_user">
-                <img src="/static/images/nercel-images/mycourse_smalltouxiang.png"/>
-                <a href="${reverse('dashboard')}" class="showName" >${user.username}</a>
-                <div id="col_mycourse_sanjiao"></div>
-                <div id="col_drop_down">
-                    <ul>
-                        <a href="${reverse('learner_profile', kwargs={'username': user.username})}"><li>我的课程</li></a>
-                        <a href="${reverse('account_settings')}"><li>账户设置</li></a>
-                        <a href="${reverse('logout')}"><li>退出</li></a>
+        </div></%doc>
+        <div class="col_mycourse_login">
+            % if user.is_authenticated():
+                <div class="col_mycourse_user">
+                    <%doc><img src="/static/images/nercel-images/mycourse_smalltouxiang.png"/></%doc>
+                    <a href="${reverse('dashboard')}" class="showName">${user.username}</a>
+
+                    <div id="col_mycourse_sanjiao"></div>
+                    <div id="col_drop_down">
+                        <ul>
+                            <a href="${reverse('learner_profile', kwargs={'username': user.username})}">
+                                <li>我的课程</li>
+                            </a>
+                            <a href="${reverse('account_settings')}">
+                                <li>账户设置</li>
+                            </a>
+                            <a href="${reverse('logout')}">
+                                <li>退出</li>
+                            </a>
+                        </ul>
+                    </div>
+                </div>
+            % else:
+                <div class="col_login">
+                    <!--登录前-->
+                    <ul class="pre_login">
+                        <li><a href="javascript:;" onclick="showLoginBox();">登录</a></li>
+                        <li><a href="/register">注册</a></li>
                     </ul>
                 </div>
+            % endif
         </div>
-        % else:
-        <div class="col_login">
-            <!--登录前-->
-            <ul class="pre_login">
-                <li><a href="javascript:;" onclick="showLoginBox();">登录</a></li>
-                <li><a href="/register">注册</a></li>
-            </ul>
-        </div>
-        % endif
     </div>
 </div>
 <!--loginbox-->
@@ -63,6 +73,7 @@
             <div class="col_login_head"></div>
             <form role="form" id="login-form" method="post" data-remote="true" novalidate class="login">
                 <input type="hidden" name="csrfmiddlewaretoken" value="${ csrf_token }">
+
                 <div class="username">
                     <input id="email" type="email" name="email" placeholder="登录邮箱">
                 </div>
@@ -191,12 +202,12 @@
                     $(this).removeClass("selfColor");
                 });
         //下拉菜单的显示
-         $("#col_mycourse_sanjiao").click(
+        $("#col_mycourse_sanjiao").click(
                 function (event) {
                     stopEvent(event);
                     $("#col_drop_down").show();
                 });
-        $(document).click(function(event){
+        $(document).click(function (event) {
             stopEvent(event);
             $("#col_drop_down").hide();
         });
@@ -228,22 +239,22 @@
         });
     })
     function stopEvent(ev) { //阻止冒泡事件
-		//取消事件冒泡
-		var e = arguments.callee.caller.arguments[0] || event; //若省略此句，下面的e改为event，IE运行可以，但是其他浏览器就不兼容
-		if (e && e.stopPropagation) {
-			// this code is for Mozilla and Opera
-			e.stopPropagation();
-		} else if (window.event) {
-			// this code is for IE
-			window.event.cancelBubble = true;
-		}
-	}
-//下面维登录的操作
+        //取消事件冒泡
+        var e = arguments.callee.caller.arguments[0] || event; //若省略此句，下面的e改为event，IE运行可以，但是其他浏览器就不兼容
+        if (e && e.stopPropagation) {
+            // this code is for Mozilla and Opera
+            e.stopPropagation();
+        } else if (window.event) {
+            // this code is for IE
+            window.event.cancelBubble = true;
+        }
+    }
+    //下面维登录的操作
     //呈現登錄狂
-    function showLoginBox(){
-            $('.theme-popover-mask').show();
-            $('.theme-popover-mask').height($(document).height());
-            $(".loginbox_bg").slideDown(500);
+    function showLoginBox() {
+        $('.theme-popover-mask').show();
+        $('.theme-popover-mask').height($(document).height());
+        $(".loginbox_bg").slideDown(500);
     }
     function toggleLoginButton(enable) {
         //获取id为submit的提交按钮
@@ -275,11 +286,11 @@
                 alert(data);
             },
             success: function (data, textStatus) {
-                var tf=data.success;
-                var msg=data.value;
-                if(tf){
+                var tf = data.success;
+                var msg = data.value;
+                if (tf) {
                     location.href = "${reverse('dashboard')}";
-                }else{
+                } else {
                     toggleLoginButton(true);
                     alert(msg);
                 }

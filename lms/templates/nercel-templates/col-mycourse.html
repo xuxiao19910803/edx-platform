@@ -52,10 +52,10 @@
                 <li><a href="http://122.204.161.231/mainView/navigate/newLogin.jsp" id="col_fenxi">学习分析</a></li>
             </ul>
         </div>
-        <div class="col_search_course">
+       <%doc> <div class="col_search_course">
             <input type="text" id="col_mycourse_search" placeholder="搜索你感兴趣的课程"/>
             <img id="col_search_btn" src="/static/images/nercel-images/search.png" width="26px" height="26px">
-        </div>
+        </div></%doc>
         <div class="col_mycourse_login">
             <!--登陆之后-->
             <%doc><div class="col_mycourse_msg">
@@ -64,7 +64,7 @@
                 <div id="col_mycourse_msg_num">1</div>
             </div></%doc>
             <div class="col_mycourse_user">
-                <img src="/static/images/nercel-images/mycourse_smalltouxiang.png"/>
+               <%doc> <img src="/static/images/nercel-images/mycourse_smalltouxiang.png"/></%doc>
                 <a href="${reverse('dashboard')}" class="showName">${user.username}</a>
 
                 <div id="col_mycourse_sanjiao"></div>
@@ -84,52 +84,24 @@
 <div class="col_mycourse_mid max-width">
     <div class="col_mycourse_midpic"></div>
 </div>
+<div style="width: 768px;margin: 50px auto;line-height: 150%;">
+    %if message:
+        <section class="dashboard-banner">
+            ${message}
+        </section>
+    %endif
+
+    %if enrollment_message:
+        <section class="dashboard-banner">
+            ${enrollment_message}
+        </section>
+     %endif
+</div>
 <!--中间内容部分-->
 <div class="col_mycourse_container max-width">
     <div class="col_mycourse_content">
         <!--内容左侧——学生端布局-->
-       <%doc><div id="col_mycourse_content_left">
-            <div id="col_studenticon"><img src="/static/images/nercel-images/mycourse_bigtouxiang.png"/></div>
-            <p id="col_studentname">${user.username}</p>
-            学生端
-            <ul>
-                <li id="col_student_left_child1" style="border-left: 12px solid #4faba0;background-color: #54606e;">
-                    <a href="javascript:void(0);">
-                        <div class="col_student_icon"><img src="/static/images/nercel-images/mycourse.png"/></div>
-                        <p class="col_student_text_now">我的课程</p>
-                        <% courseCount=len(course_enrollment_pairs)%>
-                        <div class="col_student_num_now">${courseCount}</div>
-                    </a>
-                </li>
-                <li id="col_student_left_child2">
-                    <a href="javascript:void(0);">
-                        <div class="col_student_icon"><img src="/static/images/nercel-images/mycourse_myplan.png"/>
-                        </div>
-                        <p class="col_student_text">我的计划</p>
 
-                        <div class="col_student_num">3</div>
-                    </a>
-                </li>
-                <li id="col_student_left_child3">
-                    <a href="javascript:void(0);">
-                        <div class="col_student_icon"><img src="/static/images/nercel-images/mycourse_mynote.png"/>
-                        </div>
-                        <p class="col_student_text">我的笔记</p>
-
-                        <div class="col_student_num">3</div>
-                    </a>
-                </li>
-                <li id="col_student_left_child4">
-                    <a href="javascript:void(0);">
-                        <div class="col_student_icon"><img src="/static/images/nercel-images/mycourse_ziliao.png"/>
-                        </div>
-                        <p class="col_student_text">我的资料</p>
-
-                        <div class="col_student_num">3</div>
-                    </a>
-                </li>
-            </ul>
-        </div></%doc>
         <!--内容右侧全部课程-->
         <div id="col_mycourse_content_right">
             <!--最上面一行的内容布局-->
@@ -140,17 +112,6 @@
                         <span>全部课程</span>
                         <%doc><span>${courseCount}</span></%doc>
                     </li>
-                    <%doc><li>
-                        <img src="/static/images/nercel-images/mycourse_studying.png"/>
-                        <span>学习中</span>
-                        <span>2</span>
-                    </li>
-                    <li>
-                        <img src="/static/images/nercel-images/mycourse_finished.png"/>
-                        <span>已完成</span>
-                        <span>1</span>
-                    </li></%doc>
-
                 </ul>
             </div>
             <!--第一门课程的内容布局-->
@@ -188,7 +149,7 @@
                         <% mode_class = '' %>
                     % endif
                         <div class="col_mycourse_right_child">
-                    <% course_target = reverse('info', args=[unicode(course.id)]) %>
+                    <% course_target = reverse('courseware', args=[unicode(course.id)]) %>
                         <!--课程图片-->
                     % if show_courseware_link:
                         % if not is_course_blocked:
@@ -244,16 +205,6 @@
                         </div>
                         <!--进度条的布局-->
                         <div class="col_mycourse_courseprocess">
-                            <div class="col_mycourse_circle" id="col_mycourse_circle1">
-                                <div class="col_mycourse_pie_left">
-                                    <div class="col_mycourse_left"></div>
-                                </div>
-                                <div class="col_mycourse_pie_right">
-                                    <div class="col_mycourse_right"></div>
-                                </div>
-                                <div class="col_mycourse_mask"><span>30</span>%</div>
-                            </div>
-
                                 % if show_courseware_link:
                                     % if course.has_ended():
                                         % if not is_course_blocked:

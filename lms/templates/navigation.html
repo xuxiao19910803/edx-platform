@@ -59,7 +59,6 @@ site_status_msg = get_site_status_msg(course_id)
       %>
       ${display_name}</h2>
     % endif
-    #如果用户是登录过的
     % if user.is_authenticated():
     <ol class="left nav-global authenticated">
       <%block name="navigation_global_links_authenticated">

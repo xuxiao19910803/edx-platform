@@ -210,7 +210,7 @@ ${fragment.foot_html()}
     % endif
   </div>
 </div>
-<div class="container-footer">
+<%doc><div class="container-footer">
   % if settings.FEATURES.get("LICENSING", False):
     <div class="course-license">
     % if getattr(course, "license", None):
@@ -240,4 +240,4 @@ ${fragment.foot_html()}
   % endif
 </nav>
 
-<%include file="../modal/accessible_confirm.html" />
+<%include file="../modal/accessible_confirm.html" /></%doc>
