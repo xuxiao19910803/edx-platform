@@ -113,7 +113,7 @@
                 <div class="col_login">
                     <!--登录前-->
                     <ul class="pre_login">
-                        <li><a href="javascript:;" id="login">登录</a></li>
+                        <li><a href="/register">登录</a></li>
                         <li><a href="/register">注册</a></li>
                     </ul>
                 </div>
@@ -155,7 +155,9 @@
 <div class="col_course_bg max-width">
     <div class="col_course_details">
         <div class="col_course_information">
-            <div class="col_left fl" id="fengmian"></div>
+            <div class="col_left fl" id="fengmian">
+                <img src="${course_image_url(course)}">
+            </div>
             <div class="col_middle fl">
                 <span>${get_course_about_section(course, "title")}</span>
                 <ul class="col_middle_list">
@@ -171,7 +173,7 @@
 
                         <p class="middle_details_title">课程时长</p>
 
-                        <p id="course_time">30分钟</p>
+                        <p id="course_time">45分钟</p>
                     </li>
                     <li>
 
@@ -204,12 +206,12 @@
                 </ul>
             </div>
             <div class="col_right fr">
-                <div id="teacher_img"></div>
-                <ul class="teacher_information">
+                <%doc><div id="teacher_img"></div></%doc>
+                <%doc><ul class="teacher_information">
                     <li id="teacher_name">郑莉老师</li>
                     <li id="teacher_school">华师一附中</li>
                     <li id="teacher_position">数学特级教师</li>
-                </ul>
+                </ul></%doc>
                 %if user.is_authenticated() and registered:
                     %if show_courseware_link:
                         <a href="${course_target}" class="join_course">

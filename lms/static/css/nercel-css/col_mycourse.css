@@ -322,7 +322,9 @@ a {
     float: left;
     overflow: hidden;
 }
-
+.col_mycourse_courseicon img{
+    max-width: 100%;
+}
 .col_mycourse_courseinfro p, .col_mycourse_courseinfro span {
     font-size: 10px;
     color: #80807d;

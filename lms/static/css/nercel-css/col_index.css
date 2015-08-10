@@ -197,6 +197,9 @@
 	height:196px;
 	overflow: hidden;
 }
+.col_content_courseinfor img{
+	max-width: 100%;
+}
 .course-href{}
 .course-href:hover{
 	color: #000000;
