@@ -44,8 +44,6 @@ from django.utils.translation import ugettext as _
 </%block>
 
 <%block name="content">
-
-
 <div class="wrapper-mast wrapper">
     <header class="mast has-actions has-navigation has-subtitle">
         <div class="page-header">
@@ -89,15 +87,16 @@ from django.utils.translation import ugettext as _
                         </a>
                     </li>
                 % endif
-            </ul>
+            </ul>T
         </nav>
     </header>
 </div>
 
 <div class="wrapper-content wrapper">
+    <form enctype="multipart/form-data" id="uploadVideoAjax" method="POST" >
+        <input type="hidden" name="csrfmiddlewaretoken" value="${ csrf_token }">
     <div class="inner-wrapper">
         <section class="content-area">
-
             <article class="content-primary">
                 <div class="container-message wrapper-message"></div>
                 <section class="wrapper-xblock level-page is-hidden studio-xblock-wrapper" data-locator="${xblock_locator | h}" data-course-key="${xblock_locator.course_key | h}">
@@ -145,5 +144,90 @@ from django.utils.translation import ugettext as _
             </aside>
         </section>
     </div>
+        </form>
+</div>
+<div style="width: 200px;height: 200px;background: red">
+    <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js"></script>
+    <script src="http://122.204.161.231/myfiles/ajaxfileupload.js"></script>
+    <script>
+        function uploadFileByAjax(event){
+            toggleAbleButton(false);
+            $("#alink").click;
+            var fileName = $("#fileToUpload").val();
+            if(!checkFiletype(fileName)){
+                return false;
+            }
+            var formData = new FormData();
+            formData.append('file', $('input[type=file]')[0].files[0]);
+            $.ajax({
+                url: '/ajaxUploadVideo',  //server script to process data
+                type: 'POST',
+                xhr: function() {  // custom xhr
+                    myXhr = $.ajaxSettings.xhr();
+                    if(myXhr.upload){ // check if upload property exists
+                        myXhr.upload.addEventListener('progress',progressHandlingFunction, false); // for handling the progress of the upload
+                    }
+                    return myXhr;
+                },
+                //Ajax事件
+                success: function(data, textStatus){
+                    if(data.success){
+                        var uEle= document.querySelector(".nercel-video-uri");
+                        var videoUrl=data.resurl;
+                        $(uEle).val(videoUrl);
+                        toggleAbleButton(true);
+                    }
+                    else{
+                        alert(data.msg)
+                    }
+                    var videoUrl=data.resurl;
+                },
+                error: function(){
+                    alert("error")
+                },
+                // Form数据
+                data: formData,
+                //Options to tell JQuery not to process data or worry about content-type
+                cache: false,
+                contentType: false,
+                processData: false
+            });
+        }
+        //验证文件的后缀是否合法
+        function checkFiletype(fileName){
+            if (fileName != "" ) {
+                var fileType = (fileName.substring(fileName.lastIndexOf(".") + 1, fileName.length)).toLowerCase();
+                var suppotFile = ["mp4"];
+                for (var i = 0; i < suppotFile.length; i++) {
+                    if (suppotFile[i] == fileType) {
+                    return true;
+                    } else {
+                        continue;
+                    }
+                }
+            alert("文件格式不正确！");
+            return false;
+            } else {
+            alert("请选择你需要的导入 的文件");
+            return false;
+            }
+        }//进度条
+        function progressHandlingFunction(e){
+            if(e.lengthComputable){
+                $('progress').attr({value:e.loaded,max:e.total});
+            }
+        }
+        //提交按钮
+        function toggleAbleButton(enable) {
+        //获取id为submit的提交按钮
+            var $submitButton = $('#uploadFileByAjax-btn');
+            if (enable) {
+                $submitButton.removeClass('is-disabled').attr('aria-disabled', false).removeProp('disabled').val("点击上传视频文件");
+                }
+            else {
+                $submitButton.addClass('is-disabled').prop('disabled', true).val("正在上传视频文件，请耐心等待");
+                }
+            }
+    </script>
 </div>
 </%block>

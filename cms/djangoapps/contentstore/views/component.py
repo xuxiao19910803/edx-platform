@@ -1,3 +1,4 @@
+#encoding=utf-8
 from __future__ import absolute_import
 
 import json
@@ -30,7 +31,8 @@ from opaque_keys.edx.keys import UsageKey
 from student.auth import has_course_author_access
 from django.utils.translation import ugettext as _
 from models.settings.course_grading import CourseGradingModel
-
+from django.views.decorators.csrf import ensure_csrf_cookie
+from django.core.context_processors import csrf
 __all__ = ['OPEN_ENDED_COMPONENT_TYPES',
            'ADVANCED_COMPONENT_POLICY_KEY',
            'container_handler',
@@ -146,6 +148,8 @@ def _load_mixed_class(category):
 # pylint: disable=unused-argument
 @require_GET
 @login_required
+#container/i4x://CCNU/CCNU_6/vertical/1ab9b3acf43147d3a15c5ed205249595?action=new
+# go to unit four varies of Resource
 def container_handler(request, usage_key_string):
     """
     The restful handler for container xblock requests.
@@ -201,8 +205,9 @@ def container_handler(request, usage_key_string):
                 if child.location == unit.location:
                     break
                 index += 1
-
+            csrf_token = csrf(request)['csrf_token']
             return render_to_response('container.html', {
+                'csrf_token':csrf_token,
                 'context_course': course,  # Needed only for display of menus at top of page.
                 'action': action,
                 'xblock': xblock,

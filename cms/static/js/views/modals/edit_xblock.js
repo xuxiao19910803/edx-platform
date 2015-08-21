@@ -7,7 +7,7 @@ define(["jquery", "underscore", "gettext", "js/views/modals/base_modal", "js/vie
     "js/models/xblock_info", "js/views/xblock_editor"],
     function($, _, gettext, BaseModal, ViewUtils, XBlockInfo, XBlockEditorView) {
         "strict mode";
-
+        console.log("hello,editxblox");
         var EditXBlockModal = BaseModal.extend({
             events : {
                 "click .action-save": "save",

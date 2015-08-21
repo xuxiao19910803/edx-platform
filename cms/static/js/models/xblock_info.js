@@ -8,6 +8,7 @@ function(Backbone, _, str, ModuleUtils) {
 
         // NOTE: 'publish' is not an attribute on XBlockInfo, but it is used to signal the publish
         // and discard changes actions. Therefore 'publish' cannot be introduced as an attribute.
+        //“发布”不在XBlockInfo一个属性，但它是用于指示发布和放弃修改动作。因此，“发布”不能被引入作为属性。
         defaults: {
             'id': null,
             'display_name': null,

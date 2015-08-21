@@ -7,6 +7,7 @@ define(["jquery", "underscore", "js/views/xblock", "js/utils/module", "gettext",
             // Store the request token of the first xblock on the page (which we know was rendered by Studio when
             // the page was generated). Use that request token to filter out user-defined HTML in any
             // child xblocks within the page.
+            //存储xblock请求令牌页面上（我们知道是由于工作室在页面生成）。使用请求令牌，过滤出用户自定义的HTML页面内的任何孩子xblocks。
             requestToken: "",
 
             new_child_view: 'reorderable_container_child_preview',
@@ -89,7 +90,7 @@ define(["jquery", "underscore", "js/views/xblock", "js/utils/module", "gettext",
 
                 });
             },
-
+            //updateChildren
             updateChildren: function (targetParent, successCallback) {
                 var children, childLocators, xblockInfo=this.model;
 
@@ -124,20 +125,19 @@ define(["jquery", "underscore", "js/views/xblock", "js/utils/module", "gettext",
                     }
                 });
             },
-
+            //acknowledge xblock to deletion
             acknowledgeXBlockDeletion: function(locator){
                 this.notifyRuntime('deleted-child', locator);
             },
-
+            //refresh
             refresh: function() {
                 var sortableInitializedClass = this.makeRequestSpecificSelector('.reorderable-container.ui-sortable');
                 this.$(sortableInitializedClass).sortable('refresh');
             },
-
+            //Request Specific Selector
             makeRequestSpecificSelector: function(selector) {
                 return 'div.xblock[data-request-token="' + this.requestToken + '"] > ' + selector;
             }
         });
-
         return ContainerView;
     }); // end define();

@@ -1,10 +1,8 @@
 <%! from django.utils.translation import ugettext as _ %>
-
 <%inherit file="base.html" />
 <%def name="online_help_token()"><% return "home" %></%def>
 <%block name="title">${_("{studio_name} Home").format(studio_name=settings.STUDIO_SHORT_NAME)}</%block>
 <%block name="bodyclass">is-signedin index view-dashboard</%block>
-
 <%block name="requirejs">
   require(["js/factories/index"], function (IndexFactory) {
       IndexFactory();
@@ -12,11 +10,13 @@
 </%block>
 
 <%block name="content">
+  <%doc>studio_name的信息和新建课程的章节</%doc>
 <div class="wrapper-mast wrapper">
   <header class="mast has-actions">
     <h1 class="page-header">${_("{studio_name} Home").format(studio_name=settings.STUDIO_SHORT_NAME)}</h1>
 
     % if user.is_active:
+        <%doc>add new course or new library</%doc>
     <nav class="nav-actions" aria-label="${_('Page Actions')}">
       <h3 class="sr">${_("Page Actions")}</h3>
       <ul>
@@ -37,12 +37,11 @@
     % endif
   </header>
 </div>
-
+<%doc>显示课程列表的相关信息。</%doc>
 <div class="wrapper-content wrapper">
   % if user.is_active:
   <section class="content">
     <article class="content-primary" role="main">
-
       % if course_creator_status=='granted':
       <div class="wrapper-create-element wrapper-create-course">
         <form class="form-create create-course course-info" id="create-course-form" name="create-course-form">

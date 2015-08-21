@@ -27,7 +27,8 @@ define(['jquery.cookie', 'utility'], function() {
             postJSON('/login_post', submit_data, function(json) {
                 if(json.success) {
                     var next = /next=([^&]*)/g.exec(decodeURIComponent(window.location.search));
-                    if (next && next.length > 1 && !isExternal(next[1])) {
+                    // homepageURL="/"
+                    if (next &&   next.length > 1 && !isExternal(next[1])) {
                         location.href = next[1];
                     } else {
                         location.href = homepageURL;

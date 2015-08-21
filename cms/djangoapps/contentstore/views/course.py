@@ -262,6 +262,7 @@ def course_handler(request, course_key_string=None):
             if course_key_string is None:
                 return redirect(reverse("home"))
             else:
+                #return a course_index,转换为CourseKey模式。
                 return course_index(request, CourseKey.from_string(course_key_string))
         else:
             return HttpResponseNotFound()
@@ -410,16 +411,18 @@ def _accessible_libraries_list(user):
     # No need to worry about ErrorDescriptors - split's get_libraries() never returns them.
     return [lib for lib in modulestore().get_libraries() if has_studio_read_access(user, lib.location.library_key)]
 
-#取得课程列表
+#获取课程列表，显示在用户的dashborad.
 @login_required
 @ensure_csrf_cookie
 def course_listing(request):
     """
     List all courses available to the logged in user
     """
+    #根据request获取课程信息
+    #in_process_course_actions：check for any course action state for this course
     courses, in_process_course_actions = get_courses_accessible_to_user(request)
+    #如果LIBRARIES_ENABLED为true则取得libraries,否则为[]
     libraries = _accessible_libraries_list(request.user) if LIBRARIES_ENABLED else []
-
     def format_in_process_course_view(uca):
         """
         Return a dict of the data which the view requires for each unsucceeded course
@@ -453,23 +456,31 @@ def course_listing(request):
             'number': library.display_number_with_default,
             'can_edit': has_studio_write_access(request.user, library.location.library_key),
         }
-
     courses = _remove_in_process_courses(courses, in_process_course_actions)
     in_process_course_actions = [format_in_process_course_view(uca) for uca in in_process_course_actions]
-
-    return render_to_response('index.html', {
+    context={
         'courses': courses,
         'in_process_course_actions': in_process_course_actions,
+        #[]
         'libraries_enabled': LIBRARIES_ENABLED,
+        #True
         'libraries': [format_library_for_view(lib) for lib in libraries],
+        #[]
         'show_new_library_button': LIBRARIES_ENABLED and request.user.is_active,
+        #True
         'user': request.user,
         'request_course_creator_url': reverse('contentstore.views.request_course_creator'),
+        #'/request_course_creator'
         'course_creator_status': _get_course_creator_status(request.user),
+        #granted
         'rerun_creator_status': GlobalStaff().has_user(request.user),
+        #False
         'allow_unicode_course_id': settings.FEATURES.get('ALLOW_UNICODE_COURSE_ID', False),
+        #False
         'allow_course_reruns': settings.FEATURES.get('ALLOW_COURSE_RERUNS', True)
-    })
+        #True
+    }
+    return render_to_response('index.html', context)
 
 
 def _get_rerun_link_for_item(course_key):
@@ -517,7 +528,7 @@ def _deprecated_blocks_info(course_module, deprecated_block_types):
 
 @login_required
 @ensure_csrf_cookie
-#显示课程信息。
+#index因该显示课程信息。
 def course_index(request, course_key):
     """
     Display an editable course overview.
@@ -544,13 +555,17 @@ def course_index(request, course_key):
             current_action = None
 
         deprecated_blocks_info = _deprecated_blocks_info(course_module, settings.DEPRECATED_BLOCK_TYPES)
-
-        return render_to_response('course_outline.html', {
+        #返回course_outline.html的课程信息。
+        context={
             'context_course': course_module,
+            #invalid syntax (<string>, line 1)
             'lms_link': lms_link,
+            #u'//localhost:8000/courses/ccnu/math101x/2015_T1/jump_to/i4x://ccnu/math101x/course/2015_T1'
             'sections': sections,
             'course_structure': course_structure,
+            #
             'initial_state': course_outline_initial_state(locator_to_show, course_structure) if locator_to_show else None,
+            #None
             'course_graders': json.dumps(
                 CourseGradingModel.fetch(course_key).graders
             ),
@@ -566,7 +581,8 @@ def course_index(request, course_key):
                     'action_state_id': current_action.id,
                 },
             ) if current_action else None,
-        })
+        }
+        return render_to_response('course_outline.html', context)
 
 
 def get_courses_accessible_to_user(request):
@@ -588,6 +604,7 @@ def get_courses_accessible_to_user(request):
 
 
 def _remove_in_process_courses(courses, in_process_course_actions):
+    #删除正在重新运行的课程。
     """
     removes any in-process courses in courses list. in-process actually refers to courses
     that are in the process of being generated for re-run

@@ -1,4 +1,4 @@
-define(["js/views/baseview"],
+define(["js/views/baseview"],//add add-xblock-component-button
     function (BaseView) {
 
         return BaseView.extend({

@@ -9,6 +9,7 @@ define([
                 model: courseXBlock,
                 initialState: initialStateJson
             });
+        //show loading page ui-loading class
         view.render();
     };
 });

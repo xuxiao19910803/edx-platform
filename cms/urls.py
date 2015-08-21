@@ -1,3 +1,4 @@
+#encoding=utf-8
 from django.conf import settings
 from django.conf.urls import patterns, include, url
 
@@ -67,7 +68,7 @@ urlpatterns += patterns(
 # restful api
 urlpatterns += patterns(
     'contentstore.views',
-
+    #"^$" match home.html
     url(r'^$', 'howitworks', name='homepage'),
     url(r'^howitworks$', 'howitworks'),
     url(r'^signup$', 'signup', name='signup'),
@@ -80,6 +81,7 @@ urlpatterns += patterns(
         r'^course_info_update/{}/(?P<provided_id>\d+)?$'.format(settings.COURSE_KEY_PATTERN),
         'course_info_update_handler'
     ),
+    #make course_list
     url(r'^home/?$', 'course_listing', name='home'),
     url(
         r'^course/{}/search_reindex?$'.format(settings.COURSE_KEY_PATTERN),
@@ -90,6 +92,7 @@ urlpatterns += patterns(
     url(r'^course_notifications/{}/(?P<action_state_id>\d+)?$'.format(settings.COURSE_KEY_PATTERN),
         'course_notifications_handler'),
     url(r'^course_rerun/{}$'.format(settings.COURSE_KEY_PATTERN), 'course_rerun_handler', name='course_rerun_handler'),
+    #container/i4x://CCNU/CCNU_6/vertical/1ab9b3acf43147d3a15c5ed205249595?action=new
     url(r'^container/{}$'.format(settings.USAGE_KEY_PATTERN), 'container_handler'),
     url(r'^checklists/{}/(?P<checklist_index>\d+)?$'.format(settings.COURSE_KEY_PATTERN), 'checklists_handler'),
     url(r'^orphan/{}$'.format(settings.COURSE_KEY_PATTERN), 'orphan_handler'),
@@ -199,4 +202,8 @@ handler500 = 'contentstore.views.render_500'
 urlpatterns += (
     url(r'404', handler404),
     url(r'500', handler500),
+)
+#ajax上传视频
+urlpatterns += (
+    url(r'^ajaxUploadVideo$',"contentstore.views.ajaxUploadVideo",name="ajaxVideo"),
 )

@@ -36,7 +36,9 @@ define(['jquery', 'js/views/baseview'],
                 var self = this;
                 this.$('.ui-loading').removeClass('is-hidden');
                 this.renderPage().done(function() {
+                    // subclasses of BasePage should implement renderPage to perform the rendering of the content.
                     if (!self.hasContent()) {
+                        //dons't show $('.no-content')
                         self.$('.no-content').removeClass('is-hidden');
                     }
                 }).always(function() {
