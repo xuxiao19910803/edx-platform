@@ -1,3 +1,4 @@
+#encoding=utf-8
 """
 Instructor Dashboard Views
 """
@@ -64,7 +65,7 @@ class InstructorDashboardTab(CourseTab):
         """
         return user and has_access(user, 'staff', course, course.id)
 
-
+#lms主讲教师
 @ensure_csrf_cookie
 @cache_control(no_cache=True, no_store=True, must_revalidate=True)
 def instructor_dashboard_2(request, course_id):
@@ -74,9 +75,9 @@ def instructor_dashboard_2(request, course_id):
     except InvalidKeyError:
         log.error(u"Unable to find course with course key %s while loading the Instructor Dashboard.", course_id)
         return HttpResponseServerError()
-
+    #根据课程id取得课程，
     course = get_course_by_id(course_key, depth=0)
-
+    #取得权限
     access = {
         'admin': request.user.is_staff,
         'instructor': has_access(request.user, 'instructor', course),
@@ -85,23 +86,36 @@ def instructor_dashboard_2(request, course_id):
         'staff': has_access(request.user, 'staff', course),
         'forum_admin': has_forum_access(request.user, course_key, FORUM_ROLE_ADMINISTRATOR),
     }
-
     if not access['staff']:
         raise Http404()
-
+    #white_label标签
     is_white_label = CourseMode.is_white_label(course_key)
-
+    #章节信息,这里隐藏了群组管理、数据下载、分析数据的功能
     sections = [
         _section_course_info(course, access),
-        _section_membership(course, access, is_white_label),
-        _section_cohort_management(course, access),
+        #课程信息
         _section_student_admin(course, access),
-        _section_data_download(course, access),
+        #学生管理
         _section_analytics(course, access),
+        #分析数据
     ]
+    #sections = [
+    #    _section_course_info(course, access),
+    #    #课程信息
+    #    _section_membership(course, access, is_white_label),
+    #    #队列？管理
+    #    _section_cohort_management(course, access),
+    #    #学生管理
+    #    _section_student_admin(course, access),
+    #    #数据下载
+    #    _section_data_download(course, access),
+    #    #分析数据
+    #    _section_analytics(course, access),
+    #]
 
     #check if there is corresponding entry in the CourseMode Table related to the Instructor Dashboard course
     course_mode_has_price = False
+    #支付模型
     paid_modes = CourseMode.paid_modes_for_course(course_key)
     if len(paid_modes) == 1:
         course_mode_has_price = True
@@ -111,7 +125,6 @@ def instructor_dashboard_2(request, course_id):
             u"one paid course mode to enable eCommerce options.",
             unicode(course_key), len(paid_modes)
         )
-
     if (settings.FEATURES.get('INDIVIDUAL_DUE_DATES') and access['instructor']):
         sections.insert(3, _section_extensions(course))
 

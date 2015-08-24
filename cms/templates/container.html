@@ -146,9 +146,7 @@ from django.utils.translation import ugettext as _
     </div>
         </form>
 </div>
-<div style="width: 200px;height: 200px;background: red">
     <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js"></script>
-    <script src="http://122.204.161.231/myfiles/ajaxfileupload.js"></script>
     <script>
         function uploadFileByAjax(event){
             toggleAbleButton(false);
@@ -172,18 +170,18 @@ from django.utils.translation import ugettext as _
                 //Ajax事件
                 success: function(data, textStatus){
                     if(data.success){
-                        var uEle= document.querySelector(".nercel-video-uri");
                         var videoUrl=data.resurl;
-                        $(uEle).val(videoUrl);
+                        $("#uploadMp4").val(videoUrl);
+                        var uEle= document.querySelector(".nercel-video-uri");
+                        $(uEle).val("");
                         toggleAbleButton(true);
                     }
                     else{
-                        alert(data.msg)
+                        alert("上传失败"+data.msg);
                     }
-                    var videoUrl=data.resurl;
                 },
                 error: function(){
-                    alert("error")
+                    alert("视频上传失败，请检查视频服务器是否开启");
                 },
                 // Form数据
                 data: formData,
@@ -208,7 +206,7 @@ from django.utils.translation import ugettext as _
             alert("文件格式不正确！");
             return false;
             } else {
-            alert("请选择你需要的导入 的文件");
+            alert("请选择你需要的导入的文件");
             return false;
             }
         }//进度条
@@ -229,5 +227,4 @@ from django.utils.translation import ugettext as _
                 }
             }
     </script>
-</div>
 </%block>

@@ -16,6 +16,7 @@ from microsite_configuration import microsite
 ############
 from util.json_request import JsonResponse
 import json
+from uuid import uuid4
 import urllib
 import urllib2
 import os
@@ -82,17 +83,22 @@ def howitworks(request):
         return render_to_response('howitworks.html', {})
 def ajaxUploadVideo(request):
     def handle_uploaded_file(f):
+        print (f.name)
         file_name = ""
-
+        suffixName = ""
         try:
-            path = "media/editor" + time.strftime('/%Y/%m/%d/%H/%M/%S/')
+            path = "media/editor/"
             if not os.path.exists(path):
                 os.makedirs(path)
-                file_name = path + f.name
-                destination = open(file_name, 'wb+')
-                for chunk in f.chunks():
-                    destination.write(chunk)
-                destination.close()
+            name = "" + f.name
+            suffixName = name.split(".")[-1]
+            suffix2Name =name[name.rfind('.'):]
+            uuid = unicode(uuid4())
+            file_name = path + uuid + "." +suffixName
+            destination = open(file_name, 'wb+')
+            for chunk in f.chunks():
+                destination.write(chunk)
+            destination.close()
         except Exception, e:
             print e
 
@@ -132,6 +138,7 @@ def ajaxUploadVideo(request):
     #Rest上传，并取回上传成功后的地址
     try:
         url=handel_RestuploadFile(abFileName)
+        print ("url:"+url);
     except Exception,e:
         print e
         return JsonResponse({

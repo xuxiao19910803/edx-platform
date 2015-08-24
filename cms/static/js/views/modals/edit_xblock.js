@@ -13,7 +13,6 @@ define(["jquery", "underscore", "gettext", "js/views/modals/base_modal", "js/vie
                 "click .action-save": "save",
                 "click .action-modes a": "changeMode"
             },
-
             options: $.extend({}, BaseModal.prototype.options, {
                 modalName: 'edit-xblock',
                 addSaveButton: true,
@@ -43,7 +42,6 @@ define(["jquery", "underscore", "gettext", "js/views/modals/base_modal", "js/vie
                 this.editOptions = options;
                 this.render();
                 this.show();
-
                 // Hide the action bar until we know which buttons we want
                 this.getActionBar().hide();
 

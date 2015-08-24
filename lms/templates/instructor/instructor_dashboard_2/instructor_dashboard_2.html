@@ -95,7 +95,6 @@ from django.core.urlresolvers import reverse
 <style type="text/css"></style>
 
 <script language="JavaScript" type="text/javascript"></script>
-
 <section class="container">
   <div class="instructor-dashboard-wrapper-2">
     <section class="instructor-dashboard-content-2" id="instructor-dashboard-content">
@@ -109,9 +108,9 @@ from django.core.urlresolvers import reverse
       </div>
 
     <h1>${_("Instructor Dashboard")}</h1>
-
       %if analytics_dashboard_message:
         <div class="wrapper-msg urgency-low is-shown">
+            <!--一些关于分析信息的html代码-->
             <p>${analytics_dashboard_message}</p>
         </div>
       %endif

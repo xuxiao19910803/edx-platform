@@ -177,6 +177,7 @@ define(["jquery", "underscore", "gettext", "js/views/pages/base_page", "js/views
             },
 
             editVisibilitySettings: function(event) {
+                alert("editVisibilitySettings");
                 this.editXBlock(event, {
                     view: 'visibility_view',
                     // Translators: "title" is the name of the current component being edited.
