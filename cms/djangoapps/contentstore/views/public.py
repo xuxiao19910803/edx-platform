@@ -136,9 +136,11 @@ def ajaxUploadVideo(request):
     #Rest上传，并取回上传成功后的地址
     try:
         url=handel_RestuploadFile(abFileName)
-        print ("url:"+url);
+        if os.path.exists(abFileName):
+            os.remove(abFileName)
     except Exception,e:
-        print e
+        if os.path.exists(abFileName):
+           os.remove(abFileName)
         return JsonResponse({
             "success": False,
             "msg": "文件Rest上传失败",

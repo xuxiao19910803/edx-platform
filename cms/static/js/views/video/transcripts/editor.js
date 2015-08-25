@@ -13,7 +13,6 @@ function($, Backbone, _, Utils, MetadataView, MetadataCollection) {
 
         initialize: function () {
             // prepare data for MetadataView.Editor
-
             var metadata = this.$el.data('metadata'),
                 models = this.toModels(metadata);
 

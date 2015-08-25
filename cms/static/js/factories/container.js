@@ -6,13 +6,16 @@ define([
 function($, _, XBlockContainerInfo, ContainerPage, ComponentTemplates, xmoduleLoader) {
     'use strict';
     return function (componentTemplates, XBlockInfoJson, action, options) {
+        console.log(componentTemplates);
+        console.log(XBlockInfoJson);
+        console.log(action);
+        console.log(options);
         var main_options = {
             el: $('#content'),
             model: new XBlockContainerInfo(XBlockInfoJson, {parse: true}),
             action: action,
             templates: new ComponentTemplates(componentTemplates, {parse: true})
         };
-
         xmoduleLoader.done(function () {
             var view = new ContainerPage(_.extend(main_options, options));
             view.render();

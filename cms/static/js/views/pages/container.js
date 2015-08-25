@@ -12,7 +12,6 @@ define(["jquery", "underscore", "gettext", "js/views/pages/base_page", "js/views
         'use strict';
         var XBlockContainerPage = BasePage.extend({
             // takes XBlockInfo as a model
-
             events: {
                 "click .edit-button": "editXBlock",
                 "click .visibility-button": "editVisibilitySettings",
