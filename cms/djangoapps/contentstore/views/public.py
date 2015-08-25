@@ -129,7 +129,7 @@ def ajaxUploadVideo(request):
         print e
         return JsonResponse({
             "success": False,
-            "msg": "文件写入本地失败",
+            "msg": "文件写入本地失败:文件名称"+fileName,
         })
     #返回绝对路径
     abFileName="/edx/app/edxapp/edx-platform/"+fileName
