@@ -27,6 +27,28 @@
     <link href="/static/css/nercel-css/col_bottom.css" rel="stylesheet"/>
     <link href="/static/css/nercel-css/col_copyright.css" rel="stylesheet"/>
     <script src="/static/js/nercel-js/jquery-1.8.3.min.js" type="text/javascript"></script>
+    <script src="/static/js/nercel-js/ScrollUtil.js" type="text/javascript"></script>
+    <script>
+    var timer = null;
+    var count = 1;
+    //页面加载完成之后执行图片轮播
+    $(function () {
+        //开始执行轮播
+        ScrollUtil.startTimer(count);
+        $(".img-btn li").hover(function () {
+            //清理请示器
+            clearInterval(timer);
+            $("#index-img").stop();
+            $(".img-btn li").css("background","#cccccc");
+            $(this).css("background","#ffffff");
+            var imgName = $(this).attr("id");
+            count = imgName.substring(6);
+            ScrollUtil.changeImg(imgName);
+        }, function () {
+            timer = ScrollUtil.startTimer(count);
+        })
+    })
+</script>
 </head>
 <body>
 
@@ -85,7 +107,15 @@
 </div>
 <!--中间图片部分-->
 <div class="col_mid max-width">
-    <img src="/static/images/nercel-images/mid_pic.png"/>
+    <img id="index-img" src="/static/images/nercel-images/scroll1.jpg"/>
+    <div class="img-btn">
+        <ul>
+            <li id="scroll1"></li>
+            <li id="scroll2"></li>
+            <li id="scroll3"></li>
+            <li id="scroll4"></li>
+        </ul>
+    </div>
 </div>
 <!--课程部分布局-->
 <div class="col_container max-width clear">

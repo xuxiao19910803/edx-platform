@@ -11,12 +11,30 @@
 /*中间图片布局*/
 .col_mid{
 	width: 100%;
+    position: relative;
 	background-color:#89b6b3;
 }
 .col_mid img{
 	width:100%;
     display: block;
 	margin:0 auto;
+}
+.img-btn {
+    width: 280px;
+    height: 20px;
+    position: absolute;
+    left: calc(50% - 140px);
+    bottom: 10px;
+}
+.img-btn li{
+    width: 20px;
+    height: 20px;
+    background: #cccccc;
+    border-radius: 10px;
+    overflow: hidden;
+    float: left;
+    margin-left: 40px;
+    cursor: pointer;
 }
 /*登录框*/
 .theme-popover-mask{
