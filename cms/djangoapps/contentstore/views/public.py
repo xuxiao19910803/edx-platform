@@ -92,7 +92,6 @@ def ajaxUploadVideo(request):
                 os.makedirs(path)
             name = "" + f.name
             suffixName = name.split(".")[-1]
-            suffix2Name =name[name.rfind('.'):]
             uuid = unicode(uuid4())
             file_name = path + uuid + "." +suffixName
             destination = open(file_name, 'wb+')
@@ -101,7 +100,6 @@ def ajaxUploadVideo(request):
             destination.close()
         except Exception, e:
             print e
-
         return file_name
     def handel_RestuploadFile(filepath):
         try:

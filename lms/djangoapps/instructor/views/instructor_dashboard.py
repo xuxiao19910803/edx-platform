@@ -98,6 +98,7 @@ def instructor_dashboard_2(request, course_id):
         #学生管理
         _section_analytics(course, access),
         #分析数据
+        _section_membership(course, access, is_white_label),
     ]
     #sections = [
     #    _section_course_info(course, access),
