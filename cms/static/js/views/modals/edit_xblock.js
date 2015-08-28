@@ -166,7 +166,6 @@ define(["jquery", "underscore", "gettext", "js/views/modals/base_modal", "js/vie
                         });
                 }
             },
-
             onSave: function() {
                 var refresh = this.editOptions.refresh;
                 this.hide();

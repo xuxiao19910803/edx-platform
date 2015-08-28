@@ -5,13 +5,13 @@
             ## There is no whitespace between these because the front-end JS code
             ## needs to precisely compute the available width for forum-nav-
             ## browse-current in order to do truncation of topic names.
-            <i class="icon fa fa-reorder"></i><span class="sr">${_("Discussion topics; current selection is: ")}</span><span class="forum-nav-browse-current">${_("All Discussions")}</span><span class="forum-nav-browse-drop-arrow">▾</span>
+            <i class="icon fa fa-reorder"></i><span class="sr">${_("Discussion topics; current selection is: ")}</span><span class="forum-nav-browse-current">全部讨论</span><span class="forum-nav-browse-drop-arrow">▾</span>
         </a>
         <form class="forum-nav-search">
             <div class="forum-nav-search-ff-position-fix">
                 <label>
                     <span class="sr">${_("Search")}</span>
-                    <input class="forum-nav-search-input" type="text" placeholder="${_("Search all posts")}">
+                    <input class="forum-nav-search-input" type="text" placeholder="搜索所有评论">
                     <i class="icon fa fa-search"></i>
                 </label>
             </div>
@@ -25,16 +25,16 @@
                 <span class="sr">${_("Filter:")}</span>
                 <select class="forum-nav-filter-main-control">
                     ## Translators: This is a menu option for showing all forum threads unfiltered
-                    <option value="all">${_("Show all")}</option>
+                    <option value="all">显示全部</option>
                     ## Translators: This is a menu option for showing only unread forum threads
-                    <option value="unread">${_("Unread")}</option>
+                    <option value="unread">未读</option>
                     ## Translators: This is a menu option for showing only unanswered forum
                     ## question threads
-                    <option value="unanswered">${_("Unanswered")}</option>
+                    <option value="unanswered">未答复</option>
                     %if flag_moderator:
                         ## Translators: This is a menu option for showing only forum threads flagged
                         ## for abuse
-                        <option value="flagged">${_("Flagged")}</option>
+                        <option value="flagged">标记</option>
                     %endif
                 </select>
             </label>${"<% if (isCohorted && isPrivilegedUser) { %>"}<label class="forum-nav-filter-cohort">
@@ -51,11 +51,11 @@
                 <span class="sr">${_("Sort:")}</span>
                 <select class="forum-nav-sort-control">
                     ## Translators: This is a menu option for sorting forum threads
-                    <option value="date">${_("by recent activity")}</option>
+                    <option value="date">按时间排序</option>
                     ## Translators: This is a menu option for sorting forum threads
-                    <option value="comments">${_("by most activity")}</option>
+                    <option value="comments">按评论次数排序</option>
                     ## Translators: This is a menu option for sorting forum threads
-                    <option value="votes">${_("by most votes")}</option>
+                    <option value="votes">按投票次数排序</option>
                 </select>
             </label>
         </div>

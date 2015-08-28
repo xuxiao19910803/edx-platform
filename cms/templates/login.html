@@ -12,8 +12,9 @@ from django.utils.translation import ugettext as _
 <div class="wrapper-content wrapper">
   <section class="content">
     <header>
-      <h1 class="title title-1">${_("Sign In to {studio_name}").format(studio_name=settings.STUDIO_NAME)}</h1>
-      <a href="${reverse('signup')}" class="action action-signin">${_("Don't have a {studio_name} Account? Sign up!").format(studio_name=settings.STUDIO_SHORT_NAME)}</a>
+      <!--<h1 class="title title-1">${_("Sign In to {studio_name}").format(studio_name=settings.STUDIO_NAME)}</h1>-->
+      <h1 class="title title-1">登录师大教师工作室</h1>
+      <a href="${reverse('signup')}" class="action action-signin">还没有教师工作室账户？现在就注册！</a>
     </header>
 
     <article class="content-primary" role="main">
@@ -38,7 +39,7 @@ from django.utils.translation import ugettext as _
         </fieldset>
 
         <div class="form-actions">
-          <button type="submit" id="submit" name="submit" class="action action-primary">${_("Sign In to {studio_name}").format(studio_name=settings.STUDIO_NAME)}</button>
+          <button type="submit" id="submit" name="submit" class="action action-primary">登录师大工作室</button>
         </div>
 
         <!-- no honor code for CMS, but need it because we're using the lms student object -->

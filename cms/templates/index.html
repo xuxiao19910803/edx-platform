@@ -13,7 +13,7 @@
   <%doc>studio_name的信息和新建课程的章节</%doc>
 <div class="wrapper-mast wrapper">
   <header class="mast has-actions">
-    <h1 class="page-header">${_("{studio_name} Home").format(studio_name=settings.STUDIO_SHORT_NAME)}</h1>
+    <h1 class="page-header">教师工作室主页</h1>
 
     % if user.is_active:
         <%doc>add new course or new library</%doc>
@@ -476,7 +476,7 @@
         <ol class="list-actions">
           <li class="action-item">
 
-            <a href="${get_online_help_info(online_help_token())['doc_url']}" target="_blank">${_("Getting Started with {studio_name}").format(studio_name=settings.STUDIO_NAME)}</a>
+            <a href="${get_online_help_info(online_help_token())['doc_url']}" target="_blank">师大教师工作室</a>
           </li>
           % if settings.TENDER_DOMAIN:
             <li class="action-item">
@@ -502,7 +502,7 @@
 
       % if course_creator_status == "unrequested":
       <div class="bit">
-        <h3 class="title title-3">${_("Can I create courses in {studio_name}?").format(studio_name=settings.STUDIO_NAME)}</h3>
+        <h3 class="title title-3">刚刚接触师大教师工作室？</h3>
         <p>${_('In order to create courses in {studio_name}, you must have course creator privileges to create your own course.').format(studio_name=settings.STUDIO_NAME)}</p>
       </div>
 

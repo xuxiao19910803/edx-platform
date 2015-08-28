@@ -409,10 +409,11 @@ from django_comment_client.permissions import has_permission
                 <span class="sr">${_("Title:")}</span>
                 <input aria-describedby="field_help_title" type="text" class="field-input js-post-title" name="title" placeholder="${_('Title')}">
             </label><span class="field-help" id="field_help_title">
-                ${_("Add a clear and descriptive title to encourage participation.")}
+                <!--${_("Add a clear and descriptive title to encourage participation.")}-->
+                添加标题
             </span>
         </div>
-        <div class="post-field js-post-body editor" name="body" data-placeholder="${_('Enter your question or comment')}"></div>
+        <div class="post-field js-post-body editor" name="body" data-placeholder="输入"></div>
         <div class="post-options">
             <label class="post-option is-enabled">
                 <input type="checkbox" name="follow" class="post-option-input js-follow" checked>
@@ -432,7 +433,7 @@ from django_comment_client.permissions import has_permission
             ${'<% } %>'}
         </div>
         <div>
-            <input type="submit" class="submit" value="${_('Add Post')}">
+            <input type="submit" class="submit" value="提交帖子">
             <a href="#" class="cancel">${_('Cancel')}</a>
         </div>
     </form>
@@ -444,13 +445,13 @@ from django_comment_client.permissions import has_permission
             <span class="field-label-text">
                 ## Translators: This is the label for a control to
                 ## select a forum post type
-                ${_("Post type:")}
+                类型：
             </span><fieldset class="field-input"><legend class="sr">${_("Post type:")}</legend>
                 <input aria-describedby="field_help_post_type" type="radio" name="${"<%= form_id %>"}-post-type" class="post-type-input" id="${"<%= form_id %>"}-post-type-question" value="question">
                 <label for="${"<%= form_id %>"}-post-type-question" class="post-type-label">
                     <i class="icon fa fa-question"></i>
                     ## Translators: This is a forum post type
-                    ${_("Question")}
+                    问题
                 </label>
                 <input aria-describedby="field_help_post_type" type="radio" name="${"<%= form_id %>"}-post-type" class="post-type-input" id="${"<%= form_id %>"}-post-type-discussion" value="discussion" checked>
                 <label for="${"<%= form_id %>"}-post-type-discussion" class="post-type-label">
@@ -460,7 +461,8 @@ from django_comment_client.permissions import has_permission
                 </label>
             </fieldset>
         </div><span class="field-help" id="field_help_post_type">
-            ${_("Questions raise issues that need answers. Discussions share ideas and start conversations.")}
+        <!--Questions raise issues that need answers. Discussions share ideas and start conversations.-->
+           学习者收集问题和分享共同关心的事情
         </span>
     </div>
 </script>
@@ -481,7 +483,7 @@ from django_comment_client.permissions import has_permission
 <script aria-hidden="true" type="text/template" id="topic-template">
     ## Using div here instead of label because we are using a non-native control
     <div class="field-label">
-        <span class="field-label-text">${_("Topic Area:")}</span><div class="field-input post-topic">
+        <span class="field-label-text">水平：</span><div class="field-input post-topic">
             <a href="#" class="post-topic-button">
                 <span class="sr">${_("Discussion topics; current selection is: ")}</span>
                 <span class="js-selected-topic"></span>
@@ -496,7 +498,8 @@ from django_comment_client.permissions import has_permission
            </div>
        </div>
     </div><span class="field-help" id="field_help_topic_area">
-        ${_("Add your post to a relevant topic to help others find it.")}
+        <!--${_("Add your post to a relevant topic to help others find it.")}-->
+        添加主题
     </span>
 </script>
 
