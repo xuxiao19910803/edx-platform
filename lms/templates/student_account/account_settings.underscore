@@ -1,7 +1,7 @@
 <div class="account-settings-container">
     <div class="wrapper-header">
-        <h2 class="header-title"><%- gettext("Account Settings") %></h2>
-        <small class="account-settings-header-subtitle"><%- gettext("These settings include basic information about your account. You can also specify additional information and see your linked social accounts on this page.") %></small>
+        <h2 class="header-title">账户设置</h2>
+        <small class="account-settings-header-subtitle">这里设置您的帐户的基本信息。您还可以指定附加信息，并在本页中查看您的链接的社交帐户。</small>
     </div>
 
     <div class="account-settings-sections">

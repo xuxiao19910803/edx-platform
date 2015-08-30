@@ -143,6 +143,7 @@ img {
     top: 58px;
     left: -38px;
     display: none;
+    z-index: 3;
 }
 
 #col_drop_down ul {

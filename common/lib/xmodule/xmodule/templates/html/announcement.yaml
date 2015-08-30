@@ -1,6 +1,7 @@
+#encoding=utf-8
 ---
 metadata:
-    display_name: Announcement
+    display_name: 公告
 data: |
       <p>To use this template, replace the example text with your own text.</p>
       <p>When you add the component, be sure to select <strong>Settings</strong> 

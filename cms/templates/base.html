@@ -67,9 +67,9 @@ import json
       <%block name="content"></%block>
       </div>
 
-      % if user.is_authenticated():
+      <%doc>% if user.is_authenticated():
         <%include file="widgets/sock.html" args="online_help_token=online_help_token" />
-      % endif
+      % endif</%doc>
       <%include file="widgets/footer.html" />
       <%include file="widgets/tender.html" />
 

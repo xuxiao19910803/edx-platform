@@ -1,6 +1,6 @@
 ---
 metadata:
-    display_name: Raw HTML
+    display_name: HTML网页
     editor: raw
 data: |
       <p>This template is similar to the Text template. The only difference is 
