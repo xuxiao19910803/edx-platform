@@ -87,10 +87,13 @@ img {
 	float:right;
 	margin-left:40px;
 }
+.pre_login li{
+    float: left;
+}
 .pre_login li a{
 	width:74px;
 	height: 78px;
-	float: left;	
+	display:inline-block;
 	line-height: 78px;
 	text-align: center;
 	color: #248a85;
