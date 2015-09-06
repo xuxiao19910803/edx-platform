@@ -1,12 +1,13 @@
 <%namespace file="../main.html" import="stanford_theme_enabled" />
 <%! from django.utils.translation import ugettext as _ %>
-${_("Thank you for signing up for {platform_name}.").format(platform_name=settings.PLATFORM_NAME)}
-
-${_("Change your life and start learning today by activating your "
-    "{platform_name} account. Click on the link below or copy and "
-    "paste it into your browser's address bar.").format(
-      platform_name=settings.PLATFORM_NAME
-    )}
+##${_("Thank you for signing up for {platform_name}.").format(platform_name=settings.PLATFORM_NAME)}
+谢谢你注册师大学堂：
+激活你的师大学堂帐号，开启一段崭新的学习之旅。点击或者复制一下地址到你的浏览器地址栏。
+##${_("Change your life and start learning today by activating your "
+##    "{platform_name} account. Click on the link below or copy and "
+##    "paste it into your browser's address bar.").format(
+##      platform_name=settings.PLATFORM_NAME
+##    )}
 
 % if is_secure:
   https://${ site }/activate/${ key }
@@ -40,15 +41,17 @@ ${_("This email was automatically sent by {site_name} because someone "
     )}
 
 % elif stanford_theme_enabled():  ## Temporary hack until we develop a better way to adjust language
-${_("If you didn't request this, you don't need to do anything; you won't "
-      "receive any more email from us. Please do not reply to this e-mail; "
-      "if you require assistance, check the about section of the "
-      "{platform_name} Courses web site.").format(platform_name=settings.PLATFORM_NAME)}
+你可以选择不选修某一些课程，你将不需要为这一些课程做任何事情，你不会收到来自我们的任何电子邮件。请不要回复这封邮件，如果您需要帮助，请查看师大学堂的“帮助”。
+##${_("If you didn't request this, you don't need to do anything; you won't "
+##      "receive any more email from us. Please do not reply to this e-mail; "
+##      "if you require assistance, check the about section of the "
+##      "{platform_name} Courses web site.").format(platform_name=settings.PLATFORM_NAME)}
 
 % else:
-${_("If you didn't request this, you don't need to do anything; you won't "
-      "receive any more email from us. Please do not reply to this e-mail; "
-      "if you require assistance, check the help section of the "
-      "{platform_name} website.").format(platform_name=settings.PLATFORM_NAME)}
+你可以选择不选修某一些课程，你将不需要为这一些课程做任何事情，你不会收到来自我们的任何电子邮件。请不要回复这封邮件，如果您需要帮助，请查看师大学堂的“帮助”。
+##${_("If you didn't request this, you don't need to do anything; you won't "
+##      "receive any more email from us. Please do not reply to this e-mail; "
+##      "if you require assistance, check the help section of the "
+##      "{platform_name} website.").format(platform_name=settings.PLATFORM_NAME)}
 
 % endif

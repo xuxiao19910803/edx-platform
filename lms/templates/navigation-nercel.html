@@ -27,8 +27,9 @@
                 <li><a href="http://122.204.161.231/mainView/navigate/newLogin.jsp" id="col_fenxi">学习分析</a></li>
             </ul>
         </div>
-        <div class="col_mycourse_login">
+
             % if user.is_authenticated():
+                <div class="col_mycourse_login">
                 <div class="col_mycourse_user">
                     <a href="${reverse('dashboard')}" class="showName">${user.username}</a>
 
@@ -42,6 +43,7 @@
                         </ul>
                     </div>
                 </div>
+                </div>
             % else:
                 <div class="col_login">
                     <!--登录前-->
@@ -51,7 +53,6 @@
                     </ul>
                 </div>
             % endif
-        </div>
     </div>
 </div>
 <!--loginbox-->

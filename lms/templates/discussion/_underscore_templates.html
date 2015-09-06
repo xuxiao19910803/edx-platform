@@ -21,7 +21,7 @@ from django_comment_client.permissions import has_permission
                 <div class="add-response">
                     <button class="button add-response-btn">
                         <i class="icon fa fa-reply"></i>
-                        <span class="add-response-btn-text">${_('Add A Response')}</span>
+                        <span class="add-response-btn-text">添加回复</span>
                     </button>
                 </div>
                 <ol class="responses js-response-list"/>
@@ -31,7 +31,7 @@ from django_comment_client.permissions import has_permission
                 </div>
                 % if course is UNDEFINED or has_permission(user, 'create_comment', course.id):
                 <form class="discussion-reply-new" data-id="${'<%- id %>'}">
-                    <h4>${_("Post a response:")}</h4>
+                    <h4>回复：</h4>
                     <ul class="discussion-errors"></ul>
                     <div class="reply-body" data-id="${'<%- id %>'}"></div>
                     <div class="reply-post-control">
@@ -312,7 +312,7 @@ from django_comment_client.permissions import has_permission
 <script aria-hidden="true" type="text/template" id="discussion-home">
   <div class="discussion-article blank-slate">
     <section class="home-header">
-      <span class="label">${_("DISCUSSION HOME:")}</span>
+      <span class="label">讨论区</span>
       % if course and course.display_name_with_default:
         <h1 class="home-title">${course.display_name_with_default}</h1>
       % endif
@@ -417,12 +417,12 @@ from django_comment_client.permissions import has_permission
         <div class="post-options">
             <label class="post-option is-enabled">
                 <input type="checkbox" name="follow" class="post-option-input js-follow" checked>
-                <i class="icon fa fa-star"></i>${_("follow this post")}
+                <i class="icon fa fa-star"></i>关注这个帖子
             </label>
             ${'<% if (allow_anonymous) { %>'}
             <label class="post-option">
                 <input type="checkbox" name="anonymous" class="post-option-input js-anon">
-                ${_("post anonymously")}
+                匿名发帖
             </label>
             ${'<% } %>'}
             ${'<% if (allow_anonymous_to_peers) { %>'}

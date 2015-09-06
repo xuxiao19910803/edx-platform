@@ -15965,6 +15965,11 @@ msgstr "{span_start}激活{span_end}"
 msgid "Add article"
 msgstr "添加文章"
 
+msgid "Up one level"
+msgstr "提升等级"
+
+msgid "There are no articles in this level"
+msgstr "这个等级上没有文章"
 #: cms/templates/404.html
 msgid "The page that you were looking for was not found."
 msgstr "您查找的页面无法找到。"
