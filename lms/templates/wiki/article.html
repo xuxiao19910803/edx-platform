@@ -29,7 +29,7 @@
         {% include "wiki/includes/article_menu.html" %}
       </ul>
       <div class="timestamp">
-        <span class="label">{% trans "Last modified:" %}</span><br />
+        <span class="label">最后修改:</span><br />
         <span class="date">{{ article.current_revision.modified }}</span>
       </div>
 
@@ -46,5 +46,5 @@
 {% endblock %}
 
 {% block footer_prepend %}
-  <p><em>{% trans "This article was last modified:" %} {{ article.current_revision.modified }}</em></p>
+  <p><em>这篇文章最后修改： {{ article.current_revision.modified }}</em></p>
 {% endblock %}
