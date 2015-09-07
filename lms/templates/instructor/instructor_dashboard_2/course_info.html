@@ -7,7 +7,7 @@
 
     %if settings.FEATURES.get('DISPLAY_ANALYTICS_ENROLLMENTS'):
       ## Translators: 'track' refers to the enrollment type ('honor', 'verified', or 'audit')
-      <span class="tip">${_("Number of enrollees (instructors, staff members, and students) by track")}</span>
+      <span class="tip"><!--${_("Number of enrollees (instructors, staff members, and students) by track")}-->统计登记者（教师，工作人员和学生）数目</span>
       <br/><br/>
       <% modes = section_data['enrollment_count'] %>
       <table>

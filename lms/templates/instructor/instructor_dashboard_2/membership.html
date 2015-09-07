@@ -114,7 +114,8 @@ from openedx.core.djangoapps.course_groups.partition_scheme import get_cohorted_
   <p>
     <label for="student-ids-for-beta">
       ${_("Enter email addresses and/or usernames separated by new lines or commas.")}<br/>
-      ${_("Note: Users must have an activated {platform_name} account before they can be enrolled as a beta tester.").format(platform_name=settings.PLATFORM_NAME)}
+      <!--${_("Note: Users must have an activated {platform_name} account before they can be enrolled as a beta tester.").format(platform_name=settings.PLATFORM_NAME)}-->
+      注意：用户必须首先拥有已激活的师大学堂账户方可成为Beta测试员。
     </label>
 
   <textarea rows="6" cols="50" name="student-ids-for-beta" placeholder="${_("Email Addresses/Usernames")}" spellcheck="false"></textarea>
@@ -156,13 +157,13 @@ from openedx.core.djangoapps.course_groups.partition_scheme import get_cohorted_
 
 <div class="member-lists-management membership-section">
   ## Translators: an "Administration List" is a list, such as Course Staff, that users can be added to.
-  <h2> ${_("Administration List Management")} </h2>
+  <h2> 管理员列表管理 </h2>
 
   <div class="request-response-error"></div>
 
   <div class="wrapper-member-select">
     ## Translators: an "Administrator Group" is a group, such as Course Staff, that users can be added to.
-    <label for="member-lists-selector">${_("Select an Administrator Group:")}</label>
+    <label for="member-lists-selector">选择管理员组</label>
     <select id="member-lists-selector" class="member-lists-selector">
       <option> ${_("Getting available lists...")} </option>
     </select>
@@ -182,11 +183,7 @@ from openedx.core.djangoapps.course_groups.partition_scheme import get_cohorted_
     <div class="auth-list-container"
       data-rolename="staff"
       data-display-name="${_("Course Staff")}"
-      data-info-text="
-        ${_("Course staff can help you manage limited aspects of your course. Staff "
-        "can enroll and unenroll students, as well as modify their grades and "
-        "see all course data. Course staff are not automatically given access "
-        "to Studio and will not be able to edit your course.")}"
+      data-info-text="课程教员可以帮助您分担部分课程管理工作。教员可以为学生选课或从该课程剔除学生，可以修改自己判定的成绩，可以看到所有课程数据。但课程教员不会自动获取访问 Studio 的权限，所以无法编辑您的课程."
       data-list-endpoint="${ section_data['list_course_role_members_url'] }"
       data-modify-endpoint="${ section_data['modify_access_url'] }"
       data-add-button-label="${_("Add Staff")}"

@@ -78,8 +78,7 @@
 
   %if settings.FEATURES.get('ENABLE_INSTRUCTOR_BACKGROUND_TASKS') and section_data['access']['instructor']:
     <p id="task-history-single-help">
-      ${_("Rescoring runs in the background, and status for active tasks will appear in the 'Pending Instructor Tasks' table. "
-      "To see status for all tasks submitted for this problem and student, click on this button:")}
+      以上操作在后台运行，而活跃任务状态会出现在课程信息标签页的表格中。要查看关于这个问题所有提交的任务状态，点击这个按钮。:
     </p>
 
     <p><input type="button" name="task-history-single" value="${_("Show Background Task History for Student")}" data-endpoint="${ section_data['list_instructor_tasks_url'] }" aria-describedby="task-history-single-help"></p>
@@ -119,8 +118,7 @@
 
   %if settings.FEATURES.get('ENABLE_INSTRUCTOR_BACKGROUND_TASKS') and section_data['access']['instructor']:
     <p id="entrance-exam-task-history-help">
-      ${_("Rescoring runs in the background, and status for active tasks will appear in the 'Pending Instructor Tasks' table. "
-      "To see status for all tasks submitted for this problem and student, click on this button:")}
+      以上操作在后台运行，而活跃任务状态会出现在课程信息标签页的表格中。要查看关于这个问题所有提交的任务状态，点击这个按钮。:
     </p>
 
     <p><input type="button" name="entrance-exam-task-history" value="${_("Show Student's Exam Adjustment History")}" data-endpoint="${ section_data['list_entrace_exam_instructor_tasks_url'] }" aria-describedby="entrance-exam-task-history-help"></p>
