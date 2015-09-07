@@ -55,30 +55,6 @@
 </div>
 <!--loginbox-->
 <div class="theme-popover-mask"></div>
-<div class="loginbox_bg">
-    <div class="col_loginbox" id="loginbox">
-        <div class="col_login_mainbody">
-            <div class="col_login_head"></div>
-            <form role="form" id="login-form" method="post" data-remote="true" novalidate class="login">
-                <input type="hidden" name="csrfmiddlewaretoken" value="${ csrf_token }">
-                <div class="username">
-                    <input id="email" type="email" name="email" placeholder="登录邮箱">
-                </div>
-                <div class="password">
-                    <input id="password" type="password" name="password" placeholder="密码">
-                </div>
-                <div class="others">
-                    <input class="remember_btn" id="remember-yes" type="checkbox" name="remember" checked="checked">
-                    <label for="remember-yes">记住我</label>
-                    <a class="fr" href="/register" class="g_modal_regbtn" data-click="onClick">现在注册</a>
-                    <a class="fr" href="javascript:;" target="_blank" data-click="onClick">忘记密码？</a>
-                </div>
-                <button class="button" name="submit" type="button" id="submit" onclick="submitForm(event);">登录</button>
-            </form>
-            <div class="close_btn" id="login_close"></div>
-        </div>
-    </div>
-</div>
 <script>
     //下拉菜单的显示
     $(function () {
@@ -113,70 +89,5 @@
             // this code is for IE
             window.event.cancelBubble = true;
         }
-    }
-</script>
-<script>
-    var grayEle = "";
-    //	页面记载完成之后执行
-    $(function () {
-        $("#col_nav a").hover(
-                function () {
-                    $(this).addClass("selfColor");
-                },
-                function () {
-                    $(this).removeClass("selfColor");
-                });
-    })
-    // 弹出登录框，使整个页面灰掉
-    $("#login").click(function () {
-        $('.theme-popover-mask').show();
-        $('.theme-popover-mask').height($(document).height());
-        $(".loginbox_bg").slideDown(500);
-    });
-    //关闭登录框
-    $("#login_close").click(function () {
-        $('.theme-popover-mask').hide();
-        $(".loginbox_bg").slideUp(500);
-    });
-    function toggleSubmitButton(enable) {
-        //获取id为submit的提交按钮
-        var $submitButton = $('form #submit');
-
-        if (enable) {
-            $submitButton.
-                    removeClass('is-disabled').
-                    attr('aria-disabled', false).
-                    removeProp('disabled').
-                    html("登录");
-        }
-        else {
-            $submitButton.
-                    addClass('is-disabled').
-                    prop('disabled', true).
-                    text("正在登录");
-        }
-    }
-    function submitForm(event) {
-        event.preventDefault();
-        toggleSubmitButton(false);
-        $.ajax({
-            url: "/login_ajax",
-            data: $("#login-form").serialize(),
-            type: "POST",
-            error: function (data) {
-                alert(data.value);
-                alert(data);
-            },
-            success: function (data, textStatus) {
-                var tf=data.success;
-                var msg=data.value;
-                if(tf){
-                    location.href = "${reverse('dashboard')}";
-                }else{
-                    toggleSubmitButton(true);
-                    alert(msg);
-                }
-            }
-        });
     }
 </script>
