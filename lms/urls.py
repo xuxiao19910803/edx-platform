@@ -723,3 +723,7 @@ urlpatterns += (
 urlpatterns += (
     url(r'^go_to_school$', 'student.views.go_to_school'),
 )
+#测试
+urlpatterns += (
+    url(r'^testFunction$', 'student.views.testFunction'),
+)

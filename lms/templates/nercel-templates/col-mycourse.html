@@ -234,7 +234,7 @@
                                 % endif
                         </div>
                         <div class="col_mycourse_right_close" id="col_mycourse_right_close1"
-                             onclick="set_unenroll_message('${_("Are you sure you want to unenroll from the verified {cert_name_long} track of %(course_number)s?").format(cert_name_long=cert_name_long)}','${course.id | h}');">
+                             onclick="set_unenroll_message('你确定要放弃选修吗?','${course.id | h}');">
                             <form method="post" data-remote="true" action="${reverse('change_enrollment')}"
                                   id="${course.id | h}">
                                  <input type="hidden" name="csrfmiddlewaretoken" value="${ csrf_token }">

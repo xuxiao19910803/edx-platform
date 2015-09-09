@@ -2298,3 +2298,11 @@ def go_to_school(request):
         'user': user,
     }
     return render_to_response('nercel-templates/col-school.html',context)
+@ensure_csrf_cookie
+def testFunction(request):
+    user = request.user
+    profile = UserProfile.objects.get(user=user)
+    context={
+        'user': user,
+        'profile':profile,
+    }
