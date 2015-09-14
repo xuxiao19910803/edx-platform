@@ -127,6 +127,8 @@ from openedx.core.djangoapps.user_api.preferences import api as preferences_api
 #the course api of the student_index
 from courseware.courses import course_image_url, get_course_about_section
 from student.models import CourseEnrollment
+#***************test***************************#
+import collections
 
 log = logging.getLogger("edx.student")
 AUDIT_LOG = logging.getLogger("audit")
@@ -2302,6 +2304,10 @@ def go_to_school(request):
 def testFunction(request):
     user = request.user
     profile = UserProfile.objects.get(user=user)
+    user_id=user.id
+    user_info = User.objects.select_related('profile').get(id=user_id)
+    user_data = collections.OrderedDict()
+    user_data['Full Name'] = user_info.profile.name
     context={
         'user': user,
         'profile':profile,

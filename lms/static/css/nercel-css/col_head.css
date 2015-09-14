@@ -17,6 +17,7 @@ img {
 }
 .max-width {
 	width: 100%;
+    min-width: 1350px;
 	}
 /*页头样式*/
 .col_head_bg{

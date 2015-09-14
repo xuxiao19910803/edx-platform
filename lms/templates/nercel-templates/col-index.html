@@ -290,8 +290,7 @@
             data: $("#login-form").serialize(),
             type: "POST",
             error: function (data) {
-                alert(data.value);
-                alert(data);
+                alert("登录失败！");
             },
             success: function (data, textStatus) {
                 var tf=data.success;
