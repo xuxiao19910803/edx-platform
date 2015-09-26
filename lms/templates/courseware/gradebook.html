@@ -30,6 +30,10 @@ from django.core.urlresolvers import reverse
   <script type="text/javascript">
     $(document).ready(function() {
       var gradebook = new Gradebook($('.gradebook-content'));
+      var students=${students};
+      if (students[0]){
+          alert("success");
+      }
     });
   </script>
 
@@ -54,17 +58,30 @@ from django.core.urlresolvers import reverse
       </thead>
       <tbody>
         %for student in students:
-        <tr>
+        %if len(student['class_info'])>1:
+         <tr>
           <td>
-            <a href="${reverse('student_progress', kwargs=dict(course_id=course_id.to_deprecated_string(), student_id=student['id']))}">${student['username']}</a>
+              ${student['class_info'][0]}
+          </td>
+          <td>
+              ${student['class_info'][1]}
+          </td>
+          <td>
+              <%doc>${student['username']}</%doc>
+              <a href="${reverse('student_progress', kwargs=dict(course_id=course_id.to_deprecated_string(), student_id=student['id']))}">${student['class_info'][2]}</a>
           </td>
         </tr>
+        %else:
+        <tr>
+          <td>
+              <%doc>${student['username']}</%doc>
+              <a href="${reverse('student_progress', kwargs=dict(course_id=course_id.to_deprecated_string(), student_id=student['id']))}">${student['username']}</a>
+          </td>
+        </tr>
+        %endif
         %endfor
       </tbody>
     </table>
-
-
-
     %if len(students) > 0:
     <div class="grades">
       <table class="grade-table">
@@ -94,7 +111,6 @@ from django.core.urlresolvers import reverse
           %>
           <td class="${data_class}" data-percent="${fraction}">${ "{0:.0f}".format( 100 * fraction ) }</td>
         </%def>
-
         <tbody>
           %for student in students:
           <tr>

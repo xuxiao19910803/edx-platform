@@ -399,13 +399,13 @@ HTTPS = 'on'
 ROOT_URLCONF = 'cms.urls'
 
 # Email
-EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
-EMAIL_HOST = 'localhost'
+EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+EMAIL_HOST = 'smtp.163.com'
 EMAIL_PORT = 25
-EMAIL_USE_TLS = False
-EMAIL_HOST_USER = ''
-EMAIL_HOST_PASSWORD = ''
-DEFAULT_FROM_EMAIL = 'registration@example.com'
+EMAIL_USE_TLS = True
+EMAIL_HOST_USER = 'm15994219982@163.com'
+EMAIL_HOST_PASSWORD = '19910803xuxiao'
+DEFAULT_FROM_EMAIL = 'm15994219982@163.com'
 DEFAULT_FEEDBACK_EMAIL = 'feedback@example.com'
 SERVER_EMAIL = 'devops@example.com'
 ADMINS = ()

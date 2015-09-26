@@ -96,14 +96,44 @@
                 <div class="others">
                     <input class="remember_btn" id="remember-yes" type="checkbox" name="remember" checked="checked">
                     <label for="remember-yes">记住我</label>
-                    <a class="fr" href="/register" class="g_modal_regbtn" data-click="onClick">现在注册</a>
-                    <a class="fr" href="javascript:;" target="_blank" data-click="onClick">忘记密码？</a>
+                    <a href="/register" class="g_modal_regbtn" data-click="onClick">现在注册</a>
+                    <a href="javascript:;" class="g_model_forget">忘记密码？</a>
                 </div>
                 <button class="button" name="submit" type="button" id="submit" onclick="submitForm(event);">登录</button>
             </form>
             <div class="close_btn" id="login_close"></div>
         </div>
     </div>
+</div>
+<!--忘记密码-->
+<div class="pwd_forget">
+		<div class="col_forgetbox">
+			<div class="pwd_forget_close"></div>
+			<div class="alert_reset_head">
+				<h2 class="alert_reset_head_title">密码重置</h2>
+				<p class="alert_reset_head_p">请在下面输入您的电子邮件地址，我们会通过邮件发送设置新密码的说明。</p>
+			</div>
+			<div class="alert_reset_main">
+				<div class="alert_reset_main_email">
+                    <form role="form" id="pwd_reset_form" action="${reverse('password_reset')}" method="post" data-remote="true">
+                        <input type="hidden" name="csrfmiddlewaretoken" value="${ csrf_token }">
+                        <span class="email_tag1">您的邮件地址*</span>
+					    <input id="pwd_reset_email" type="email" name="email" value="" placeholder="example:username@domain.com" aria-describedby="pwd_reset_email-tip" aria-required="true"/>
+					    <span class="email_tag2">这是您在师大学堂注册时使用的e-mail地址。</span>
+					    <button id="pwd_reset_button" type="submit" name="submit" onclick="submitForgetPwdForm(event);">重置我的密码</button>
+                    </form>
+				</div>
+            </div>
+            <div class="pwd_reset_success">
+                <div class="pwd_reset_success_h">
+                    <h2 class="pwd_reset_success_h_t">密码设置成功</h2>
+                </div>
+                <div class="pwd_reset_success_m">
+                    <img src="/static/images/nercel-images/pwd_reset_success_email.png" width="128px" height="82px"/>
+                    <p class="pwd_reset_success_exp">我们已经给您的邮箱发送邮件，您应该能够很快收到，请按照邮件里的指示设置密码</p>
+                </div>
+            </div>
+        </div>
 </div>
 <!--中间图片部分-->
 <div class="col_mid max-width">
@@ -252,7 +282,28 @@
                 function () {
                     $(this).removeClass("selfColor");
                 });
+         //esc键关闭窗口
+    $(document).on("keyup", function(e) {
+        var keyCode = e.keyCode || e.which;
+        // 27 is the ESC key
+        if (keyCode == 27) {
+            e.preventDefault();
+            $('.theme-popover-mask').hide();
+            $(".loginbox_bg").slideUp(500);
+            $(".pwd_forget").slideUp(500);
+        }
+    });
     })
+   <%doc> $(document).delegate('#pwd_reset_form', 'ajax:success', function(data, json, xhr) {
+      if(json.success) {
+        $(".alert_reset_main").html(json.value);
+      } else {
+        if($('#pwd_error').length == 0) {
+          $('#pwd_reset_form').prepend('<div id="pwd_error" class="modal-form-error">邮箱不正确</div>');
+        }
+        $('#pwd_error').stop().css("display", "block");
+      }
+    });</%doc>
     // 弹出登录框，使整个页面灰掉
     $("#login").click(function () {
         $('.theme-popover-mask').show();
@@ -264,10 +315,20 @@
         $('.theme-popover-mask').hide();
         $(".loginbox_bg").slideUp(500);
     });
+    //弹出重置密码框
+    $(".g_model_forget").click(function () {
+        $(".loginbox_bg").slideUp(500);
+        $(".pwd_forget").slideDown(1000);
+    });
+    //关闭重置密码框
+    $(".pwd_forget_close").click(function () {
+        $(".pwd_forget").slideUp(500);
+        $(".loginbox_bg").slideDown(1000);
+    });
+    //
     function toggleSubmitButton(enable) {
         //获取id为submit的提交按钮
         var $submitButton = $('form #submit');
-
         if (enable) {
             $submitButton.
                     removeClass('is-disabled').
@@ -281,6 +342,24 @@
                     prop('disabled', true).
                     text("正在登录");
         }
+    }
+    //提交重置密码请求
+    function submitForgetPwdForm(event){
+        event.preventDefault();
+        $.ajax({
+            url: "${reverse('password_reset')}",
+            data: $("#pwd_reset_form").serialize(),
+            type: "POST",
+            error: function (data) {
+                alert("邮箱不正确！");
+            },
+            success: function (data, textStatus) {
+                console.log(data);
+                var data_html=data.value;
+                console.log(data);
+                $(".alert_reset_head,.alert_reset_main").hide();
+                $(".pwd_reset_success").show();
+        }});
     }
     function submitForm(event) {
         event.preventDefault();

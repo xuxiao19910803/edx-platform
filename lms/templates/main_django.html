@@ -9,7 +9,7 @@
   {% block title %}<title>{% platform_name %}</title>{% endblock %}
 
  <link rel="icon" type="image/x-icon" href="{% favicon_path %}" />
-
+ <link href="/static/css/nercel-css/col_head.css" rel="stylesheet"/>
   {% compressed_css 'style-vendor' %}
   {% compressed_css 'style-main' %}
   {% compressed_css 'style-course-vendor' %}
@@ -24,6 +24,12 @@
   {% microsite_css_overrides_file %}
 
   <meta name="path_prefix" content="{{EDX_ROOT_URL}}">
+  <link href="/static/css/nercel-css/col_password_reset_confirm.css" rel="stylesheet"/>
+  <style type="text/css">
+      .body{
+          background: #F4F4F4;
+      }
+  </style>
 </head>
 
 <body class="{% block bodyclass %}{% endblock %} lang_{{LANGUAGE_CODE}}">
@@ -33,7 +39,7 @@
       {% if IS_EDX_DOMAIN %}
         {% include "navigation-edx.html" %}
       {% else %}
-        {% include "navigation.html" %}
+        {% include "navigation-nercel.html" %}
       {% endif %}
     {% endwith %}
     <div class="content-wrapper" id="content">

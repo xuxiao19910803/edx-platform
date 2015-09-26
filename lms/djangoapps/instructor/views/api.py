@@ -1,3 +1,4 @@
+#encoding=utf-8
 """
 Instructor Dashboard API views
 
@@ -2589,9 +2590,11 @@ def spoc_gradebook(request, course_id):
     - Only shown for courses with enrollment < settings.FEATURES.get("MAX_ENROLLMENT_INSTR_BUTTONS")
     - Only displayed to course staff
     """
+    #取得course_key and course 的信息
     course_key = SlashSeparatedCourseKey.from_deprecated_string(course_id)
     course = get_course_with_access(request.user, 'staff', course_key, depth=None)
-
+    #获取选择该课程的学生信息
+    #过滤器courseenrollment__course_id=course_key,courseenrollment__is_active=1
     enrolled_students = User.objects.filter(
         courseenrollment__course_id=course_key,
         courseenrollment__is_active=1
@@ -2604,18 +2607,26 @@ def spoc_gradebook(request, course_id):
             'username': student.username,
             'id': student.id,
             'email': student.email,
+            #取得分数信息。
             'grade_summary': student_grades(student, request, course),
+            #用户的真实姓名。
             'realname': student.profile.name,
         }
         for student in enrolled_students
     ]
-
+    #提取出学生班级和年级信息。
+    for student_class in student_info:
+        class_info= (student_class['realname'].encode('utf-8')).split('-')
+        for x in class_info:
+            x.decode('utf-8')
+        student_class.setdefault("class_info",class_info)
     return render_to_response('courseware/gradebook.html', {
         'students': student_info,
         'course': course,
         'course_id': course_key,
         # Checked above
         'staff_access': True,
+        #切片对course.grade_cutoffs.items()第2项值进行倒序排序
         'ordered_grades': sorted(course.grade_cutoffs.items(), key=lambda i: i[1], reverse=True),
     })
 
