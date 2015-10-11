@@ -30,26 +30,32 @@ from django.core.urlresolvers import reverse
   <script type="text/javascript">
     $(document).ready(function() {
       var gradebook = new Gradebook($('.gradebook-content'));
-      var students=${students};
-      if (students[0]){
-          alert("success");
-      }
     });
   </script>
-
+  <script type="text/javascript">
+    $(document).ready(function() {
+        console.log(student_info);
+##             if ((${students[0]['class_info']}).length>1){
+##                 $("tr th:first").attr("colspan",3);
+##             }
+##             else{
+##                 $("tr th:first").removeAttr("colspan");
+##             }
+    });
+  </script>
 </%block>
 
 <%include file="/courseware/course_navigation.html" args="active_page=''" />
 
 <section class="container">
 <div class="gradebook-wrapper">
+    <input name="student_info" id="student_info" hidden value="${students[0]['class_info']}">
   <section class="gradebook-content">
     <h1>${_("Gradebook")}</h1>
-
     <table class="student-table">
       <thead>
         <tr>
-          <th>
+          <th class="gradebook_search" colspan="3">
             <form class="student-search">
               <input type="search" class="student-search-field" placeholder="${_('Search students')}" />
             </form>
@@ -67,14 +73,12 @@ from django.core.urlresolvers import reverse
               ${student['class_info'][1]}
           </td>
           <td>
-              <%doc>${student['username']}</%doc>
               <a href="${reverse('student_progress', kwargs=dict(course_id=course_id.to_deprecated_string(), student_id=student['id']))}">${student['class_info'][2]}</a>
           </td>
         </tr>
         %else:
         <tr>
-          <td>
-              <%doc>${student['username']}</%doc>
+          <td colspan="3" style="text-align: center">
               <a href="${reverse('student_progress', kwargs=dict(course_id=course_id.to_deprecated_string(), student_id=student['id']))}">${student['username']}</a>
           </td>
         </tr>
@@ -123,7 +127,6 @@ from django.core.urlresolvers import reverse
         </tbody>
       </table>
     </div>
-
     %endif
   </section>
 </div>

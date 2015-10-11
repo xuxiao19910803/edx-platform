@@ -1,3 +1,4 @@
+#encoding=utf-8
 """
 Specific overrides to the base prod settings to make development easier.
 """

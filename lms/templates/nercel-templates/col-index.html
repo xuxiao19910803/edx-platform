@@ -343,6 +343,24 @@
                     text("正在登录");
         }
     }
+    //获取id为pwd_reset_button
+        function toggleResetButton(enable) {
+        //获取id为submit的提交按钮
+        var $submitButton = $('form #pwd_reset_button');
+        if (enable) {
+            $submitButton.
+                    removeClass('is-disabled').
+                    attr('aria-disabled', false).
+                    removeProp('disabled').
+                    html("重置我的密码");
+        }
+        else {
+            $submitButton.
+                    addClass('is-disabled').
+                    prop('disabled', true).
+                    text("正在重置");
+        }
+    }
     //提交重置密码请求
     function submitForgetPwdForm(event){
         event.preventDefault();
@@ -351,11 +369,13 @@
             data: $("#pwd_reset_form").serialize(),
             type: "POST",
             error: function (data) {
+                toggleResetButton(true);
                 alert("邮箱不正确！");
             },
             success: function (data, textStatus) {
                 console.log(data);
                 var data_html=data.value;
+                toggleResetButton(true);
                 console.log(data);
                 $(".alert_reset_head,.alert_reset_main").hide();
                 $(".pwd_reset_success").show();
@@ -369,12 +389,14 @@
             data: $("#login-form").serialize(),
             type: "POST",
             error: function (data) {
+                toggleSubmitButton(true);
                 alert("登录失败！");
             },
             success: function (data, textStatus) {
                 var tf=data.success;
                 var msg=data.value;
                 if(tf){
+                    toggleSubmitButton(true);
                     location.href = "${reverse('dashboard')}";
                 }else{
                     toggleSubmitButton(true);

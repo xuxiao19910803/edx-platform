@@ -2595,9 +2595,10 @@ def spoc_gradebook(request, course_id):
     course = get_course_with_access(request.user, 'staff', course_key, depth=None)
     #获取选择该课程的学生信息
     #过滤器courseenrollment__course_id=course_key,courseenrollment__is_active=1
+
     enrolled_students = User.objects.filter(
         courseenrollment__course_id=course_key,
-        courseenrollment__is_active=1
+        courseenrollment__is_active=1,
     ).order_by('username').select_related("profile")
 
     # possible extension: implement pagination to show to large courses
@@ -2617,9 +2618,12 @@ def spoc_gradebook(request, course_id):
     #提取出学生班级和年级信息。
     for student_class in student_info:
         class_info= (student_class['realname'].encode('utf-8')).split('-')
-        for x in class_info:
-            x.decode('utf-8')
-        student_class.setdefault("class_info",class_info)
+        if len(class_info)==3:
+            for x in class_info:
+                x.decode('utf-8')
+            student_class.setdefault("class_info",class_info)
+        else:
+            student_class.setdefault("class_info",class_info[:1])
     return render_to_response('courseware/gradebook.html', {
         'students': student_info,
         'course': course,

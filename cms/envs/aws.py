@@ -1,3 +1,4 @@
+#encoding=utf-8
 """
 This is the default template for our main set of AWS servers.
 """
