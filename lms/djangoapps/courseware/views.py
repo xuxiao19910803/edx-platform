@@ -87,7 +87,7 @@ from util.views import ensure_valid_course_key
 from eventtracking import tracker
 import analytics
 from courseware.url_helpers import get_redirect_url
-
+from django.utils.timezone import localtime
 log = logging.getLogger("edx.courseware")
 
 template_imports = {'urllib': urllib}
@@ -841,7 +841,21 @@ def course_about(request, course_id):
         )
         #验证获取课程信息,depth=0,course descriptor
         course = get_course_with_access(request.user, permission_name, course_key)
-        #默认为False
+        #取得距开课还有所少天的时间
+        flag = course.start_date_is_still_default
+        if flag:
+            days="没有设置开始日期"
+        else:
+            curr_date=datetime.now()
+            start_date=course.start
+            localtime(start_date)
+            start_date=start_date.replace(tzinfo=None)
+            if curr_date >= start_date:
+                days="课程已经开始"
+            else:
+                days=(start_date - curr_date).days
+                days=str(days)
+	#默认为False
         if microsite.get_value('ENABLE_MKTG_SITE', settings.FEATURES.get('ENABLE_MKTG_SITE', False)):
             return redirect(reverse('info', args=[course.id.to_deprecated_string()]))
         #检测课程是否注册。
@@ -907,7 +921,8 @@ def course_about(request, course_id):
         pre_requisite_courses = get_prerequisite_courses_display(course)
         return render_to_response('nercel-templates/col-registerCourse.html', {
             'course': course,
-            'staff_access': staff_access,
+	    'days':days,
+	    'staff_access': staff_access,
             'studio_url': studio_url,
             'registered': registered,
             'course_target': course_target,

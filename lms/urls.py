@@ -17,6 +17,8 @@ if settings.DEBUG or settings.FEATURES.get('ENABLE_DJANGO_ADMIN_SITE'):
 urlpatterns = (
     '',
 
+    url(r'^oauth_tianyuyun/', include('oauth_tianyuyun.urls')),
+
     # certificate view
     url(r'^update_certificate$', 'certificates.views.update_certificate'),
     url(r'^update_example_certificate$', 'certificates.views.update_example_certificate'),

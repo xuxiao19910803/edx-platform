@@ -6,13 +6,14 @@
     from courseware.courses import course_image_url, get_course_about_section
     from django.conf import settings
     from edxmako.shortcuts import marketing_link
+    from student.models import CourseEnrollment
 %>
 <!DOCTYPE html>
 <html>
 <head>
     <meta charset="utf-8"/>
     <title>${get_course_about_section(course, "title")}</title>
-    <link rel="icon" type="image/x-icon" href="/static/images/nercel-images/col_logo.png">
+    <link rel="icon" type="image/x-icon" href="/static/images/nercel-images/col_logo_cube.png">
     <link href="/static/css/nercel-css/col_head.css" rel="stylesheet"/>
     <link href="/static/css/nercel-css/col_index.css" rel="stylesheet"/>
     <link href="/static/css/nercel-css/col_copyright.css" rel="stylesheet"/>
@@ -80,14 +81,14 @@
 <!--页头布局-->
 <div class="col_head_bg max-width">
     <div class="col_head">
-        <h1><a href="/"><img src="/static/images/nercel-images/col_logo_cube.png" alt="logo" title="师大学堂"/></a></h1>
+        <h1><a href="/"><img src="/static/images/nercel-images/col_logo.png" alt="logo" title="师大学堂"/></a></h1>
 
         <div class="col_nav" id="col_nav">
             <ul>
                 <li><a href="/" id="col_shouye">首页</a></li>
                 <li><a href="/go_to_school" id="col_xuexiao">学校</a></li>
                 <li><a href="javascript:void(0);" id="col_weike" style="background-color: #d6d4d4" ;>微课程</a></li>
-                <li><a href="http://122.204.161.231/mainView/navigate/newLogin.jsp" id="col_fenxi">学习分析</a></li>
+                <li><a href="http://las.starc.com.cn" id="col_fenxi" ptarget="_blank">学习分析</a></li>
             </ul>
         </div>
         <%doc><div class="col_search">
@@ -170,20 +171,12 @@
                         <p id="course_code">${course.display_number_with_default | h}</p>
                     </li>
                     <li>
-                        <p><img src="/static/images/nercel-images/course_time.png"/></p>
-
-                        <p class="middle_details_title">课程时长</p>
-
-                        <p id="course_time">45分钟</p>
-                    </li>
-                    <li>
 
                         <p><img src="/static/images/nercel-images/course_opentime.png"/></p>
 
                         <p class="middle_details_title">开课时间</p>
 
-                        <p id="course_opentime">${course.start_datetime_text()}
-                            -${get_course_about_section(course, "end_date")}</p>
+                        <p id="course_opentime">${course.start_datetime_text()}</p>
 
                     </li>
                     <li>
@@ -192,7 +185,7 @@
 
                         <p class="middle_details_title">报名人数</p>
 
-                        <p>127</p>
+                        <p>${CourseEnrollment.objects.enrollment_counts(course.id).get("total","未知")}人</p>
 
                     </li>
                     <li>
@@ -201,7 +194,7 @@
 
                         <p class="middle_details_title">距开课天数</p>
 
-                        <p>31</p>
+                        <p>${days}</p>
 
                     </li>
                 </ul>

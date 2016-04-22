@@ -1922,6 +1922,7 @@ INSTALLED_APPS = (
     'teams',
 
     'xblock_django',
+    'oauth_tianyuyun',
 )
 
 ######################### CSRF #########################################
